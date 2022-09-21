@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    // 트랜스파일 옵션
+    "target": "ES6", // 모듈을 불러오는 방식의 옵션인 module을 es6로 이용하여, ES6 미만의 버전에 대한 옵션은 의미가 없다 판단함.
+    "module": "ES6", // 추후 npm 출시 과정에서, 트리쉐이킹이 될 수 있는 프로젝트가 될 수 있도록, js에서 import를 쓸 수 있도록 es6로 설정.
+    "moduleResolution": "Node", // 모듈 해석 전략, 외부 의존성 모듈을 해석할 수 있는 Node 사용
+    "outDir": "./dist/src", // 트랜스파일링된 js 파일이 생성될 디렉토리 위치
+    "declaration": true, // 트랜스파일 후, d.ts 파일 생성
+    "declarationDir": "./dist/types/types", // d.ts 가 생성될 디렉토리 위치
+    "esModuleInterop": true,
+    // 타입체크 옵션
+    "strict": true, // 엄격한 타입체크 기능
+    "skipLibCheck": true, // 외부 라이브러리 .d.ts 타입체크 생략
+    "isolatedModules": true // 타입체크시 export 가 생략된 모듈 에러 발생
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
