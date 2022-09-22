@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test:type": "npx tsd .",
+		"test:source": "jest --watch ./__tests__/api.test.ts"
 	},
 	"keywords": [],
 	"author": "",
@@ -12,7 +13,17 @@
 	"devDependencies": {
 		"@types/jest": "^29.0.3",
 		"jest": "^29.0.3",
+		"jest-environment-jsdom": "^29.0.3",
+		"ts-jest": "^29.0.1",
+		"ts-node": "^10.9.1",
 		"tsd": "^0.24.1",
 		"typescript": "^4.8.3"
-	}
+	},
+	"tsd": {
+		"directory": "./__tests__",
+		"testFiles": [
+			"type.test.ts"
+		]
+	},
+	"types": "./src/index.d.ts"
 }
