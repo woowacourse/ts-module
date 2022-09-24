@@ -105,8 +105,8 @@ declare module _ {
   };
 
   type DebounceOptions = {
-    leading: boolean;
-    trailing: boolean;
+    leading?: boolean;
+    trailing?: boolean;
   };
 }
 
