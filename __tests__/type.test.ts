@@ -35,3 +35,9 @@ expectType<{ x: number; y: number }>(
   //@ts-expect-error
   _.pick({ x: 1, y: 2, z: 3 }, ["t", "y"])
 );
+
+expectType<{ z: number }>(_.omit({ x: 1, y: 2, z: 3 }, ["x", "y"]));
+expectType<{ x: number; y: number }>(
+  //@ts-expect-error
+  _.omit({ x: 1, y: 2, z: 3 }, ["t", "y"])
+);
