@@ -45,7 +45,10 @@ declare module _ {
     R extends (keyof T)[]
   >(obj: T, selectedKeyArray: R): PickResponse<T, R>;
 
-  export function omit() {}
+  export function omit<
+    T extends Record<string, unknown>,
+    R extends (keyof T)[]
+  >(obj: T, selectedKeyArray: R): OmitResponse<T, R>;
 
   export function memoize() {}
 
@@ -85,6 +88,13 @@ declare module _ {
     R extends readonly (keyof T)[]
   > = {
     [K in R[number]]: T[K];
+  };
+
+  type OmitResponse<
+    T extends Record<string, unknown>,
+    R extends readonly (keyof T)[]
+  > = {
+    [K in keyof Omit<T, R[number]>]: T[K];
   };
 }
 
