@@ -55,7 +55,11 @@ declare module _ {
     resolver?: (...args: T) => string
   ): (...args: T) => K;
 
-  export function debounce() {}
+  export function debounce<T extends unknown[]>(
+    func: (...args: T) => void,
+    wait: number,
+    options?: DebounceOptions
+  ): (...args: T) => void;
 
   export function throttle() {}
 
@@ -98,6 +102,11 @@ declare module _ {
     R extends readonly (keyof T)[]
   > = {
     [K in keyof Omit<T, R[number]>]: T[K];
+  };
+
+  type DebounceOptions = {
+    leading: boolean;
+    trailing: boolean;
   };
 }
 
