@@ -21,3 +21,6 @@ expectType<false>(_.isNull("2"));
 expectType<true>(_.isNil(undefined));
 expectType<true>(_.isNil(null));
 expectType<false>(_.isNil("2"));
+
+expectType<true>(_.isNumber(1));
+expectType<false>(_.isNumber("2"));
