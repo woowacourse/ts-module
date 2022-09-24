@@ -50,7 +50,10 @@ declare module _ {
     R extends (keyof T)[]
   >(obj: T, selectedKeyArray: R): OmitResponse<T, R>;
 
-  export function memoize() {}
+  export function memoize<T extends unknown[], K extends unknown>(
+    func: (...args: T) => K,
+    resolver?: (...args: T) => string
+  ): (...args: T) => K;
 
   export function debounce() {}
 
