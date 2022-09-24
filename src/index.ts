@@ -61,7 +61,10 @@ declare module _ {
     options?: DebounceOptions
   ): (...args: T) => void;
 
-  export function throttle() {}
+  export function throttle<T extends unknown[]>(
+    func: (...args: T) => void,
+    wait: number
+  ): (...args: T) => void;
 
   export function clickOutside() {}
 
