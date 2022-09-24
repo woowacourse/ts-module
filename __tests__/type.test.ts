@@ -57,3 +57,9 @@ expectType<(a: number, b: number) => void>(
     { leading: true }
   )
 );
+
+expectType<(a: number, b: number) => void>(
+  _.throttle((a: number, b: number) => {
+    console.log(a, b);
+  }, 300)
+);
