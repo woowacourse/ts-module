@@ -22,7 +22,9 @@ declare module _ {
     options?: FetchOptions
   ): Promise<Response<Data>>;
 
-  export function isNull() {}
+  export function isNull<T extends unknown>(
+    value: T
+  ): T extends null ? true : false;
 
   export function isNil() {}
 
