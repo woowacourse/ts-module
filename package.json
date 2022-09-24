@@ -25,5 +25,5 @@
 			"type.test.ts"
 		]
 	},
-	"types": "./src/index.d.ts"
+	"types": "./index.d.ts"
 }
