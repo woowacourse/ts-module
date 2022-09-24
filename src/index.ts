@@ -66,7 +66,10 @@ declare module _ {
     wait: number
   ): (...args: T) => void;
 
-  export function clickOutside() {}
+  export function clickOutside(
+    target: Node,
+    func: (...args: unknown[]) => void
+  ): void;
 
   type FetchBodyType =
     | string
