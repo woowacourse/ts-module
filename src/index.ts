@@ -38,7 +38,7 @@ declare module _ {
     value: T
   ): T extends Function ? true : false;
 
-  export function shuffle() {}
+  export function shuffle<T extends unknown>(arr: T[]): T[];
 
   export function pick() {}
 
