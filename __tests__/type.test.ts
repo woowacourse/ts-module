@@ -29,3 +29,9 @@ expectType<true>(_.isFunction(() => {}));
 expectType<false>(_.isFunction("2"));
 
 expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([4, 2, 3, 1]));
+
+expectType<{ x: number; y: number }>(_.pick({ x: 1, y: 2, z: 3 }, ["x", "y"]));
+expectType<{ x: number; y: number }>(
+  //@ts-expect-error
+  _.pick({ x: 1, y: 2, z: 3 }, ["t", "y"])
+);
