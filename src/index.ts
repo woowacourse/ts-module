@@ -7,9 +7,9 @@ declare global {
       eventType: K,
       callback: (event: T[K]) => void
     ): void;
-    innerHTML: ((value: string) => void) | string;
-    show(): void;
-    hidden: (() => void) | boolean;
+    setInnerHTML(value: string): void;
+    setShow(): void;
+    setHidden(): void;
   }
 }
 
