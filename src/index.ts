@@ -1,45 +1,73 @@
+import { NumberRange, CreateArray } from "./util";
+
 function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
+  /**
+   * innerHTML() {
+   * }
+   *
+   * show() {
+   * }
+   *
+   * hidden() {
+   * }
+   *
+   * addEvent() {
+   * }
+   */
 }
 
-module _ {
-	export function fetch() {
-		return {};
-	}
+declare module _ {
+  export function fetch<Data>(
+    url: string,
+    options?: FetchOptions
+  ): Promise<Response<Data>>;
 
-	export function isNull() {}
+  export function isNull() {}
 
-	export function isNil() {}
+  export function isNil() {}
 
-	export function isNumber() {}
+  export function isNumber() {}
 
-	export function isFunction() {}
+  export function isFunction() {}
 
-	export function shuffle() {}
+  export function shuffle() {}
 
-	export function pick() {}
+  export function pick() {}
 
-	export function omit() {}
+  export function omit() {}
 
-	export function memoize() {}
+  export function memoize() {}
 
-	export function debounce() {}
+  export function debounce() {}
 
-	export function throttle() {}
+  export function throttle() {}
 
-	export function clickOutside() {}
+  export function clickOutside() {}
+
+  type FetchBodyType =
+    | string
+    | URLSearchParams
+    | FormData
+    | Blob
+    | ArrayBuffer
+    | ArrayBufferView
+    | DataView;
+
+  type FetchOptions = {
+    method?: "GET" | "POST" | "PUT" | "DELETE";
+    body?: FetchBodyType | null;
+    headers?: Record<string, string>;
+    credentials?: "omit" | "same-origin" | "include";
+  };
+
+  type Response<Data> = {
+    status: NumberRange<CreateArray<200>, 600>; // 200 ~ 600이하의 status code가 들어올수 있도록 하는 타입
+    ok: boolean;
+    statusText: string;
+    url: string;
+    headers: Record<string, string>;
+    json: () => Promise<Data>;
+  };
 }
 
 export default _;
