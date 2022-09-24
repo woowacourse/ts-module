@@ -41,3 +41,9 @@ expectType<{ x: number; y: number }>(
   //@ts-expect-error
   _.omit({ x: 1, y: 2, z: 3 }, ["t", "y"])
 );
+
+expectType<(a: number, b: number) => number>(
+  _.memoize((a: number, b: number) => {
+    return a + b;
+  })
+);
