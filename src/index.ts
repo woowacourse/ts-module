@@ -1,19 +1,16 @@
 import { NumberRange, CreateArray } from "./util";
 
-function _(selector: string): any {
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
+declare function _(selector: string): Node;
+declare global {
+  interface Node {
+    addEvent<T extends HTMLElementEventMap, K extends keyof T>(
+      eventType: K,
+      callback: (event: T[K]) => void
+    ): void;
+    innerHTML: ((value: string) => void) | string;
+    show(): void;
+    hidden: (() => void) | boolean;
+  }
 }
 
 declare module _ {
