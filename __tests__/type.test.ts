@@ -87,8 +87,8 @@ $Button.addEvent("test", function (event) {
   console.log(event);
 });
 
-expectType<void>($Button.show());
+expectType<void>($Button.setShow());
 
-if (typeof $Button.hidden === "function") {
-  expectType<void>($Button.hidden());
-}
+expectType<void>($Button.setHidden());
+
+expectType<void>($Button.setInnerHTML("<div>안녕하세요</div>"));
