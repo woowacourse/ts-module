@@ -1,0 +1,11 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "sourceMap": true
+  },
+  "include": ["src", "__tests__"],
+  "exclude": ["node_modules"]
+}
