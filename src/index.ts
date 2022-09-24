@@ -34,7 +34,9 @@ declare module _ {
     value: T
   ): T extends number ? true : false;
 
-  export function isFunction() {}
+  export function isFunction<T extends unknown>(
+    value: T
+  ): T extends Function ? true : false;
 
   export function shuffle() {}
 
