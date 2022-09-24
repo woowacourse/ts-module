@@ -40,7 +40,10 @@ declare module _ {
 
   export function shuffle<T extends unknown>(arr: T[]): T[];
 
-  export function pick() {}
+  export function pick<
+    T extends Record<string, unknown>,
+    R extends (keyof T)[]
+  >(obj: T, selectedKeyArray: R): PickResponse<T, R>;
 
   export function omit() {}
 
@@ -75,6 +78,13 @@ declare module _ {
     url: string;
     headers: Record<string, string>;
     json: () => Promise<Data>;
+  };
+
+  type PickResponse<
+    T extends Record<string, unknown>,
+    R extends readonly (keyof T)[]
+  > = {
+    [K in R[number]]: T[K];
   };
 }
 
