@@ -76,11 +76,19 @@ expectType<void>(
 
 //DomUtil
 
-_(".button").addEvent("click", function (event) {
+const $Button = _(".button");
+
+$Button.addEvent("click", function (event) {
   expectType<MouseEvent>(event);
 });
 
 //@ts-expect-error
-_(".button").addEvent("test", function (event) {
+$Button.addEvent("test", function (event) {
   console.log(event);
 });
+
+expectType<void>($Button.show());
+
+if (typeof $Button.hidden === "function") {
+  expectType<void>($Button.hidden());
+}
