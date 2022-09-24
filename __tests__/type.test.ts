@@ -27,3 +27,5 @@ expectType<false>(_.isNumber("2"));
 
 expectType<true>(_.isFunction(() => {}));
 expectType<false>(_.isFunction("2"));
+
+expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([4, 2, 3, 1]));
