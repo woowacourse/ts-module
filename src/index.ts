@@ -26,7 +26,9 @@ declare module _ {
     value: T
   ): T extends null ? true : false;
 
-  export function isNil() {}
+  export function isNil<T extends unknown>(
+    value: T
+  ): T extends undefined | null ? true : false;
 
   export function isNumber() {}
 
