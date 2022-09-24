@@ -24,3 +24,6 @@ expectType<false>(_.isNil("2"));
 
 expectType<true>(_.isNumber(1));
 expectType<false>(_.isNumber("2"));
+
+expectType<true>(_.isFunction(() => {}));
+expectType<false>(_.isFunction("2"));
