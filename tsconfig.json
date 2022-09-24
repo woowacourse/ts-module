@@ -6,7 +6,7 @@
     "sourceMap": false, // 소스맵(*.map) 파일 생성 여부
     "declaration": true, // d.ts생성여부
     "strict": true, // 엄격하게 typescript를 컴파일 시킨다.
-    "skipLibCheck": true, // 모든 선언파일(*.d.ts)의 유형검사를 건너뛸지 여부
+    "skipLibCheck": false, // 모든 선언파일(*.d.ts)의 유형검사를 건너뛸지 여부
     "lib": ["dom", "dom.iterable", "esnext"], //컴파일에 포함될 라이브러리 파일 목록
     "moduleResolution": "node", // nodejs, classic 어떤걸로 모듈 해석 할지 결정 -> 오늘날은 대부분 nodejs를 이용
     "isolatedModules": true, // 추가 검사를 수행하여 별도의 컴파일이 안전한지 확인합니다.
