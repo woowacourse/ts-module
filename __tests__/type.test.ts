@@ -5,10 +5,6 @@ import { expectType } from "tsd";
 
 import _ from "../src";
 
-_(".button").addEvent("click", function (event) {
-  expectType<MouseEvent>(event);
-});
-
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>("https://example.com", {
     method: "GET",
@@ -77,3 +73,14 @@ expectType<void>(
     console.log("click outside");
   })
 );
+
+//DomUtil
+
+_(".button").addEvent("click", function (event) {
+  expectType<MouseEvent>(event);
+});
+
+//@ts-expect-error
+_(".button").addEvent("test", function (event) {
+  console.log(event);
+});
