@@ -11,3 +11,6 @@ _(".button").addEvent("click", function (event) {
 
 expectType<boolean>(_.isNull(null));
 expectType<boolean>(_.isNull(0));
+
+expectType<boolean>(_.isNil(undefined));
+expectType<boolean>(_.isNil(NaN));
