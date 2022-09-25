@@ -14,7 +14,7 @@ function _(selector: string): any {
    */
 }
 
-module _ {
+declare module _ {
   export function fetch(
     input: RequestInfo | URL,
     init?: RequestInit
