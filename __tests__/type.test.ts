@@ -9,6 +9,11 @@ import _ from "../src";
 //   expectType<MouseEvent>(event);
 // });
 
+// fetch
+expectType<Promise<Response>>(
+  _.fetch("https://winnie.com", { method: "GET" }).then((data) => data.json())
+);
+
 // isNull
 expectType<true>(_.isNull(null));
 expectType<false>(_.isNull("winnie"));
