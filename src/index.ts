@@ -15,8 +15,11 @@ function _(selector: string): any {
 }
 
 module _ {
-  export function fetch() {
-    return {};
+  export function fetch<Data>(
+    url: string,
+    options?: FetchOptions
+  ): Promise<Response<Data>> {
+    return fetch(url, options);
   }
 
   /**
@@ -126,6 +129,21 @@ module _ {
 
   export function clickOutside() {}
 }
+
+type FetchOptions = {
+  method?: "GET" | "POST" | "PUT" | "DELETE";
+  headers?: Record<string, string>;
+  body?: Record<string, string>;
+};
+
+type Response<Data> = {
+  status: number;
+  ok: boolean;
+  redirected: boolean;
+  url: string;
+  headers: Record<string, string>;
+  json: () => Promise<Data>;
+};
 
 type PickResult<T, K extends keyof T> = {
   [k in K]: T[k];
