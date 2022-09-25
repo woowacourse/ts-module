@@ -20,6 +20,8 @@ declare global {
   function _(selector: string): Element;
 
   module _ {
+    function fetch(request: Request | string): Promise<Response>;
+
     function isNull<T>(input: T): T extends null ? true : false;
     function isNil<T>(input: T): T extends null | undefined ? true : false;
     function isNumber<T>(input: T): T extends number ? true : false;
