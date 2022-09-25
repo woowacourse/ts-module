@@ -4,11 +4,11 @@
 
 - [ ] 모든 유틸 타입 선언
 
-  - [ ] DOM 유틸
-    - [ ] innerHTML()
-    - [ ] show()
-    - [ ] hidden()
-    - [ ] addEvent()
+  - [x] DOM 유틸
+    - [x] innerHTML()
+    - [x] show()
+    - [x] hidden()
+    - [x] addEvent()
   - [ ] 유틸
     - [ ] fetch()
     - [x] isNull()
@@ -45,11 +45,11 @@
     - [ ] clickOutside()
 
 - [ ] 구현하기
-  - [ ] DOM 유틸
-    - [ ] innerHTML()
-    - [ ] show()
-    - [ ] hidden()
-    - [ ] addEvent()
+  - [x] DOM 유틸
+    - [x] innerHTML()
+    - [x] show()
+    - [x] hidden()
+    - [x] addEvent()
   - [ ] 유틸
     - [ ] fetch()
     - [x] isNull()
