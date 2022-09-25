@@ -14,3 +14,6 @@ expectType<boolean>(_.isNull(0));
 
 expectType<boolean>(_.isNil(undefined));
 expectType<boolean>(_.isNil(NaN));
+
+expectType<number[]>(_.shuffle([1, 2, 3, 4]));
+expectType<string[]>(_.shuffle(["a", "b", "c"]));
