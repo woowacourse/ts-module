@@ -21,7 +21,7 @@ module _ {
 
   export function isNull<T>(value: T): T extends null ? true : false;
 
-  // export function isNil() {}
+  export function isNil<T>(value: T): T extends null | undefined ? true : false;
 
   // export function isNumber() {}
 
