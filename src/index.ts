@@ -15,9 +15,10 @@ function _(selector: string): any {
 }
 
 module _ {
-  // export function fetch() {
-  //   return {};
-  // }
+  export function fetch(
+    input: RequestInfo | URL,
+    init?: RequestInit
+  ): Promise<Response>;
 
   export function isNull<T>(value: T): T extends null ? true : false;
 
