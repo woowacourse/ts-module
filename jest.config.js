@@ -1,6 +1,11 @@
 const config = {
   transform: {
-    "\\.ts$": ["ts-jest"],
+    '\\.ts$': [
+      'ts-jest',
+      {
+        diagnostics: false,
+      },
+    ],
   },
 };
 
