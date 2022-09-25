@@ -75,7 +75,37 @@ module _ {
     return result;
   }
 
-  export function pick() {}
+  export function pick<T>(
+    object: PickObject<T>,
+    paths: PickPaths
+  ): PickObject<T> | null {
+    if (!object || !paths) {
+      return;
+    }
+    const result = Object.fromEntries(
+      Object.entries(object).map(
+        (item) => {
+          if (
+            typeof paths != "string" &&
+            paths.includes(
+              String(item[0])
+            )
+          ) {
+            return item;
+          }
+          if (
+            typeof paths === "string" &&
+            paths === String(item[0])
+          ) {
+            return item;
+          }
+          return;
+        }
+      )
+    );
+
+    return result;
+  }
 
   export function omit() {}
 
@@ -87,5 +117,10 @@ module _ {
 
   export function clickOutside() {}
 }
+
+type PickObject<T> = {
+  [key: string]: T;
+};
+type PickPaths = string | string[];
 
 export default _;
