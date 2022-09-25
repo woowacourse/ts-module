@@ -21,7 +21,7 @@
     - [ ] memoize()
     - [ ] debounce()
     - [ ] throttle()
-    - [ ] clickOutside()
+    - [x] clickOutside()
 
 - [ ] 모든 타입 테스트
 
@@ -62,7 +62,7 @@
     - [ ] memoize()
     - [ ] debounce()
     - [ ] throttle()
-    - [ ] clickOutside()
+    - [x] clickOutside()
 
 ### 팀 요구사항
 

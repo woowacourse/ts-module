@@ -48,11 +48,11 @@ function _(
 }
 
 module _ {
-  // export function fetch(
+  // export function fetch<T>(
   //   url: string,
-  //   options
-  // ) {
-  //   return {};
+  //   options: FetchOption
+  // ): Promise<FetchResponse<T>> {
+  //   const response = new Promise();
   // }
 
   export function isNull<T>(
@@ -175,7 +175,7 @@ module _ {
     return result;
   }
 
-  export function memoize() {}
+  // export function memoize() {}
 
   export function debounce<T>(
     func: (args: T) => void,
@@ -198,9 +198,27 @@ module _ {
     func: (args: T) => void,
     wait: number,
     options?: DebounceThrottleOption
-  ) {}
-
-  export function clickOutside() {}
+  ) {
+    if (
+      typeof func !== "function" ||
+      typeof wait !== "number"
+    ) {
+      return;
+    }
+  }
+  // 밖의 요소를 클릭하면 인자로 넘겨진 이벤트를 실행한다
+  export function clickOutside(
+    target: HTMLElement,
+    func: (e: HTMLElement) => void
+  ): void | null {
+    if (!target) {
+      return;
+    }
+    target.parentElement.addEventListener(
+      "click",
+      () => func(target.parentElement)
+    );
+  }
 }
 
 interface FetchOption {
@@ -232,6 +250,23 @@ interface FetchOption {
     | "no-referrer-when-downgrade"
     | "origin";
   body?: "application/json";
+}
+
+interface FetchResponse<T> {
+  status:
+    | 200
+    | 201
+    | 202
+    | 204
+    | 400
+    | 401
+    | 403
+    | 404
+    | 500;
+  ok: boolean;
+  statusText: string;
+  headers: Record<string, string>;
+  json: () => Promise<T>;
 }
 
 type PickObject<T> = {
