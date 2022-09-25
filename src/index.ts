@@ -29,7 +29,8 @@ module _ {
 
   export function shuffle<T>(value: Array<T> | object): Array<T>;
 
-  // export function pick() {}
+  // ...keys로 들어올 수도 있다. 이 부분도 해결하기! 
+  export function pick<T, K extends keyof T>(obj: T, keys?: Array<K>): Pick<T, K>;
 
   // export function omit() {}
 
