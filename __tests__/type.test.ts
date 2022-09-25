@@ -44,6 +44,13 @@ expectType<{}>(_.pick({ a: 1, b: "2", c: 3 })); // {}
 
 // omit
 expectType<{ b: string }>(_.omit({ a: 1, b: "2", c: 3 }, ["a", "c"])); // { 'b': '2' }
-expectType<{ b: string, c: number }>(_.omit({ a: 1, b: "2", c: 3 }, ["a"])); // { 'b': '2', 'c': 3 } // TODO b, c 하나 빼도 됨
+expectType<{ b: string; c: number }>(_.omit({ a: 1, b: "2", c: 3 }, ["a"])); // { 'b': '2', 'c': 3 } // TODO b, c 하나 빼도 됨
 // TODO: 이 부분도 해결해야함
 expectType<{ b: string }>(_.omit({ a: 1, b: "2", c: 3 }, "a", "c")); // { 'b': '2' }
+
+// debounce
+expectType<Function>(
+  _.debounce(function () {
+    console.log("winnie");
+  }, 500)
+);
