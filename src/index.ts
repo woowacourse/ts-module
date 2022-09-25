@@ -78,11 +78,17 @@ module _ {
     return copyArray;
   }
 
-  export function pick<
-    T extends Record<string, unknown>,
-    R extends (keyof T)[]
-  >(object: T, key: R): Partial<T> {
-    return object;
+  export function pick<T extends Record<string, unknown>, R extends keyof T>(
+    object: T,
+    keys: R[]
+  ): PickResult<T, R> {
+    const result = {} as PickResult<T, R>;
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      result[key] = object[key];
+    }
+
+    return result;
   }
 
   export function omit() {}
@@ -95,5 +101,9 @@ module _ {
 
   export function clickOutside() {}
 }
+
+type PickResult<T, K extends keyof T> = {
+  [k in K]: T[k];
+};
 
 export default _;
