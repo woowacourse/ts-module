@@ -78,6 +78,13 @@ module _ {
     return copyArray;
   }
 
+  /**
+   * @param object
+   * @param keys
+   * @returns partial array of object which has `param keys`
+   * @example pick( {a: 1, b: "c"}, ['b'] ) => {b: 'c'}
+   * 매개변수로 depth가 1인 flat한 객체만 들어온다고 가정
+   */
   export function pick<T extends Record<string, unknown>, R extends keyof T>(
     object: T,
     keys: R[]
