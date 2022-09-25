@@ -98,11 +98,24 @@ module _ {
     return result;
   }
 
+  /**
+   * @param object
+   * @param keys
+   * @returns partial array of object without `param keys`
+   * @example omit( {a: 1, b: "c"}, ['b'] ) => {a: 1}
+   * 매개변수로 depth가 1인 flat한 객체만 들어온다고 가정
+   */
   export function omit<T extends Record<string, unknown>, R extends keyof T>(
     object: T,
-    keys: R
+    keys: R[]
   ): OmitResult<T, R> {
-    return object;
+    const result = { ...object };
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      delete result[key];
+    }
+
+    return result;
   }
 
   export function memoize() {}
@@ -118,8 +131,6 @@ type PickResult<T, K extends keyof T> = {
   [k in K]: T[k];
 };
 
-type OmitResult<T, K extends keyof T> = {
-  [k in keyof Omit<T, K>]: T[k];
-};
+type OmitResult<T, K extends keyof T> = PickResult<T, Exclude<keyof T, K>>;
 
 export default _;
