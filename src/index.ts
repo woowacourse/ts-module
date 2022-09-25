@@ -45,9 +45,24 @@ module _ {
     return typeof value === "number";
   }
 
-  export function isFunction() {}
+  /**
+   * @param value
+   * @returns return true if type of value is function
+   */
+  export function isFunction(
+    value: unknown
+  ): value is (...args: unknown[]) => unknown {
+    return typeof value === "function";
+  }
 
-  export function shuffle() {}
+  /**
+   * @param array
+   * @returns shuffled array which has same type of param array
+   * @example shuffle([1, 2, 3, 4]) => [2, 4, 3, 1]
+   */
+  export function shuffle<T>(array: T[]): T[] {
+    return array;
+  }
 
   export function pick() {}
 
