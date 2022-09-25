@@ -9,6 +9,12 @@ _(".button").addEvent("click", function (event) {
   expectType<MouseEvent>(event);
 });
 
+expectType<Promise<{ name: string }>>(
+  _.fetch<{ name: string }>("https://example.com", {
+    method: "GET",
+  }).then((res) => res.json())
+);
+
 expectType<boolean>(_.isNull(null));
 expectType<boolean>(_.isNull(0));
 
