@@ -78,7 +78,12 @@ module _ {
     return copyArray;
   }
 
-  export function pick() {}
+  export function pick<
+    T extends Record<string, unknown>,
+    R extends (keyof T)[]
+  >(object: T, key: R): Partial<T> {
+    return object;
+  }
 
   export function omit() {}
 
