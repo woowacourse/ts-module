@@ -41,7 +41,8 @@ module _ {
     keys?: Array<K>
   ): Omit<T, K>;
 
-  // export function memoize() {}
+  // TODO: Function 더 구체적으로 타이핑
+  export function memoize(func: Function, resolver?: Function): Function;
 
   interface DebounceOptionsType {
     leading?: boolean;
@@ -61,6 +62,7 @@ module _ {
     trailing?: boolean;
   }
 
+  // TODO: Function 더 구체적으로 타이핑
   export function throttle(
     func: Function,
     wait?: number,
