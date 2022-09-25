@@ -56,7 +56,16 @@ module _ {
     options?: DebounceOptionsType
   ): Function;
 
-  // export function throttle() {}
+  interface ThrottleOptionsType {
+    leading?: boolean;
+    trailing?: boolean;
+  }
+
+  export function throttle(
+    func: Function,
+    wait?: number,
+    options?: ThrottleOptionsType
+  ): Function;
 
   // export function clickOutside() {}
 }
