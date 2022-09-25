@@ -98,7 +98,12 @@ module _ {
     return result;
   }
 
-  export function omit() {}
+  export function omit<T extends Record<string, unknown>, R extends keyof T>(
+    object: T,
+    keys: R
+  ): OmitResult<T, R> {
+    return object;
+  }
 
   export function memoize() {}
 
@@ -111,6 +116,10 @@ module _ {
 
 type PickResult<T, K extends keyof T> = {
   [k in K]: T[k];
+};
+
+type OmitResult<T, K extends keyof T> = {
+  [k in keyof Omit<T, K>]: T[k];
 };
 
 export default _;
