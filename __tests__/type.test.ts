@@ -24,3 +24,6 @@ expectType<true>(_.isNumber(Number.MIN_VALUE));
 expectType<true>(_.isNumber(Infinity));
 expectType<false>(_.isNumber("winnie"));
 
+// isFunction
+expectType<true>(_.isFunction(_));
+expectType<false>(_.isFunction(/abc/));
