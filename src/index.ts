@@ -32,7 +32,8 @@ module _ {
   // ...keys로 들어올 수도 있다. 이 부분도 해결하기! 
   export function pick<T, K extends keyof T>(obj: T, keys?: Array<K>): Pick<T, K>;
 
-  // export function omit() {}
+  // ...keys로 들어올 수도 있다. 이 부분도 해결하기! 
+  export function omit<T, K extends keyof T>(obj: T, keys?: Array<K>): Omit<T, K>;
 
   // export function memoize() {}
 
