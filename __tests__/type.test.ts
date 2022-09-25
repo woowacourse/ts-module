@@ -20,3 +20,5 @@ expectType<string[]>(_.shuffle(["a", "b", "c"]));
 expectType<object>(_.shuffle([]));
 
 expectType<{ a: 1 }>(_.pick({ a: 1, b: "c" }, ["a"]));
+
+expectType<{ b: "c" }>(_.omit({ a: 1, b: "c" }, ["a"]));
