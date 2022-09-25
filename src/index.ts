@@ -181,30 +181,40 @@ module _ {
     func: (args: T) => void,
     wait: number,
     options?: DebounceThrottleOption
-  ):
-    | ((
-        args: T
-      ) => void | boolean | Function)
-    | null {
+  ): () => void | null {
     if (
       typeof func !== "function" ||
       typeof wait !== "number"
     ) {
       return;
     }
+    let timer: null | number = null;
+    return function () {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(func, wait);
+    };
   }
 
   export function throttle<T>(
     func: (args: T) => void,
     wait: number,
     options?: DebounceThrottleOption
-  ) {
+  ): () => void | null {
     if (
       typeof func !== "function" ||
       typeof wait !== "number"
     ) {
       return;
     }
+    let timer: null | number = null;
+    return function () {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(func, wait);
+    };
   }
   // 밖의 요소를 클릭하면 인자로 넘겨진 이벤트를 실행한다
   export function clickOutside(

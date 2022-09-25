@@ -19,8 +19,8 @@
     - [x] pick()
     - [x] omit()
     - [ ] memoize()
-    - [ ] debounce()
-    - [ ] throttle()
+    - [x] debounce()
+    - [x] throttle()
     - [x] clickOutside()
 
 - [ ] 모든 타입 테스트
@@ -60,8 +60,8 @@
     - [x] pick()
     - [x] omit()
     - [ ] memoize()
-    - [ ] debounce()
-    - [ ] throttle()
+    - [x] debounce()
+    - [x] throttle()
     - [x] clickOutside()
 
 ### 팀 요구사항
