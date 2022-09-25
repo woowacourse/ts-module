@@ -31,3 +31,13 @@ expectType<false>(_.isFunction(/abc/));
 // shuffle
 expectType<number[]>(_.shuffle([1, 2, 3, 4]));
 expectType<string[]>(_.shuffle(["a", "b", "c", "d"]));
+
+// pick (다시)
+expectType<{ a: number; c: number }>(
+  _.pick({ a: 1, b: "2", c: 3 }, ["a", "c"])
+); // { 'a': 1, 'c': 3 }
+expectType<{ b: string }>(_.pick({ a: 1, b: "2", c: 3 }, ["a", "b"])); // { 'a': 1, 'c': 3 }
+// TODO: 이 부분도 해결해야함
+// https://stackoverflow.com/questions/47232518/write-a-typesafe-pick-function-in-typescript
+expectType<{ a: number; c: number }>(_.pick({ a: 1, b: "2", c: 3 }, "a", "c")); // { 'a': 1, 'c': 3 }
+expectType<{}>(_.pick({ a: 1, b: "2", c: 3 })); // {}
