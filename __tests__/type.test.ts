@@ -48,6 +48,13 @@ expectType<{ b: string; c: number }>(_.omit({ a: 1, b: "2", c: 3 }, ["a"])); // 
 // TODO: 이 부분도 해결해야함
 expectType<{ b: string }>(_.omit({ a: 1, b: "2", c: 3 }, "a", "c")); // { 'b': '2' }
 
+// memoize
+expectType<Function>(
+  _.memoize((arg) => {
+    return `My name is ${arg}`;
+  })
+);
+
 // debounce
 expectType<Function>(
   _.debounce(function () {
