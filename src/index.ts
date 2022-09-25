@@ -23,7 +23,7 @@ module _ {
 
   export function isNil<T>(value: T): T extends null | undefined ? true : false;
 
-  // export function isNumber() {}
+  export function isNumber<T>(value: T): T extends number ? true : false;
 
   // export function isFunction() {}
 
