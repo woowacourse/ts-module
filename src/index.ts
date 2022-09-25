@@ -59,9 +59,23 @@ module _ {
    * @param array
    * @returns shuffled array which has same type of param array
    * @example shuffle([1, 2, 3, 4]) => [2, 4, 3, 1]
+   * 여러 타입이 담긴 array는 우선 생각 안함. array 내의 type이 모두 동일하다고 하고 구현
+   * 매개변수로 depth가 1인 flat한 배열만 들어온다고 가정
    */
   export function shuffle<T>(array: T[]): T[] {
-    return array;
+    const copyArray = [...array];
+    const arrayLength = array.length;
+
+    if (arrayLength <= 1) return array;
+
+    for (let i = 0; i < arrayLength; i++) {
+      const rand = i + Math.floor(Math.random() * (arrayLength - i));
+      const value = copyArray[rand];
+      copyArray[rand] = copyArray[i];
+      copyArray[i] = value;
+    }
+
+    return copyArray;
   }
 
   export function pick() {}
