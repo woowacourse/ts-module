@@ -9,5 +9,11 @@ import _ from "../src";
 //   expectType<MouseEvent>(event);
 // });
 
+// isNull
 expectType<true>(_.isNull(null));
 expectType<false>(_.isNull("winnie"));
+
+// isNil
+expectType<true>(_.isNil(null));
+expectType<true>(_.isNil(undefined));
+expectType<false>(_.isNil("winnie"));
