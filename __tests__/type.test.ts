@@ -54,3 +54,10 @@ expectType<Function>(
     console.log("winnie");
   }, 500)
 );
+
+// throttle
+expectType<Function>(
+  _.throttle(function () {
+    console.log("winnie");
+  }, 500)
+);
