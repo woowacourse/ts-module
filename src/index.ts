@@ -36,7 +36,14 @@ module _ {
     return value == null;
   }
 
-  export function isNumber() {}
+  /**
+   *
+   * @param value
+   * @returns return true if type of value is primitive number
+   */
+  export function isNumber(value: unknown): value is number {
+    return typeof value === "number";
+  }
 
   export function isFunction() {}
 
