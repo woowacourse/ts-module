@@ -17,3 +17,10 @@ expectType<false>(_.isNull("winnie"));
 expectType<true>(_.isNil(null));
 expectType<true>(_.isNil(undefined));
 expectType<false>(_.isNil("winnie"));
+
+// isNumber
+expectType<true>(_.isNumber(1));
+expectType<true>(_.isNumber(Number.MIN_VALUE));
+expectType<true>(_.isNumber(Infinity));
+expectType<false>(_.isNumber("winnie"));
+
