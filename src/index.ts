@@ -46,7 +46,34 @@ module _ {
     return typeof arg === "function";
   }
 
-  export function shuffle() {}
+  export function shuffle<T>(
+    collection: T[]
+  ): T[] | [] {
+    if (
+      !collection ||
+      !collection.length
+    ) {
+      return [];
+    }
+    let index = -1;
+    const lastIndex =
+      collection.length - 1;
+    const result = [...collection];
+    while (
+      ++index < collection.length
+    ) {
+      const prIndex =
+        index +
+        Math.floor(
+          Math.random() *
+            (lastIndex - index + 1)
+        );
+      const value = result[prIndex];
+      result[prIndex] = result[index];
+      result[index] = value;
+    }
+    return result;
+  }
 
   export function pick() {}
 
