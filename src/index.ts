@@ -25,7 +25,7 @@ module _ {
 
   export function isNumber<T>(value: T): T extends number ? true : false;
 
-  // export function isFunction() {}
+  export function isFunction<T>(value: T): T extends Function? true : false;
 
   // export function shuffle() {}
 
