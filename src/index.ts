@@ -21,13 +21,20 @@ module _ {
 
   /**
    * @param value
-   * @returns use `is` for user-defined type guard. return true if value is null
+   * @returns return true if value is null
    */
   export function isNull(value: unknown): value is null {
     return value === null;
   }
 
-  export function isNil() {}
+  /**
+   *
+   * @param value
+   * @returns return true if value is null or false
+   */
+  export function isNil(value: unknown): value is null | undefined {
+    return value == null;
+  }
 
   export function isNumber() {}
 
