@@ -27,3 +27,7 @@ expectType<false>(_.isNumber("winnie"));
 // isFunction
 expectType<true>(_.isFunction(_));
 expectType<false>(_.isFunction(/abc/));
+
+// shuffle
+expectType<number[]>(_.shuffle([1, 2, 3, 4]));
+expectType<string[]>(_.shuffle(["a", "b", "c", "d"]));
