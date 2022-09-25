@@ -2,7 +2,19 @@ export {};
 
 declare global {
   interface Element {
-    addEvent: (eventType: string, handler: (event: MouseEvent) => void) => void;
+    addEvent<T extends keyof GlobalEventHandlersEventMap>(
+      eventType: T,
+      handler: (event: GlobalEventHandlersEventMap[T]) => void
+    ): void;
+
+    html(): string;
+    html(content: string): void;
+
+    show(): void;
+    show(duration: number, complete: Function): void;
+
+    hide(): void;
+    hide(duration: number, complete: Function): void;
   }
 
   function _(selector: string): Element;

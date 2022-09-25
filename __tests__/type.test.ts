@@ -13,6 +13,23 @@ _(".button").addEvent("click", function (event) {
   expectType<MouseEvent>(event);
 });
 
+_(".button").addEvent("mouseover", function (event) {
+  expectType<MouseEvent>(event);
+});
+
+_("body").addEvent("resize", function (event) {
+  expectType<UIEvent>(event);
+});
+
+expectType<string>(_("body").html());
+expectType<void>(_("body").html("<div>reset"));
+
+expectType<void>(_(".button").show());
+expectType<void>(_(".button").show(500, () => {}));
+
+expectType<void>(_(".button").hide());
+expectType<void>(_(".button").hide(500, () => {}));
+
 expectType<true>(_.isNull(null));
 expectType<false>(_.isNull(undefined));
 expectType<false>(_.isNull(1));
