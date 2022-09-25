@@ -107,7 +107,37 @@ module _ {
     return result;
   }
 
-  export function omit() {}
+  export function omit<T>(
+    object: Record<string, T>,
+    paths: PickPaths
+  ): Record<string, T> | null {
+    if (!object || !paths) {
+      return;
+    }
+    const result = Object.fromEntries(
+      Object.entries(object).map(
+        (item) => {
+          if (
+            typeof paths != "string" &&
+            !paths.includes(
+              String(item[0])
+            )
+          ) {
+            return item;
+          }
+          if (
+            typeof paths === "string" &&
+            paths !== String(item[0])
+          ) {
+            return item;
+          }
+          return;
+        }
+      )
+    );
+
+    return result;
+  }
 
   export function memoize() {}
 
