@@ -1,28 +1,48 @@
 import { expectType } from "tsd";
 import _ from "../dist/index";
+import { FetchOptions, FetchResponse } from "../dist/util";
 
-_(".button").addEvent("click", function (event) {
-  expectType<MouseEvent>(event);
-});
+// fetch 함수에 대한 타입을 체크한다.
 
-// 함수 자체 타입 테스트
+// given
+type TestData = {
+  id: number;
+  name: string;
+  age: number;
+};
+
+expectType<
+  (url: string, options?: FetchOptions) => Promise<FetchResponse<TestData[]>>
+>(_.fetch<TestData[]>);
+
+// isNull 함수에 대한 타입을 체크한다.
 expectType<(value: any) => value is null>(_.isNull);
+
+// isNill 함수에 대한 타입을 체크한다.
 expectType<(value: any) => value is null | undefined>(_.isNil);
+
+// isNumber 함수에 대한 타입을 체크한다.
 expectType<(value: any) => value is number>(_.isNumber);
+
+// isFunction 함수에 대한 타입을 체크한다.
 expectType<(value: any) => value is (...args: any[]) => any>(_.isFunction);
-expectType<(array: number[]) => number[]>(_.shuffle);
-expectType<(object: { a: 1; b: 2; c: 3 }, path: ["a", "b"]) => { a: 1; b: 2 }>(
-  _.pick
-);
-expectType<(object: { a: 1; b: 2; c: 3 }, path: ["a", "b"]) => { c: 3 }>(
-  _.omit
+
+// shuffle 함수에 대한 타입을 체크한다.
+expectType<(array: number[]) => number[]>(_.shuffle<number>);
+
+// given
+type testObj = { a: 1; b: 2; c: 3 };
+type testPath = ["a", "b"];
+
+type pickResultObj = { a: 1; b: 2 };
+type OmitResultObj = { c: 3 };
+
+// pick 함수에 대한 타입을 체크한다.
+expectType<(object: testObj, path: testPath) => pickResultObj>(
+  _.pick<testObj, testPath>
 );
 
-// 결과값에 대한 테스트
-expectType<boolean>(_.isNull(null));
-expectType<boolean>(_.isNil(null));
-expectType<boolean>(_.isNumber(1));
-expectType<boolean>(_.isFunction(() => {}));
-expectType<Array<number | string>>(_.shuffle([1, "a", 3]));
-
-expectType<() => void>(_.fetch);
+// omit 함수에 대한 타입을 체크한다.
+expectType<(object: testObj, path: testPath) => OmitResultObj>(
+  _.omit<testObj, testPath>
+);
