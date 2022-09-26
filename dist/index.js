@@ -33,15 +33,22 @@ function _(selector) {
         return {};
     }
     _.fetch = fetch;
-    function isNull() { }
-    _.isNull = isNull;
+    /**
+     * 전달한 value가 null인지 확인하는 함수
+     *
+     * @param value - Value는 null인지 확인하려는 값이다.
+     * @returns Value가 null이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
+     */
+    _.isNull = function (value) { return value === null; };
     /**
      * 전달한 value가 null 또는 undefined 타입인지 확인하는 함수
      *
      * @param value - Value는 null 또는 undefined 타입인지 확인하려는 값이다.
      * @returns Value가 null 또는 undefined 타입이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
      */
-    _.isNil = function (value) { return typeof value === 'undefined' || value === null; };
+    _.isNil = function (value) {
+        return typeof value === 'undefined' || value === null;
+    };
     /**
      * 전달한 value가 number 타입인지 확인하는 함수
      *

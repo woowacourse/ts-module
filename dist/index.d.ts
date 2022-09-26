@@ -13,9 +13,7 @@ interface CustomElement extends HTMLElement {
      */
     addEvent: <T extends keyof HTMLElementEventMap>(type: T, listener: (event: HTMLElementEventMap[T]) => void) => void;
 }
-declare type IsNil = (value: unknown) => boolean;
-declare type IsNumber = (value: unknown) => boolean;
-declare type IsFunction = (value: unknown) => boolean;
+declare type TypeValidator = (value: unknown) => boolean;
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
  *
@@ -25,28 +23,34 @@ declare type IsFunction = (value: unknown) => boolean;
 declare function _(selector: string): CustomElement | null;
 declare namespace _ {
     function fetch(): {};
-    function isNull(): void;
+    /**
+     * 전달한 value가 null인지 확인하는 함수
+     *
+     * @param value - Value는 null인지 확인하려는 값이다.
+     * @returns Value가 null이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
+     */
+    const isNull: TypeValidator;
     /**
      * 전달한 value가 null 또는 undefined 타입인지 확인하는 함수
      *
      * @param value - Value는 null 또는 undefined 타입인지 확인하려는 값이다.
      * @returns Value가 null 또는 undefined 타입이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
      */
-    const isNil: IsNil;
+    const isNil: TypeValidator;
     /**
      * 전달한 value가 number 타입인지 확인하는 함수
      *
      * @param value - Value는 number 타입인지 확인하려는 값이다.
      * @returns Value가 number 타입이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
      */
-    const isNumber: IsNumber;
+    const isNumber: TypeValidator;
     /**
      * 전달한 value가 함수인지 확인하는 함수
      *
      * @param value - Value는 함수인지 확인하려는 값이다.
      * @returns Value가 함수이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
      */
-    const isFunction: IsFunction;
+    const isFunction: TypeValidator;
     function shuffle(): void;
     function pick(): void;
     function omit(): void;
