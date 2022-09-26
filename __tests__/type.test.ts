@@ -65,7 +65,9 @@ const sampleFunc = (arg1: string, arg2: number) => `${arg1}, ${arg2}`;
 
 expectType<typeof sampleFunc>(_.memoize(sampleFunc));
 expectType<typeof sampleFunc>(_.debounce(sampleFunc, 100));
-expectType<typeof sampleFunc>(_.throttle(sampleFunc, 100));
+expectType<(arg1: string, arg2: number) => string | undefined>(
+  _.throttle(sampleFunc, 100)
+);
 
 expectType<void>(
   _.clickOutside(button, (e) => {
