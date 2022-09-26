@@ -15,7 +15,7 @@
     "baseUrl": ".",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "./__tests__/tsd"
+    "declarationDir": "__tests__/tsd"
   },
-  "include": ["src", "__tests__/tsd/index.d.ts"]
+  "include": ["src", "tsd/index.d.ts"]
 }
