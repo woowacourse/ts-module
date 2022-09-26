@@ -3,9 +3,9 @@ import { NumberRange, CreateArray } from "./util";
 declare function _(selector: string): Node;
 declare global {
   interface Node {
-    addEvent(
-      eventType: keyof HTMLElementEventMap,
-      callback: (event: HTMLElementEventMap[keyof HTMLElementEventMap]) => void
+    addEvent<T extends keyof HTMLElementEventMap>(
+      eventType: T,
+      callback: (event: HTMLElementEventMap[T]) => void
     ): void;
     setInnerHTML(value: string): void;
     setShow(): void;
@@ -13,9 +13,9 @@ declare global {
   }
 }
 
-HTMLElement.prototype.addEvent = function (
-  eventType: keyof HTMLElementEventMap,
-  callback: (event: HTMLElementEventMap[keyof HTMLElementEventMap]) => void
+HTMLElement.prototype.addEvent = function <T extends keyof HTMLElementEventMap>(
+  eventType: T,
+  callback: (event: HTMLElementEventMap[T]) => void
 ) {
   this.addEventListener(eventType, callback);
 };
