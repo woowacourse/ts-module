@@ -11,7 +11,7 @@
     "moduleResolution": "node", // nodejs, classic 어떤걸로 모듈 해석 할지 결정 -> 오늘날은 대부분 nodejs를 이용
     "isolatedModules": true, // 추가 검사를 수행하여 별도의 컴파일이 안전한지 확인합니다.
     "esModuleInterop": true, // import를 이용하기 위해서 사용
-    "typeRoots": ["@types/jest"],
+    "typeRoots": ["node_modules/@types"],
     "noImplicitThis": false
   },
   "include": ["src/**/*"],
