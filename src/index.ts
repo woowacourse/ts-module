@@ -4,7 +4,7 @@ class CustomElement {
     this.element = document.body.querySelector<HTMLElement>(selector);
   }
 
-  insertHTML(HTMLString: string): void {
+  innerHTML(HTMLString: string): void {
     if (_.isNull(this.element)) {
       throw "유효한 Element가 아닙니다";
     }
@@ -175,6 +175,9 @@ module _ {
     return func;
   }
 
+  /**
+   * 클릭된 영역(eventTarget)이 innerElement 에 포함 되어있는지 확인한다.
+   */
   export function clickOutside(
     eventTarget: HTMLElement,
     innerElement: HTMLElement
