@@ -11,6 +11,15 @@
 npm install marco-ts-module
 ```
 
+- 실행
+```tsx
+import _ from "marco-ts-module";
+
+_.isNull(null); // true
+
+_.pick({'a': 1, 'b': 2, 'c': 3}, ['a','c']) // {'a':1, 'c':3}
+```
+
 https://www.npmjs.com/package/marco-ts-module
 
 

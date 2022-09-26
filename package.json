@@ -1,7 +1,7 @@
 {
 	"name": "marco-ts-module",
-	"version": "1.0.1",
-	"description": "마르코의 타입스크립트 미션 결과물",
+	"version": "1.0.2",
+	"description": "TypeScript & Module Typing - Marco",
 	"main": "lib/index.js",
 	"scripts": {
 		"build": "tsc --build --clean & tsc --build",
