@@ -25,6 +25,12 @@ expectType<number[]>(_.shuffle([1, 2, 3, 4]));
 expectType<string[]>(_.shuffle(["a", "b", "c"]));
 expectType<object>(_.shuffle([]));
 
-expectType<{ a: 1 }>(_.pick({ a: 1, b: "c" }, ["a"]));
+expectType<{ a: number }>(_.pick({ a: 1, b: "c" }, ["a"]));
 
-expectType<{ b: "c" }>(_.omit({ a: 1, b: "c" }, ["a"]));
+expectType<{ b: string }>(_.omit({ a: 1, b: "c" }, ["a"]));
+
+expectType<(a: number, b: number) => number>(
+  _.memoize((a: number, b: number) => {
+    return a + b;
+  })
+);

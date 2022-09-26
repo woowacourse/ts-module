@@ -1,18 +1,27 @@
-function _(selector: string): any {
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
+declare global {
+  export interface Node extends ElementProperty {}
 }
+
+interface ElementProperty {
+  addEvent: any;
+}
+
+declare function _(selector: string): Node;
+// {
+//   /**
+//    * innerHTML() {
+//    * }
+//    *
+//    * show() {
+//    * }
+//    *
+//    * hidden() {
+//    * }
+//    *
+//    * addEvent() {
+//    * }
+//    */
+// }
 
 module _ {
   export function fetch<Data>(
@@ -121,9 +130,20 @@ module _ {
     return result;
   }
 
-  export function memoize() {}
+  export function memoize<T extends unknown[], R>(
+    func: (...args: T) => R,
+    resolver?: () => string
+  ): (...args: T) => R {
+    return func;
+  }
 
-  export function debounce() {}
+  export function debounce<T extends unknown[]>(
+    func: (...args: T) => void,
+    wait: number,
+    options?: DebounceOption
+  ): (...args: T) => void {
+    return func;
+  }
 
   export function throttle() {}
 
@@ -150,5 +170,11 @@ type PickResult<T, K extends keyof T> = {
 };
 
 type OmitResult<T, K extends keyof T> = PickResult<T, Exclude<keyof T, K>>;
+
+type DebounceOption = {
+  leading?: boolean;
+  maxWait?: number;
+  trailing?: boolean;
+};
 
 export default _;
