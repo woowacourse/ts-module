@@ -1,3 +1,7 @@
+declare global {
+  interface HTMLElement extends CustomElement {}
+}
+
 class CustomElement {
   target;
   constructor(selector: string) {
@@ -33,8 +37,11 @@ function _(selector: string): CustomElement {
 }
 
 module _ {
-  export function fetch() {
-    return {};
+  export function fetch(
+    input: RequestInfo | URL,
+    init?: RequestInit
+  ): Promise<Response> {
+    return window.fetch(input, init);
   }
 
   export function isNull() {}

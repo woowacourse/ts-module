@@ -10,3 +10,13 @@ test('addEvent 타입확인', () => {
     expectType<MouseEvent>(event);
   });
 });
+
+test('fetch Type 테스트', () => {
+  global.window.fetch = jest.fn(() =>
+    Promise.resolve({
+      json: () => Promise.resolve({ test: 100 }),
+    })
+  ) as jest.Mock;
+
+  expectType<Promise<Response>>(_.fetch('helloWorld.com'));
+});
