@@ -25,7 +25,9 @@ namespace _ {
     return typeof value === 'number' || Object.prototype.toString.call(value) === '[object Number]';
   }
 
-  export function isFunction() {}
+  export function isFunction(value?: unknown): Boolean {
+    return typeof value === 'function';
+  }
 
   export function shuffle() {}
 

@@ -53,3 +53,8 @@ test('isNumber 동작 확인', () => {
   expect(_.isNumber('1')).toBeFalsy();
   expect(_.isNumber(1)).toBeTruthy();
 });
+
+test('isFunction 동작 확인', () => {
+  expect(_.isFunction('')).toBeFalsy();
+  expect(_.isFunction(() => {})).toBeTruthy();
+});
