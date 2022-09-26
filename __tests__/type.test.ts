@@ -54,6 +54,12 @@ test('debounce 타입 테스트', () => {
   expectType<(text: string) => void>(testDebounced)
 })
 
+test('throttle 타입 테스트', () => {
+  const testThrottled = _.throttle((text: string) => console.log(`1초마다 표시: ${text}`), 1000)
+
+  expectType<(text: string) => void>(testThrottled)
+})
+
 /* _(".button").addEvent("click", function (event) {
   expectType<MouseEvent>(event);
 });
