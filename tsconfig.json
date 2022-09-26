@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "es6",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "types": ["node", "@types/jest"]
+  },
+  "exclude": ["./node_modules", "**/__tests__/*.test.ts"]
+}
