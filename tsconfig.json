@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
     "target": "ES6",
     "lib": ["ES2017", "dom"], // Object.values 사용하려고 추가
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": ".",
-    "types": ["jest"]
+    "types": ["node", "jest"],
+    "outDir": "dist",
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
-  "include": ["src", "index.d.ts"]
+  "include": ["src"]
 }

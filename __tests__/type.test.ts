@@ -3,7 +3,7 @@
  */
 import { expectType } from "tsd";
 
-import _ from "..";
+import _ from "../dist";
 
 const button = document.createElement("button");
 button.className = "button";
