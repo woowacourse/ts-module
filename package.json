@@ -4,7 +4,7 @@
   "description": "ts-module mission sming",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest && tsd"
   },
   "author": {
     "name": "sming",
@@ -32,7 +32,8 @@
     },
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/"
-    ]
+    ],
+    "testRegex": "\\.test\\.ts$"
   },
   "types": "./__tests__/type.test-d.ts"
 }
