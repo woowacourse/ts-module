@@ -26,3 +26,8 @@ test('isNumber type check', () => {
 test('isFunction type check', () => {
   expectType<Boolean>(_.isFunction());
 });
+
+test('shuffle 동작 확인', () => {
+  const array = [1, 2, 3];
+  expectType<number[]>(_.shuffle(array));
+});

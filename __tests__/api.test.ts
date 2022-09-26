@@ -58,3 +58,11 @@ test('isFunction 동작 확인', () => {
   expect(_.isFunction('')).toBeFalsy();
   expect(_.isFunction(() => {})).toBeTruthy();
 });
+
+test('shuffle 동작 확인', () => {
+  const array = [1, 2, 3];
+
+  expect(_.shuffle(array)).not.toEqual(array);
+  expect(_.shuffle(array).length === array.length).toBeTruthy();
+  expect(_.shuffle(array).every((el) => array.includes(el))).toBeTruthy();
+});

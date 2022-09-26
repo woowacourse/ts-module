@@ -29,7 +29,22 @@ namespace _ {
     return typeof value === 'function';
   }
 
-  export function shuffle() {}
+  export function shuffle(array: number[]): number[] {
+    if (array.length === 0) {
+      return [];
+    }
+
+    const result = array.map((el) => el);
+
+    array.forEach((_, index, array) => {
+      const random = index + Math.floor(Math.random() * (array.length - index));
+      const value = result[random];
+      result[random] = result[index];
+      result[index] = value;
+    });
+
+    return result;
+  }
 
   export function pick() {}
 
