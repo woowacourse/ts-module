@@ -40,12 +40,28 @@ test("innerHTML 동작 확인", () => {
   const buttonElement = _("button.test-btn").element!;
 
   expect(buttonElement).toBeTruthy();
-
   myElement.element!.removeChild(buttonElement);
 });
 
-test('`_("").show()`~~~~', () => {});
+test("show 동작 확인", () => {
+  const divElement = document.createElement("div");
+  divElement.id = "target-div";
+  document.body.appendChild(divElement);
 
-test('`_("").hidden()`~~~~', () => {});
+  const myElement = _("#target-div");
+  myElement.element!.style.display = "none";
+  myElement.show();
 
-test('`_("").addEvent()`~~~~', () => {});
+  expect(myElement.element!.style.display).toBe("block");
+});
+
+test("hide 동작 확인", () => {
+  const divElement = document.createElement("div");
+  divElement.id = "target-div";
+  document.body.appendChild(divElement);
+
+  const myElement = _("#target-div");
+  myElement.hide();
+
+  expect(myElement.element!.style.display).toBe("none");
+});
