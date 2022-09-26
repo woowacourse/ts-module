@@ -102,16 +102,14 @@ module _ {
     T extends Record<string, unknown>,
     K extends (keyof T)[]
   >(object: T, path: K): PickResult<T, K> {
-    let newObj = {} as PickResult<T, K>;
-    path.forEach((key) => {
-      newObj[key] = object[key];
+    let newObj = { ...object };
+    Object.keys(object).forEach((key) => {
+      if (path.indexOf(key) === -1) {
+        delete newObj[key];
+      }
     });
     return newObj;
   }
-
-  type PickResult<T extends Record<string, unknown>, K extends (keyof T)[]> = {
-    [P in K[number]]: T[P];
-  };
 
   /**
    * 선택한 'object' 속성이 제외되어 구성된 객체를 만든다.
@@ -126,10 +124,6 @@ module _ {
     });
     return newObj;
   }
-
-  type OmitResult<T extends Record<string, unknown>, K extends (keyof T)[]> = {
-    [P in keyof Omit<T, K[number]>]: T[P];
-  };
 
   /**
    * 'func'의 결과를 메모하는 함수를 만든다.
@@ -159,7 +153,7 @@ module _ {
   export function debounce<T extends Function>(
     func: T,
     wait: number,
-    options: Record<"leading" | "trailing", number>
+    options: DebounceThrottleOptions
   ): T {
     return func;
   }
@@ -170,7 +164,7 @@ module _ {
   export function throttle(
     func: Function,
     wait: number,
-    options: Record<"leading" | "trailing", number>
+    options: DebounceThrottleOptions
   ): Function {
     return func;
   }
@@ -184,6 +178,16 @@ module _ {
   ): boolean {
     return !innerElement.contains(eventTarget);
   }
+
+  type PickResult<T extends Record<string, any>, K extends (keyof T)[]> = {
+    [P in K[number]]: T[P];
+  };
+
+  type OmitResult<T extends Record<string, any>, K extends (keyof T)[]> = {
+    [P in keyof Omit<T, K[number]>]: T[P];
+  };
+
+  type DebounceThrottleOptions = Record<"leading" | "trailing", number>;
 }
 
 export default _;
