@@ -57,7 +57,7 @@ module _ {
    * `value` 가 `null` 혹은 `undefined`인지 체크한다.
    */
 
-  export function isNil(value: any): value is null | undefined {
+  export function isNil(value: any): value is Nill {
     return value == null;
   }
 
@@ -178,6 +178,8 @@ module _ {
   ): boolean {
     return !innerElement.contains(eventTarget);
   }
+
+  type Nill = null | undefined;
 
   type DefinitelyFunction<T = any, K = any> = (...args: T[]) => K;
 
