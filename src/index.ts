@@ -153,7 +153,10 @@ module _ {
     return func;
   }
 
-  export function clickOutside() {}
+  export function clickOutside(
+    target: Node,
+    func: (...args: unknown[]) => void
+  ): void {}
 }
 
 type FetchOptions = {

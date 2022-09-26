@@ -46,3 +46,10 @@ expectType<(a: number, b: number) => void>(
     console.log(a, b);
   }, 500)
 );
+
+const div = document.createElement("div");
+expectType<void>(
+  _.clickOutside(div, () => {
+    console.log("click outside");
+  })
+);
