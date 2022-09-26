@@ -1,10 +1,10 @@
 {
 	"name": "ts-module",
 	"version": "1.0.0",
-	"description": "",
+	"description": "마르코의 타입스크립트 미션 결과물",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "jest"
 	},
 	"keywords": [],
 	"author": "",
@@ -16,5 +16,10 @@
 		"ts-jest": "^29.0.1",
 		"tsd": "^0.24.1",
 		"typescript": "^4.8.3"
+	},
+	"types": "dist/index.d.ts",
+	"typings": "dist/index.d.ts",
+	"tsd": {
+		"directory": "__tests__"
 	}
 }
