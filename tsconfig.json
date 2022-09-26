@@ -1,5 +1,13 @@
 {
 	"compilerOptions": {
-		"esModuleInterop": true
-	}
+		"strict": true,
+		"module": "ES2015",
+		"moduleResolution": "node", // 타입스크립트의 모듈 해석 전략
+		"esModuleInterop": true, // ES 모듈 사양을 준수하며 CommonJS 모듈을 가져올 수 있게 한다.
+		"target": "ES6", // TSC가 코드를 컴파일해서 나오는 자바스크립트 버전(output)
+		"outDir": "dist", // 컴파일된 파일이 있을 디렉터리
+		"declaration": true // 컴파일 시 d.ts 파일을 출력
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
 }
