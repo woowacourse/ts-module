@@ -21,7 +21,9 @@ namespace _ {
     return value === null || value === undefined;
   }
 
-  export function isNumber() {}
+  export function isNumber(value?: unknown): Boolean {
+    return typeof value === 'number' || Object.prototype.toString.call(value) === '[object Number]';
+  }
 
   export function isFunction() {}
 

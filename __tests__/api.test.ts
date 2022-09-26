@@ -48,3 +48,8 @@ test('isNil 동작 확인', () => {
   expect(_.isNil(1)).toBeFalsy();
   expect(_.isNil()).toBeTruthy();
 });
+
+test('isNumber 동작 확인', () => {
+  expect(_.isNumber('1')).toBeFalsy();
+  expect(_.isNumber(1)).toBeTruthy();
+});

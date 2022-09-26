@@ -18,3 +18,7 @@ test('isNull type check', () => {
 test('isNill type check', () => {
   expectType<Boolean>(_.isNil());
 });
+
+test('isNumber type check', () => {
+  expectType<Boolean>(_.isNumber());
+});
