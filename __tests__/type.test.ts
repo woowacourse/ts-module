@@ -1,10 +1,6 @@
-/**
- * @jest-environment jsdom
- */
-import { expectType } from 'tsd';
+import { expectType } from "tsd";
+import _ from "../src";
 
-import _ from '../src';
-
-_('.button').addEvent('click', function (event) {
-	expectType<MouseEvent>(event);
+_(".button").addEvent("click", function (event) {
+  expectType<MouseEvent>(event);
 });
