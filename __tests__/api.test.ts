@@ -29,7 +29,7 @@ test("Selector 동작 확인", () => {
 	divElement.removeChild(buttonElement);
 });
 
-test('`_("").innerHTML()`~~~~', () => {
+test('`_("").innerHTML()` 동작 확인', () => {
 	const divElement = document.createElement("div");
 	divElement.id = "target-div";
 	document.body.appendChild(divElement);
@@ -44,17 +44,23 @@ test('`_("").innerHTML()`~~~~', () => {
 	myElement.element!.removeChild(buttonElement);
 });
 
-test('`_("").show()`~~~~', () => {});
+test('`_("").show()` 동작 확인', () => {});
 
-test('`_("").hidden()`~~~~', () => {});
+test('`_("").hidden()` 동작 확인', () => {});
 
-test('`_("").addEvent()`~~~~', () => {});
+test('`_("").addEvent()` 동작 확인', () => {});
 
-test("pick", () => {
+test("_.pick() 동작 확인", () => {
 	expect(_.pick({ a: 1, b: 2, c: 3 }, ["a", "c"])).toStrictEqual({
 		a: 1,
 		c: 3,
 	});
 });
 
-//  omit, memoize, debounce, throttle,  debounce, clickOutside...
+test("_.omit() 동작 확인", () => {
+	expect(_.omit({ a: 1, b: 2, c: 3 }, ["a", "c"])).toStrictEqual({
+		b: 2,
+	});
+});
+
+//   memoize, debounce, throttle,  debounce, clickOutside...

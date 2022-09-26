@@ -114,9 +114,16 @@ module _ {
 	};
 
 	/**
+	 * 객체에서 추출된 속성으로 구성된 객체를 만든다
 	 *
+	 * @param {*} object 추출할 대상 객체
+	 * @param {*} targetList 추출하려는 리스트
+	 * @returns {*} 새 객체를 반환한다
 	 *
-	 * @param {*} value 체크할 값
+	 * const object = {'a': 1, 'b': 2, 'c': 3}
+	 *
+	 * pick(object, ['a','c'])
+	 * // => {'a':1, 'c':3}
 	 */
 	type pick = <T extends object, U extends keyof T>(
 		object: T,
@@ -143,12 +150,35 @@ module _ {
 		return pickedObject;
 	};
 
+	type ObjectType<T extends string | number | symbol> = {
+		[key in T]: T;
+	};
 	/**
-	 *
+	 * 생략할 리스트를 전달한 후 객체에서 생략되지 않은 속성들로 구성된 객체를 반환한다.
 	 *
 	 * @param {*} value 체크할 값
 	 */
-	export function omit() {}
+	type omit = <T extends object, K extends keyof T>(
+		object: T,
+		targetList: Array<K>
+	) => Omit<T, K> | {};
+	export const omit: omit = (object, targetList) => {
+		if (!targetList.length) return object;
+		if (object === null) {
+			return {};
+		}
+		const omittedObject: ObjectType<string> = Object.assign({}, object);
+
+		Object.keys(object).forEach(key => {
+			targetList.forEach(target => {
+				if (target === key) {
+					delete omittedObject[key];
+				}
+			});
+		});
+
+		return omittedObject;
+	};
 
 	/**
 	 *

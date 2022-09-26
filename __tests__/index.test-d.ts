@@ -15,10 +15,17 @@ expectType<Pick<{ a: number; b: number; c: number }, "a" | "c"> | {}>(
 );
 
 expectType<(value: any) => value is null>(_.isNull);
+
 type pick = <T extends object, U extends keyof T>(
 	object: T,
 	targetList: Array<U>
 ) => Pick<T, U> | {};
 expectType<pick>(_.pick);
+
+type omit = <T extends object, K extends keyof T>(
+	object: T,
+	targetList: Array<K>
+) => Omit<T, K> | {};
+expectType<omit>(_.omit);
 // 모든 타입 테스트
 // omit, memoize, debounce, throttle,  debounce, clickOutside...

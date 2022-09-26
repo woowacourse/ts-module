@@ -114,13 +114,22 @@ function _(selector) {
         });
         return pickedObject;
     };
-    /**
-     *
-     *
-     * @param {*} value 체크할 값
-     */
-    function omit() { }
-    _.omit = omit;
+    _.omit = (object, targetList) => {
+        if (!targetList.length)
+            return object;
+        if (object === null) {
+            return {};
+        }
+        const omittedObject = Object.assign({}, object);
+        Object.keys(object).forEach(key => {
+            targetList.forEach(target => {
+                if (target === key) {
+                    delete omittedObject[key];
+                }
+            });
+        });
+        return omittedObject;
+    };
     /**
      *
      *
