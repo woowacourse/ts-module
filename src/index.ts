@@ -1,17 +1,12 @@
 function _(selector: string): any {
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
+  // innerHTML() {
+  // };
+  // show() {
+  // };
+  // hidden() {
+  // };
+  // addEvent() {
+  // };
 }
 
 declare module _ {
