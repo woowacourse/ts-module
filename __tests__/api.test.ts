@@ -113,7 +113,7 @@ describe('isNil 구현 테스트', () => {
   });
 });
 
-describe.only('isNumber 구현 테스트', () => {
+describe('isNumber 구현 테스트', () => {
   test('number 타입을 전달하면 true가 반환된다.', () => {
     const value = 123;
 

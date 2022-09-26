@@ -46,7 +46,7 @@ describe('isNil 타입 테스트', () => {
   });
 });
 
-describe.only('isNumber 타입 테스트', () => {
+describe('isNumber 타입 테스트', () => {
   test('value를 전달하면 boolean 타입을 반환한다.', () => {
     const value = 123;
 

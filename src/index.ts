@@ -39,12 +39,18 @@ module _ {
   /**
    * 전달한 value가 null 또는 undefined 타입인지 확인하는 함수
    *
-   * @param value - Value은 null 또는 undefined 타입인지 확인하려는 값이다.
-   * @returns value가 null 또는 undefined이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
+   * @param value - Value는 null 또는 undefined 타입인지 확인하려는 값이다.
+   * @returns Value가 null 또는 undefined 타입이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
    */
   export const isNil: IsNil = (value) => typeof value === 'undefined' || value === null;
 
-  export function isNumber() {}
+  /**
+   * 전달한 value가 number 타입인지 확인하는 함수
+   *
+   * @param value - Value는 number 타입인지 확인하려는 값이다.
+   * @returns Value가 number 타입이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
+   */
+  export const isNumber: IsNumber = (value) => typeof value === 'number';
 
   export function isFunction() {}
 
