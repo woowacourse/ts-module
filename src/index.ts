@@ -16,11 +16,17 @@ function _(selector: string): HTMLElement {
   const element = document.querySelector<HTMLElement>(selector);
   if (_.isNull(element)) throw new Error("요소가 없습니다!");
 
-  const addEvent = (): void => {
-    element.addEventListener;
+  const show = () => {};
+
+  const addEvent = <T extends keyof HTMLElementEventMap>(
+    type: T,
+    listener: (event: HTMLElementEventMap[T]) => void
+  ): void => {
+    element.addEventListener(type, listener);
   };
 
   element.addEvent = addEvent;
+  element.show = show;
 
   return element;
 }
