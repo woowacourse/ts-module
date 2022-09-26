@@ -15,6 +15,8 @@ _(".button").addEvent("click", function (event) {
 
 expectType<void>(_(".button").show());
 
+expectType<void>(_(".button").hide());
+
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>("aaaaaa", {
     method: "GET",
