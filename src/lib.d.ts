@@ -4,7 +4,7 @@
  *
  * - addEvent
  */
-export interface CustomElement extends HTMLElement {
+interface CustomElement extends HTMLElement {
   /**
    * Target element에 listener로 전달한 함수를 type 이벤트로 추가한다.
    *
@@ -16,3 +16,5 @@ export interface CustomElement extends HTMLElement {
     listener: (event?: HTMLElementEventMap[T]) => void,
   ) => void;
 }
+
+type IsNil = (value: unknown) => boolean;

@@ -1,5 +1,3 @@
-import type { CustomElement } from './type';
-
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
  *
@@ -38,7 +36,13 @@ module _ {
 
   export function isNull() {}
 
-  export function isNil() {}
+  /**
+   * 전달한 value가 null 또는 undefined 타입인지 확인하는 함수
+   *
+   * @param value - Value은 null 또는 undefined 타입인지 확인하려는 값이다.
+   * @returns value가 null 또는 undefined이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
+   */
+  export const isNil: IsNil = (value) => typeof value === 'undefined' || value === null;
 
   export function isNumber() {}
 
