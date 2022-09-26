@@ -71,7 +71,7 @@ module _ {
   /**
    *  `value`가 `Function` 객체로 분류되는지 체크한다.
    */
-  export function isFunction(value: any): value is (...args: any[]) => any {
+  export function isFunction(value: any): value is DefinitelyFunction {
     return typeof value === "function";
   }
 
@@ -98,10 +98,10 @@ module _ {
   /**
    * 선택한 'object' 속성만으로 구성된 객체를 만든다.
    */
-  export function pick<
-    T extends Record<string, unknown>,
-    K extends (keyof T)[]
-  >(object: T, path: K): PickResult<T, K> {
+  export function pick<T extends DefinitelyObject, K extends (keyof T)[]>(
+    object: T,
+    path: K
+  ): PickResult<T, K> {
     let newObj = { ...object };
     Object.keys(object).forEach((key) => {
       if (path.indexOf(key) === -1) {
@@ -114,10 +114,10 @@ module _ {
   /**
    * 선택한 'object' 속성이 제외되어 구성된 객체를 만든다.
    */
-  export function omit<
-    T extends Record<string, unknown>,
-    K extends (keyof T)[]
-  >(object: T, path: K): OmitResult<T, K> {
+  export function omit<T extends DefinitelyObject, K extends (keyof T)[]>(
+    object: T,
+    path: K
+  ): OmitResult<T, K> {
     let newObj = { ...object };
     path.forEach((key) => {
       delete newObj[key];
@@ -129,9 +129,9 @@ module _ {
    * 'func'의 결과를 메모하는 함수를 만든다.
    */
   export function memoize(
-    func: (args: any) => any,
-    resolver: (args: any) => any
-  ): (args: any) => any {
+    func: DefinitelyFunction,
+    resolver: DefinitelyFunction
+  ): DefinitelyFunction {
     const memoized = function (this: any, args: any) {
       const key = resolver ? resolver.apply(this, args) : args[0];
       const cache = memoized.cache;
@@ -150,7 +150,7 @@ module _ {
   /**
    * 'func' 호출을 'wait' 이후까지 지연시키는 디바운스 함수를 만든다.
    */
-  export function debounce<T extends Function>(
+  export function debounce<T extends DefinitelyFunction>(
     func: T,
     wait: number,
     options: DebounceThrottleOptions
@@ -162,10 +162,10 @@ module _ {
    * "wait" 밀리초마다 최대 한 번(또는 브라우저 프레임당 한 번) 'func'를 호출하는 쓰로틀 함수를 만든다.
    */
   export function throttle(
-    func: Function,
+    func: DefinitelyFunction,
     wait: number,
     options: DebounceThrottleOptions
-  ): Function {
+  ): DefinitelyFunction {
     return func;
   }
 
@@ -178,6 +178,10 @@ module _ {
   ): boolean {
     return !innerElement.contains(eventTarget);
   }
+
+  type DefinitelyFunction<T = any, K = any> = (...args: T[]) => K;
+
+  type DefinitelyObject<T = any> = Record<string, T>;
 
   type PickResult<T extends Record<string, any>, K extends (keyof T)[]> = {
     [P in K[number]]: T[P];
