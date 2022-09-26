@@ -105,7 +105,7 @@ module _ {
     wait: number,
     options?: DebounceOptions
   ): (...args: T) => void {
-    let timer: number | undefined;
+    let timer: undefined | ReturnType<typeof setTimeout>;
     return function (...args) {
       let callNow = options?.leading && !timer;
 
@@ -129,7 +129,7 @@ module _ {
     func: (...args: T) => void,
     wait: number
   ): (...args: T) => void {
-    let timer: number | undefined;
+    let timer: undefined | ReturnType<typeof setTimeout>;
 
     return (...args) => {
       if (!timer) {
@@ -142,9 +142,20 @@ module _ {
   }
 
   export function clickOutside(
-    target: Node,
+    target: HTMLElement,
     func: (...args: unknown[]) => void
-  ): void;
+  ): void {
+    window.addEventListener("click", (e, ...args) => {
+      if (!(e.target instanceof HTMLElement)) {
+        return;
+      }
+      if (target.isSameNode(e.target)) {
+        return;
+      }
+
+      func.apply(null, args);
+    });
+  }
 
   type FetchBodyType =
     | string
