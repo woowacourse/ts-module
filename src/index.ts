@@ -124,7 +124,7 @@ module _ {
     object: T,
     path: K
   ): PickResult<T, K> {
-    let newObj = { ...object };
+    const newObj = { ...object };
     Object.keys(object).forEach((key) => {
       if (path.indexOf(key) === -1) {
         delete newObj[key];
@@ -140,7 +140,7 @@ module _ {
     object: T,
     path: K
   ): OmitResult<T, K> {
-    let newObj = { ...object };
+    const newObj = { ...object };
     path.forEach((key) => {
       delete newObj[key];
     });
