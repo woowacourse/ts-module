@@ -14,3 +14,7 @@ expectType<Promise<{ name: string }>>(
     method: 'GET',
   }).then((res) => res.json())
 );
+
+expectType<true>(_.isNull<null>(null));
+expectType<false>(_.isNull<2>(2));
+expectType<false>(_.isNull<0>(0));
