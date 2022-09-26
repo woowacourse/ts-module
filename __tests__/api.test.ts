@@ -1,39 +1,39 @@
 /**
  * @jest-environment jsdom
  */
-import _ from '../src';
+import wtil from "../src";
 
-test('모듈은 기본 내보내기', () => {
-	expect(_).toBeTruthy();
+test("모듈은 기본 내보내기", () => {
+  expect(wtil).toBeTruthy();
 });
 
-test('모듈에 포함된 함수 확인', () => {
-	expect(typeof _.fetch).toBe('function');
+test("모듈에 포함된 함수 확인", () => {
+  expect(typeof wtil.fetch).toBe("function");
 });
 
-test('모듈에 포함된 함수 확인', () => {
-	expect(typeof _.pick).toBe('function');
+test("모듈에 포함된 함수 확인", () => {
+  expect(typeof wtil.pick).toBe("function");
 });
 
-test('모듈에 포함된 함수 확인', () => {
-	expect(typeof _.omit).toBe('function');
+test("모듈에 포함된 함수 확인", () => {
+  expect(typeof wtil.omit).toBe("function");
 });
 
-test('Selector 동작 확인', () => {
-	const divElement = document.createElement('div');
-	divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
-	document.body.appendChild(divElement);
+test("Selector 동작 확인", () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
 
-	const buttonElement = _('button.test-btn');
-	expect(buttonElement).toBeTruthy();
+  const $button = wtil("button.test-btn");
+  expect($button).toBeTruthy();
 
-	document.body.removeChild(buttonElement);
+  document.body.removeChild($button[0]);
 });
 
-test('`_("").innerHTML()`~~~~', () => {});
+test('`wtil("").innerHTML()`~~~~', () => {});
 
-test('`_("").show()`~~~~', () => {});
+test('`wtil("").show()`~~~~', () => {});
 
-test('`_("").hidden()`~~~~', () => {});
+test('`wtil("").hidden()`~~~~', () => {});
 
-test('`_("").addEvent()`~~~~', () => {});
+test('`wtil("").addEvent()`~~~~', () => {});
