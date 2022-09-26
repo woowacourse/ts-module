@@ -1,45 +1,80 @@
-function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
+declare global {
+  interface HTMLElement extends CustomElementProperty {}
 }
 
-module _ {
-	export function fetch() {
-		return {};
-	}
+interface CustomElementProperty {
+  innerHTML: string;
+  hide: () => void;
+  show: () => void;
+  addEvent: <K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (this: HTMLElement, event: HTMLElementEventMap[K]) => any
+  ) => void;
+}
 
-	export function isNull() {}
+type PickResult<T extends Record<string, unknown>, K extends (keyof T)[]> = {
+  [P in K[number]]: T[P];
+};
 
-	export function isNil() {}
+type OmitResult<T extends Record<string, unknown>, K extends (keyof T)[]> = {
+  [P in Exclude<keyof T, K>]: T[P];
+};
 
-	export function isNumber() {}
+type Function<T = unknown, R = unknown> = (...args: T[]) => R;
 
-	export function isFunction() {}
+type FetchResource = string | URL | Request;
 
-	export function shuffle() {}
+type FetchOptions = {
+  method?: "GET" | "POST" | "PUT" | "DELETE";
+  headers?: Headers;
+  body?:
+    | string
+    | Blob
+    | ArrayBuffer
+    | DataView
+    | FormData
+    | URLSearchParams
+    | ReadableStream;
+};
 
-	export function pick() {}
+declare function _(selector: string): HTMLElement;
 
-	export function omit() {}
+declare module _ {
+  export function fetch(
+    resource: FetchResource,
+    options?: FetchOptions
+  ): Promise<Response>;
 
-	export function memoize() {}
+  export function isNull(value: unknown): boolean;
 
-	export function debounce() {}
+  export function isNil(value: unknown): boolean;
 
-	export function throttle() {}
+  export function isNumber(value: unknown): boolean;
 
-	export function clickOutside() {}
+  export function isFunction(value: unknown): boolean;
+
+  export function shuffle<T>(array: T[]): T[];
+
+  export function pick<
+    T extends Record<string, unknown>,
+    K extends (keyof T)[]
+  >(object: T, paths: K): PickResult<T, K>;
+
+  export function omit<
+    T extends Record<string, unknown>,
+    K extends (keyof T)[]
+  >(object: T, paths: K): OmitResult<T, K>;
+
+  export function memoize(func: Function, resolver?: Function): Function;
+
+  export function debounce(func: Function, wait: number): Function;
+
+  export function throttle(func: Function, wait: number): Function;
+
+  export function clickOutside(
+    target: Element,
+    handler: (event: MouseEvent) => any
+  ): void;
 }
 
 export default _;
