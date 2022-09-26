@@ -1,3 +1,6 @@
 {
-  "include": ["src"]
+  "compilerOptions": {
+    "strict": true
+  },
+  "include": ["src", "index.d.ts"]
 }
