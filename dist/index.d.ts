@@ -4,7 +4,7 @@ declare global {
 }
 interface ElementProperty {
     html: any;
-    show: any;
+    show: () => void;
     hide: any;
     addEvent: <T extends keyof HTMLElementEventMap>(type: T, listener: (event: HTMLElementEventMap[T]) => void) => void;
 }

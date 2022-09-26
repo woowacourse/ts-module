@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "jest -verbose",
     "build": "tsc",
     "publish": "npm publish --access=public",
     "patch": "npm version patch"

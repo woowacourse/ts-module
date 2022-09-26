@@ -5,7 +5,7 @@ function _(selector) {
     if (_.isNull(element))
         throw new Error("요소가 없습니다!");
     const addEvent = () => {
-        element === null || element === void 0 ? void 0 : element.addEventListener;
+        element.addEventListener;
     };
     element.addEvent = addEvent;
     return element;

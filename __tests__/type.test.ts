@@ -13,6 +13,8 @@ _(".button").addEvent("click", function (event) {
   expectType<MouseEvent>(event);
 });
 
+expectType<void>(_(".button").show());
+
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>("aaaaaa", {
     method: "GET",
