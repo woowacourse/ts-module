@@ -13,15 +13,15 @@ declare global {
   }
 }
 
-declare module _ {
+module _ {
   export function fetch<Data>(
     url: Url,
     options?: FetchOptions
-  ): Promise<Response<Data>>;
+  ): Promise<Response<Data>> {}
 
-  export function isNull<T extends unknown>(
-    value: T
-  ): T extends null ? true : false;
+  export function isNull<T extends unknown>(value: T): boolean {
+    return value === null;
+  }
 
   export function isNil<T extends unknown>(
     value: T

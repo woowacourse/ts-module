@@ -11,8 +11,8 @@ expectType<Promise<{ name: string }>>(
   }).then((res) => res.json())
 );
 
-expectType<true>(_.isNull(null));
-expectType<false>(_.isNull("2"));
+expectType<boolean>(_.isNull(null));
+expectType<boolean>(_.isNull("2"));
 
 expectType<true>(_.isNil(undefined));
 expectType<true>(_.isNil(null));
