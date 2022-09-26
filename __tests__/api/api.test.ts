@@ -269,24 +269,24 @@ describe('isFunction 구현 테스트', () => {
   });
 });
 
-describe('shuffle 구현 테스트', () => {
-  test('숫자 타입의 배열을 collection으로 전달하면, 무작위 순서로 요소가 섞인 숫자 타입의 배열이 반환된다.', () => {
+describe.only('shuffle 구현 테스트', () => {
+  test('숫자 타입 배열을 collection으로 전달하면, 무작위 순서로 요소가 섞인 배열이 반환된다.', () => {
     const collection = [5, 3, 2, 1, 4];
 
     const result = _.shuffle(collection);
 
-    expect(result.every((element) => element in collection)).toEqual(true);
+    expect(result.every((element) => collection.includes(element))).toEqual(true);
   });
 
-  test('문자 타입의 배열을 collection으로 전달하면, 무작위 순서로 요소가 섞인 문자 타입의 배열이 반환된다.', () => {
-    const collection = ['d', 'b', 'a', 'e', 'c'];
+  test('숫자 또는 문자열 타입 배열을 collection으로 전달하면, 무작위 순서로 요소가 섞인 배열이 반환된다.', () => {
+    const collection = [5, 3, '2', 1, 4];
 
     const result = _.shuffle(collection);
 
-    expect(result.every((element) => element in collection)).toEqual(true);
+    expect(result.every((element) => collection.includes(element))).toEqual(true);
   });
 
-  test('값의 타입이 모두 숫자 타입인 객체를 collection으로 전달하면, 무작위 순서로 객체의 각 값이 섞인 숫자 타입의 배열이 반환된다.', () => {
+  test('객체를 collection으로 전달하면, 무작위 순서로 객체의 각 값이 섞인 배열이 반환된다.', () => {
     const collection = {
       a: 5,
       b: 3,
@@ -294,9 +294,11 @@ describe('shuffle 구현 테스트', () => {
       d: 1,
       e: 4,
     };
+    const collectionValues = Object.values(collection);
 
     const result = _.shuffle(collection);
 
-    expect(result.every((element) => element in collection)).toEqual(true);
+    console.log(result);
+    expect(result.every((element) => collectionValues.includes(element))).toEqual(true);
   });
 });
