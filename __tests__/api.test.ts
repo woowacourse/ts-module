@@ -22,24 +22,39 @@ describe("기본 모듈 테스트", () => {
 });
 
 describe("Selector 및 Element 메서드 테스트", () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+  const buttonElement = _("button.test-btn");
   test("Selector 동작 확인", () => {
-    const divElement = document.createElement("div");
-    divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
-    document.body.appendChild(divElement);
-
-    const buttonElement = _("button.test-btn");
     expect(buttonElement).toBeTruthy();
 
     document.body.childNodes[0].removeChild(buttonElement);
   });
 
-  // test('`_("").innerHTML()`~~~~', () => {});
+  test("html 요소 매서드 동작 확인", () => {
+    expect(buttonElement.html()).toEqual("Continue");
+    buttonElement.html("stop");
+    expect(buttonElement.html()).toEqual("stop");
+  });
 
-  // test('`_("").show()`~~~~', () => {});
+  test("show/hide 매서드 동작 확인", () => {
+    buttonElement.hide();
 
-  // test('`_("").hidden()`~~~~', () => {});
+    expect(buttonElement.style.display).toEqual("hidden");
+    buttonElement.show();
 
-  // test('`_("").addEvent()`~~~~', () => {});
+    expect(buttonElement.style.display).toEqual("block");
+  });
+
+  test("addEvent 매서드 동작 확인", () => {
+    const mockCallback = jest.fn();
+
+    buttonElement.addEvent("click", mockCallback);
+    buttonElement.click();
+
+    expect(mockCallback).toBeCalled();
+  });
 });
 
 describe("모듈 함수 동작 확인", () => {
@@ -170,7 +185,6 @@ describe("모듈 함수 동작 확인", () => {
       throttledPush("b");
     }, 400);
     setTimeout(() => {
-      console.log(1);
       throttledPush("c");
     }, 600);
     setTimeout(() => {

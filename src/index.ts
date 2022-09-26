@@ -1,46 +1,93 @@
+interface CustomElementMethod {
+  addEvent<T extends keyof GlobalEventHandlersEventMap>(
+    eventType: T,
+    handler: (event: GlobalEventHandlersEventMap[T]) => void
+  ): void;
+
+  html(): string;
+  html(content: string): void;
+  html(content?: string): string | void;
+
+  show(): void;
+  show(duration: number, complete: Function): void;
+
+  hide(): void;
+  hide(duration: number, complete: Function): void;
+}
+
+declare global {
+  interface HTMLElement extends CustomElementMethod {}
+}
+
 function _(selector: string) {
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
-  const element = document.querySelector(selector);
-  if (!element) throw new Error("요소 없음");
+  const element: HTMLElement = document.querySelector(selector);
+  if (element === null) throw new Error("요소 없음");
+
+  function html(): string;
+  function html(content: string): void;
+  function html(content?: string): string | void {
+    if (content) {
+      element.innerHTML = content;
+      return;
+    }
+
+    return element.innerHTML;
+  }
+
+  const show = () => {
+    element.style.display = "block";
+  };
+
+  const hide = () => {
+    element.style.display = "hidden";
+  };
+
+  const addEvent = <T extends keyof GlobalEventHandlersEventMap>(
+    eventType: T,
+    handler: (event: GlobalEventHandlersEventMap[T]) => void
+  ): void => {
+    element.addEventListener(eventType, handler);
+  };
+
+  element.html = html;
+  element.show = show;
+  element.hide = hide;
+  element.addEvent = addEvent;
 
   return element;
 }
 
 module _ {
+  export function fetch(request: Request | string): Promise<Response>;
   export function fetch() {
     return {};
   }
 
+  export function isNull<T>(input: T): T extends null ? true : false;
   export function isNull(input: unknown): input is null {
     return input === null;
   }
 
+  export function isNil<T>(input: T): T extends null | undefined ? true : false;
   export function isNil(input: unknown): input is null | undefined {
     return input === null || input === undefined;
   }
 
+  export function isNumber<T>(input: T): T extends number ? true : false;
   export function isNumber(input: unknown): input is Number {
     return typeof input === "number";
   }
 
+  export function isFunction<T>(input: T): T extends Function ? true : false;
   export function isFunction(input: unknown): input is Function {
     return typeof input === "function";
   }
 
-  export function shuffle<T>(input: T[] | Record<string, T>) {
-    const result = input instanceof Array ? input : Object.values(input);
+  export function shuffle<T>(collection: T[]): T[];
+  export function shuffle<T>(collection: Record<string, T>): T[];
+  export function shuffle<T>(collection: T[] | Record<string, T>) {
+    const result =
+      collection instanceof Array ? collection : Object.values(collection);
 
     let currIndex = result.length;
     let randomIndex;
@@ -103,7 +150,7 @@ module _ {
     func: (...args: T) => U,
     wait = 0
   ) => {
-    let timer, result: U;
+    let timer: NodeJS.Timeout, result: U;
 
     const debouncedFunction = (...args: T) => {
       if (timer) clearTimeout(timer);
