@@ -16,15 +16,15 @@ function _(selector: string): any {
    */
 }
 
-declare function _(selector: string): Node;
-
 declare module _ {
   export function fetch<Data>(
     url: string,
     options?: FetchOptions
   ): Promise<Response<Data>>;
 
-  // export function isNull() {}
+  export function isNull<T extends unknown>(
+    value: T
+  ): T extends null ? true : false;
 
   // export function isNil() {}
 
