@@ -27,3 +27,5 @@ expectType<true>(_.isNumber(1));
 expectType<false>(_.isNumber('1'));
 
 expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([1, 3, 2, 4]));
+
+expectType<{ a: 1; b: 2 }>(_.pick({ a: 1, b: 2, c: 3 }, 'a', 'b'));
