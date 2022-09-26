@@ -69,7 +69,16 @@ module _ {
   export function omit<
     T extends Record<string, unknown>,
     R extends (keyof T)[]
-  >(obj: T, selectedKeyArray: R): OmitResponse<T, R>;
+  >(obj: T, selectedKeyArray: R): OmitResponse<T, R> {
+    const result = {} as T;
+    for (let key in obj) {
+      if (!selectedKeyArray.includes(key)) {
+        result[key] = obj[key];
+      }
+    }
+
+    return result;
+  }
 
   export function memoize<T extends unknown[], K extends unknown>(
     func: (...args: T) => K,
