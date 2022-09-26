@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/**/*"]
+}
