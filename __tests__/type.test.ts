@@ -21,8 +21,8 @@ expectType<boolean>(_.isNil("2"));
 expectType<boolean>(_.isNumber(1));
 expectType<boolean>(_.isNumber("2"));
 
-expectType<true>(_.isFunction(() => {}));
-expectType<false>(_.isFunction("2"));
+expectType<boolean>(_.isFunction(() => {}));
+expectType<boolean>(_.isFunction("2"));
 
 expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([4, 2, 3, 1]));
 

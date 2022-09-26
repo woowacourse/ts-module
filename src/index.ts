@@ -31,9 +31,9 @@ module _ {
     return typeof value === "number";
   }
 
-  export function isFunction<T extends unknown>(
-    value: T
-  ): T extends Function ? true : false;
+  export function isFunction<T extends unknown>(value: T): boolean {
+    return typeof value === "function";
+  }
 
   export function shuffle<T extends unknown>(arr: T[]): T[];
 
