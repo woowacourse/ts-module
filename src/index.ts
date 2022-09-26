@@ -30,7 +30,9 @@ declare module _ {
     value: T
   ): T extends null | undefined ? true : false;
 
-  // export function isNumber() {}
+  export function isNumber<T extends unknown>(
+    value: T
+  ): T extends number ? true : false;
 
   // export function isFunction() {}
 
