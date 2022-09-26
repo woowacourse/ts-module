@@ -31,3 +31,13 @@ test('shuffle 동작 확인', () => {
   const array = [1, 2, 3];
   expectType<number[]>(_.shuffle(array));
 });
+
+test('pick type check', () => {
+  const object = {
+    a: 1,
+    b: 2,
+    c: 3,
+  };
+
+  expectType<Record<string, unknown>>(object);
+});

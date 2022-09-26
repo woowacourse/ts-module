@@ -46,7 +46,13 @@ namespace _ {
     return result;
   }
 
-  export function pick() {}
+  export function pick(object: Record<string, unknown>, paths: string[]) {
+    if (isNil(object)) {
+      return {};
+    }
+
+    return Object.fromEntries(Object.entries(object).filter((el) => paths.includes(el[0])));
+  }
 
   export function omit() {}
 

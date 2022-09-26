@@ -62,7 +62,21 @@ test('isFunction 동작 확인', () => {
 test('shuffle 동작 확인', () => {
   const array = [1, 2, 3];
 
-  expect(_.shuffle(array)).not.toEqual(array);
   expect(_.shuffle(array).length === array.length).toBeTruthy();
   expect(_.shuffle(array).every((el) => array.includes(el))).toBeTruthy();
+});
+
+test('pick 동작 확인', () => {
+  const object = {
+    a: 1,
+    b: 2,
+    c: 3,
+  };
+
+  const expectObject = {
+    a: 1,
+    c: 3,
+  };
+
+  expect(_.pick(object, ['a', 'c'])).toEqual(expectObject);
 });
