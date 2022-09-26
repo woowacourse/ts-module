@@ -16,7 +16,9 @@ function _(selector: string): HTMLElement {
   const element = document.querySelector<HTMLElement>(selector);
   if (_.isNull(element)) throw new Error("요소가 없습니다!");
 
-  const show = () => {};
+  const show = () => {
+    element.style.display = "block";
+  };
 
   const addEvent = <T extends keyof HTMLElementEventMap>(
     type: T,
