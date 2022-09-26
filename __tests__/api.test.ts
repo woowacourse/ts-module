@@ -63,7 +63,7 @@ describe('`_("").addEvent()` 동작확인', () => {
   });
 });
 
-describe('isNil 타입 테스트', () => {
+describe('isNil 구현 테스트', () => {
   test('null을 전달하면 true가 반환된다.', () => {
     const value = null;
 
@@ -110,5 +110,55 @@ describe('isNil 타입 테스트', () => {
     const value = {};
 
     expect(_.isNil(value)).toEqual(false);
+  });
+});
+
+describe.only('isNumber 구현 테스트', () => {
+  test('number 타입을 전달하면 true가 반환된다.', () => {
+    const value = 123;
+
+    expect(_.isNumber(value)).toEqual(true);
+  });
+
+  test('null을 전달하면 false가 반환된다.', () => {
+    const value = null;
+
+    expect(_.isNumber(value)).toEqual(false);
+  });
+
+  test('undefined를 전달하면 false가 반환된다.', () => {
+    const value = undefined;
+
+    expect(_.isNumber(value)).toEqual(false);
+  });
+
+  test('string 타입을 전달하면 false가 반환된다.', () => {
+    const value = 'test';
+
+    expect(_.isNumber(value)).toEqual(false);
+  });
+
+  test('boolean 타입을 전달하면 false가 반환된다.', () => {
+    const value = true;
+
+    expect(_.isNumber(value)).toEqual(false);
+  });
+
+  test('symbol 타입을 전달하면 false가 반환된다.', () => {
+    const value = Symbol('test');
+
+    expect(_.isNumber(value)).toEqual(false);
+  });
+
+  test('bigInt 타입을 전달하면 false가 반환된다.', () => {
+    const value = BigInt(9007199254740991);
+
+    expect(_.isNumber(value)).toEqual(false);
+  });
+
+  test('객체를 전달하면 false가 반환된다.', () => {
+    const value = {};
+
+    expect(_.isNumber(value)).toEqual(false);
   });
 });

@@ -39,9 +39,17 @@ describe('_(selector).addEvent 타입 테스트', () => {
 });
 
 describe('isNil 타입 테스트', () => {
-  test('value를 전달하면 boolean 타입이 반환된다.', () => {
+  test('value를 전달하면 boolean 타입이 반환한다.', () => {
     const value = null;
 
     expectType<boolean>(_.isNil(value));
+  });
+});
+
+describe.only('isNumber 타입 테스트', () => {
+  test('value를 전달하면 boolean 타입을 반환한다.', () => {
+    const value = 123;
+
+    expectType<boolean>(_.isNumber(value));
   });
 });
