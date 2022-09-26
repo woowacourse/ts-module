@@ -27,7 +27,7 @@ test('Selector 동작 확인', () => {
   const buttonElement = _('button.test-btn');
   expect(buttonElement).toBeTruthy();
 
-  document.body.removeChild(buttonElement);
+  document.body.removeChild(divElement);
 });
 
 test('`_("").innerHTML()`~~~~', () => {});
@@ -36,4 +36,29 @@ test('`_("").show()`~~~~', () => {});
 
 test('`_("").hidden()`~~~~', () => {});
 
-test('`_("").addEvent()`~~~~', () => {});
+describe('`_("").addEvent()` 동작확인', () => {
+  const divElement = document.createElement('div');
+
+  beforeEach(() => {
+    divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+    document.body.appendChild(divElement);
+  });
+
+  test('test-btn 엘리먼트에 click 이벤트를 추가하고, click 이벤트를 호출할 수 있다.', () => {
+    let testValue = 1;
+    const EXPECTED_VALUE = 2;
+
+    const buttonElement = _('.test-btn');
+    buttonElement.addEvent('click', () => {
+      testValue += 1;
+    });
+
+    buttonElement.click();
+
+    expect(testValue).toEqual(EXPECTED_VALUE);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(divElement);
+  });
+});
