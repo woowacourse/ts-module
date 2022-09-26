@@ -1,5 +1,12 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "./lib",
+    "skipLibCheck": true,
+    "emitDeclarationOnly": true
+  },
+  "include": ["src/index.ts"],
+  "exclude": ["node_modules"]
 }

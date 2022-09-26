@@ -1,45 +1,31 @@
-function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
-}
+declare function _(selector: string): any;
 
-module _ {
-	export function fetch() {
-		return {};
-	}
+declare module _ {
+  export function fetch(): void;
 
-	export function isNull() {}
+  export function isNull(value: unknown): boolean;
 
-	export function isNil() {}
+  export function isNil(): void;
 
-	export function isNumber() {}
+  export function isNumber(): void;
 
-	export function isFunction() {}
+  export function isFunction(): void;
 
-	export function shuffle() {}
+  export function shuffle(): void;
 
-	export function pick() {}
+  export function pick(): void;
 
-	export function omit() {}
+  export function omit(): void;
 
-	export function memoize() {}
+  export function memoize(): void;
 
-	export function debounce() {}
+  export function debounce(): void;
 
-	export function throttle() {}
+  export function throttle(): void;
 
-	export function clickOutside() {}
+  export function clickOutside(): void;
+
+  export function test(): void;
 }
 
 export default _;
