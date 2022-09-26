@@ -40,3 +40,9 @@ expectType<(a: number, b: number) => void>(
     console.log(a, b);
   }, 500)
 );
+
+expectType<(a: number, b: number) => void>(
+  _.throttle((a: number, b: number) => {
+    console.log(a, b);
+  }, 500)
+);

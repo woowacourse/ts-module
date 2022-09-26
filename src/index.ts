@@ -145,7 +145,13 @@ module _ {
     return func;
   }
 
-  export function throttle() {}
+  export function throttle<T extends unknown[]>(
+    func: (...args: T) => void,
+    wait: number,
+    options?: DebounceOption
+  ): (...args: T) => void {
+    return func;
+  }
 
   export function clickOutside() {}
 }
