@@ -3,9 +3,9 @@ import { NumberRange, CreateArray } from "./util";
 declare function _(selector: string): Node;
 declare global {
   interface Node {
-    addEvent<T extends HTMLElementEventMap, K extends keyof T>(
-      eventType: K,
-      callback: (event: T[K]) => void
+    addEvent(
+      eventType: keyof HTMLElementEventMap,
+      callback: (event: HTMLElementEventMap[keyof HTMLElementEventMap]) => void
     ): void;
     setInnerHTML(value: string): void;
     setShow(): void;
@@ -13,11 +13,45 @@ declare global {
   }
 }
 
+HTMLElement.prototype.addEvent = function (
+  eventType: keyof HTMLElementEventMap,
+  callback: (event: HTMLElementEventMap[keyof HTMLElementEventMap]) => void
+) {
+  this.addEventListener(eventType, callback);
+};
+
+HTMLElement.prototype.setInnerHTML = function (value: string) {
+  this.innerHTML = value;
+};
+
+HTMLElement.prototype.setShow = function () {
+  this.style.display = "block";
+};
+
+HTMLElement.prototype.setHidden = function () {
+  this.style.display = "none";
+};
+
 module _ {
   export function fetch<Data>(
     url: Url,
     options?: FetchOptions
-  ): Promise<Response<Data>> {}
+  ): Promise<Response<Data>> {
+    return new Promise((resolve, reject) => {
+      const response: Response<Data> = {
+        status: 200, // 200 ~ 600이하의 status code가 들어올수 있도록 하는 타입
+        ok: true,
+        statusText: "example code",
+        json: () => {
+          return new Promise((resolve, reject) => {
+            resolve("아무튼 데이터임..!" as Data);
+          });
+        },
+      };
+
+      resolve(response);
+    });
+  }
 
   export function isNull<T extends unknown>(value: T): boolean {
     return value === null;
@@ -179,8 +213,8 @@ module _ {
     status: NumberRange<CreateArray<200>, 600>; // 200 ~ 600이하의 status code가 들어올수 있도록 하는 타입
     ok: boolean;
     statusText: string;
-    url: string;
-    headers: Record<string, string>;
+    url?: string;
+    headers?: Record<string, string>;
     json: () => Promise<Data>;
   };
 
