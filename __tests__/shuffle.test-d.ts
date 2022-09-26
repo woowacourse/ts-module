@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { expectType } from 'tsd';
 import _ from './../index';
 
