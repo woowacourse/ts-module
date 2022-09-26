@@ -13,11 +13,15 @@ interface ElementProperty {
 }
 
 function _(selector: string): HTMLElement {
-  const element = document.querySelector<HTMLElement>(selector);
+  const element = document.body.querySelector<HTMLElement>(selector);
   if (_.isNull(element)) throw new Error("요소가 없습니다!");
 
   const show = () => {
     element.style.display = "block";
+  };
+
+  const hide = () => {
+    element.style.display = "none";
   };
 
   const addEvent = <T extends keyof HTMLElementEventMap>(
@@ -29,6 +33,7 @@ function _(selector: string): HTMLElement {
 
   element.addEvent = addEvent;
   element.show = show;
+  element.hide = hide;
 
   return element;
 }
