@@ -40,7 +40,10 @@ declare module _ {
 
   export function shuffle<T extends unknown>(value: T[]): T[];
 
-  // export function pick() {}
+  export function pick<T extends Record<string, unknown>, R extends keyof T>(
+    obj: T,
+    ...keys: R[]
+  ): { [K in R]: T[K] };
 
   // export function omit() {}
 
