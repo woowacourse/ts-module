@@ -1,6 +1,6 @@
 {
   "name": "@prefer2/ts-module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ts module by dory",
   "main": "./src/index.js",
   "files": [
