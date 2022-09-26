@@ -162,3 +162,59 @@ describe('isNumber 구현 테스트', () => {
     expect(_.isNumber(value)).toEqual(false);
   });
 });
+
+describe('isFunction 구현 테스트', () => {
+  test('함수를 전달하면 true가 반환된다.', () => {
+    const value = () => {};
+
+    expect(_.isFunction(value)).toEqual(true);
+  });
+
+  test('null을 전달하면 false가 반환된다.', () => {
+    const value = null;
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+
+  test('undefined를 전달하면 false가 반환된다.', () => {
+    const value = undefined;
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+
+  test('string 타입을 전달하면 false가 반환된다.', () => {
+    const value = 'test';
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+
+  test('number 타입을 전달하면 false가 반환된다.', () => {
+    const value = 123;
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+
+  test('boolean 타입을 전달하면 false가 반환된다.', () => {
+    const value = true;
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+
+  test('symbol 타입을 전달하면 false가 반환된다.', () => {
+    const value = Symbol('test');
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+
+  test('bigInt 타입을 전달하면 false가 반환된다.', () => {
+    const value = BigInt(9007199254740991);
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+
+  test('객체를 전달하면 false가 반환된다.', () => {
+    const value = {};
+
+    expect(_.isFunction(value)).toEqual(false);
+  });
+});
