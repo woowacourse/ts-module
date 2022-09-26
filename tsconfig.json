@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "./dist"
   },
-  "include": ["src/*", "__tests__/*"]
+  "include": ["src/*"]
 }
