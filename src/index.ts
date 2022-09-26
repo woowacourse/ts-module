@@ -15,7 +15,7 @@ declare global {
 
 declare module _ {
   export function fetch<Data>(
-    url: string,
+    url: Url,
     options?: FetchOptions
   ): Promise<Response<Data>>;
 
@@ -76,6 +76,8 @@ declare module _ {
     | ArrayBuffer
     | ArrayBufferView
     | DataView;
+
+  type Url = `http${"s" | ""}://${string}`;
 
   type FetchOptions = {
     method?: "GET" | "POST" | "PUT" | "DELETE";
