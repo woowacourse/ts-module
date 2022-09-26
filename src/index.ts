@@ -44,12 +44,12 @@ module _ {
     return window.fetch(input, init);
   }
 
-  export function isNull(input: unknown): boolean {
+  export function isNull(input: unknown): input is null {
     return input === null;
   }
 
-  export function isNil(input: unknown): boolean {
-    return true;
+  export function isNil(input: unknown): input is null | undefined {
+    return input == null;
   }
 
   export function isNumber() {}
