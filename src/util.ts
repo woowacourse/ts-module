@@ -33,3 +33,9 @@ export type FetchResponse<T> = {
   url: string;
   data: T;
 };
+
+export type DebouncedFunction<T> = (...args: T[]) => {
+  cancle: () => void;
+  pending: () => boolean;
+  flush: () => T;
+};

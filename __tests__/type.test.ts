@@ -1,6 +1,12 @@
 import _ from "../src";
 import { expectType } from "tsd";
-import { FetchOptions, FetchResponse } from "../src/util";
+import {
+  DebouncedFunction,
+  DebounceThrottleOptions,
+  DefinitelyFunction,
+  FetchOptions,
+  FetchResponse,
+} from "../src/util";
 
 test("fetch 함수에 대한 타입을 체크한다.", () => {
   // given
@@ -53,4 +59,17 @@ test("omit 함수에 대한 타입을 체크한다.", () => {
   expectType<(object: testObj, path: testPath) => OmitResultObj>(
     _.omit<testObj, testPath>
   );
+});
+
+test("debounce 함수에 대한 타입을 체크한다.", () => {
+  // given
+  type testFun = DefinitelyFunction<number>;
+
+  expectType<
+    (
+      func: testFun,
+      wait: 100,
+      options: DebounceThrottleOptions
+    ) => DebouncedFunction<testFun>
+  >(_.debounce<testFun>);
 });

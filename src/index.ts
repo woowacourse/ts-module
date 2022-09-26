@@ -7,6 +7,7 @@ import {
   OmitResult,
   PickResult,
   FetchResponse,
+  DebouncedFunction,
 } from "./util";
 import { defaultFetchOptions } from "./constants";
 
@@ -174,8 +175,86 @@ module _ {
     func: T,
     wait: number,
     options?: DebounceThrottleOptions
-  ): T {
-    return func;
+  ): DebouncedFunction<T> {
+    let maxWait: number,
+      result: any,
+      timerId: any,
+      lastCallTime: number,
+      lastInvokeTime: number;
+
+    // 구현 간소화를 위해 사용하지는 않음
+    let leading = false;
+    let trailing = false;
+
+    wait = +wait || 0;
+    if (options) {
+      leading = !!options.leading;
+      trailing = !!options.trailing;
+    }
+
+    function shouldInvoke(time: number) {
+      const timeSinceLastCall = time - lastCallTime;
+      const timeSinceLastInvoke = time - lastInvokeTime;
+      return (
+        lastCallTime === undefined ||
+        timeSinceLastCall >= wait ||
+        timeSinceLastCall < 0 ||
+        timeSinceLastInvoke >= maxWait
+      );
+    }
+
+    function startTimer(pendingFunc: DefinitelyFunction, wait: number) {
+      return setTimeout(pendingFunc, wait);
+    }
+
+    function remainingWait(time: number) {
+      const timeSinceLastCall = time - lastCallTime;
+      const timeWaiting = wait - timeSinceLastCall;
+
+      return timeWaiting;
+    }
+
+    function timerExpired() {
+      const time = Date.now();
+      if (shouldInvoke(time)) {
+        return;
+      }
+      timerId = startTimer(timerExpired, remainingWait(time));
+    }
+
+    function cancelTimer(id: number) {
+      clearTimeout(id);
+    }
+
+    function cancel() {
+      if (timerId !== undefined) {
+        cancelTimer(timerId);
+      }
+      lastInvokeTime = 0;
+    }
+
+    function flush() {
+      return timerId === undefined ? result : null;
+    }
+
+    function pending() {
+      return timerId !== undefined;
+    }
+
+    function debounced(this: any, ...args: T[]) {
+      const time = Date.now();
+      if (shouldInvoke(time)) {
+        timerId = startTimer(timerExpired, wait);
+        lastInvokeTime = time;
+        return func.apply(this, args);
+      }
+      return result;
+    }
+    debounced.cancel = cancel;
+    debounced.flush = flush;
+    debounced.pending = pending;
+
+    return debounced;
   }
 
   /**
