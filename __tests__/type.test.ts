@@ -67,11 +67,11 @@ test("debounce 함수에 대한 타입을 체크한다.", () => {
 
   expectType<
     (
-      func: DefinitelyFunction<number>,
+      func: testFun,
       wait: 100,
       options: DebounceThrottleOptions
     ) => DebouncedFunction<testFun>
-  >(_.debounce<number>);
+  >(_.debounce<testFun>);
 });
 
 test("throttle 함수에 대한 타입을 체크한다.", () => {
@@ -84,5 +84,5 @@ test("throttle 함수에 대한 타입을 체크한다.", () => {
       wait: 100,
       options: DebounceThrottleOptions
     ) => DebouncedFunction<testFun>
-  >(_.throttle<number>);
+  >(_.throttle<testFun>);
 });
