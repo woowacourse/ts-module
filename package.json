@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "typeTest": "npx tsd"
+    "typeTest": "npx tsd",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",
