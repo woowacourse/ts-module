@@ -1,4 +1,21 @@
-function _(selector: string): any {
+import type { CustomElement } from './type';
+
+/**
+ * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
+ *
+ * @param selector - Selector은 document의 자식 요소들 중 selector와 일치하는 요소를 찾을 때 사용된다.
+ * @returns HTMLElement를 확장한 CustomElement 객체 또는 null을 반환한다..
+ */
+function _(selector: string): CustomElement | null {
+  const target = document.querySelector<CustomElement>(selector);
+
+  if (target !== null) {
+    target.addEvent = (type, listener) => {
+      target.addEventListener(type, listener);
+    };
+  }
+
+  return target;
   /**
    * innerHTML() {
    * }
