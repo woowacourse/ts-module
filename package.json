@@ -1,13 +1,24 @@
 {
-  "name": "ts-module",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@prefer2/ts-module",
+  "version": "0.0.1",
+  "description": "ts module by dory",
+  "main": "./src/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "publish": "npm publish --access=public",
+    "patch": "npm version patch"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prefer2/ts-module.git"
+  },
+  "homepage": "https://github.com/prefer2/ts-module",
   "keywords": [],
-  "author": "dory",
+  "author": "prefer2",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.0.3",

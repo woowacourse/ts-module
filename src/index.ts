@@ -24,6 +24,12 @@ declare function _(selector: string): Node;
 // }
 
 module _ {
+  /**
+   *
+   * @param url
+   * @param options
+   * @returns
+   */
   export function fetch<Data>(
     url: string,
     options?: FetchOptions
