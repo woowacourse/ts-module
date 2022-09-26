@@ -1,5 +1,5 @@
 function isNull(value: unknown): boolean {
-  return value === null;
+  return value === null
 }
 
-export default isNull;
+export default isNull

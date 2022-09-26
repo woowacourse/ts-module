@@ -1,5 +1,5 @@
 function isNil(value: unknown): boolean {
-  return value == undefined;
+  return value == undefined
 }
 
-export default isNil;
+export default isNil
