@@ -10,3 +10,9 @@ test('isNill 동작 확인', () => {
   expect(_.isNil(undefined)).toBe(true);
   expect(_.isNil('hello')).toBe(false);
 });
+
+test('isNumber 동작 확인', () => {
+  expect(_.isNumber(null)).toBe(false);
+  expect(_.isNumber('hello')).toBe(false);
+  expect(_.isNumber(1)).toBe(true);
+});

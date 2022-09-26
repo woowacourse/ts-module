@@ -53,7 +53,7 @@ module _ {
   }
 
   export function isNumber(input: unknown): input is number {
-    return true;
+    return typeof input === 'number';
   }
 
   export function isFunction() {}
