@@ -32,7 +32,6 @@ class CustomElement {
     if (_.isNull(this.element)) {
       throw "유효한 Element가 아닙니다";
     }
-    // HTMLElementEventMap
 
     this.element.addEventListener(type, listener);
   }
@@ -135,14 +134,17 @@ module _ {
   /**
    * 'func'의 결과를 메모하는 함수를 만든다.
    */
-  export function memoize(func: Function, resolver: Function): Function {
+  export function memoize(
+    func: (args: any) => any,
+    resolver: (args: any) => any
+  ): (args: any) => any {
     if (
       typeof func !== "function" ||
       (resolver != null && typeof resolver !== "function")
     ) {
       throw new TypeError("Expected a function");
     }
-    const memoized = function (this: any, args: unknown[]) {
+    const memoized = function (this: any, args: any) {
       const key = resolver ? resolver.apply(this, args) : args[0];
       const cache = memoized.cache;
 
