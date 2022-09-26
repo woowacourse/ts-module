@@ -192,9 +192,12 @@ module _ {
 	export const memoize = () => {};
 
 	/**
+	 * 호출한 함수를 지정한 시간만큼 지연시키는 디바운스 함수를 만든다.
 	 *
-	 *
-	 * @param {*} value 체크할 값
+	 * @param func 디바운스할 함수
+	 * @param wait 기다릴 시간 milliseconds
+	 * @param options 옵션 객체
+	 * @return 디바운스된 함수를 반환한다.
 	 */
 	export function debounce<T extends RealFunction>(
 		func: T,
@@ -275,11 +278,34 @@ module _ {
 	}
 
 	/**
+	 * 지정한 매 'wait' millisecond 마다  최대 한 번만 호출되도록 하는 조절된 함수를 만든다.
 	 *
-	 *
-	 * @param {*} value 체크할 값
+	 * @param func 쓰로틀할 함수
+	 * @param wait 기다릴 시간 milliseconds
+	 * @param options 옵션 객체
+	 * @return 쓰로틀된 함수를 반환한다.
 	 */
-	export function throttle() {}
+	export function throttle<T extends RealFunction>(
+		func: T,
+		wait: number,
+		options?: Omit<DebounceOptions, "maxWait">
+	): DebouncedFunc<T> {
+		let leading = true,
+			trailing = true;
+
+		if (typeof func != "function") {
+			throw new TypeError("함수를 기대했습니다..");
+		}
+		if (options) {
+			leading = "leading" in options ? !!options.leading : leading;
+			trailing = "trailing" in options ? !!options.trailing : trailing;
+		}
+		return debounce(func, wait, {
+			leading: leading,
+			maxWait: wait,
+			trailing: trailing,
+		});
+	}
 
 	/**
 	 *

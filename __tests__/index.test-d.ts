@@ -46,5 +46,18 @@ test("debounce 함수의 호출 시그니처를 확인한다", () => {
 	expectType<debounce>(_.debounce);
 });
 
-// 모든 타입 테스트
-// memoize, debounce, throttle,  debounce, clickOutside...
+test("throttle 함수의 반환 타입을 확인한다", () => {
+	const testFunc = () => {};
+
+	expectType<DebouncedFunc<typeof testFunc>>(_.throttle(testFunc, 1000));
+});
+
+test("throttle 함수의 호출 시그니처를 확인한다", () => {
+	type throttle = <T extends RealFunction>(
+		func: T,
+		wait: number,
+		options?: Omit<DebounceOptions, "maxWait">
+	) => DebouncedFunc<T>;
+
+	expectType<throttle>(_.throttle);
+});
