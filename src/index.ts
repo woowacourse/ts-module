@@ -3,7 +3,7 @@ declare global {
 }
 
 interface ElementProperty {
-  html: any;
+  html: (htmlText: string) => void;
   show: () => void;
   hide: () => void;
   addEvent: <T extends keyof HTMLElementEventMap>(

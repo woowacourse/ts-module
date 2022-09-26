@@ -17,6 +17,8 @@ expectType<void>(_(".button").show());
 
 expectType<void>(_(".button").hide());
 
+expectType<void>(_(".button").html(`<div class='test-div'>test</div>`));
+
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>("aaaaaa", {
     method: "GET",
