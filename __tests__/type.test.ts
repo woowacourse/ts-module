@@ -32,3 +32,7 @@ test('isNill 타입 확인', () => {
 test('isNumber 타입 확인', () => {
   expectType<boolean>(_.isNumber('hello'));
 });
+
+test('isFunction 타입 확인', () => {
+  expectType<boolean>(_.isFunction('hello'));
+});

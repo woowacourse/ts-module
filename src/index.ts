@@ -56,7 +56,9 @@ module _ {
     return typeof input === 'number';
   }
 
-  export function isFunction() {}
+  export function isFunction(input: unknown): input is Function {
+    return true;
+  }
 
   export function shuffle() {}
 
