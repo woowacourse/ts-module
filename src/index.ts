@@ -104,7 +104,26 @@ module _ {
     func: (...args: T) => void,
     wait: number,
     options?: DebounceOptions
-  ): (...args: T) => void;
+  ): (...args: T) => void {
+    let timer: number | undefined;
+    return function (...args) {
+      let callNow = options?.leading && !timer;
+
+      const later = () => {
+        timer = undefined;
+        if (!options?.leading) {
+          func.apply(null, args);
+        }
+      };
+
+      clearTimeout(timer);
+      timer = setTimeout(later, wait);
+
+      if (callNow) {
+        func.apply(null, args);
+      }
+    };
+  }
 
   export function throttle<T extends unknown[]>(
     func: (...args: T) => void,
