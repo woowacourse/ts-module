@@ -264,8 +264,18 @@ module _ {
     func: T,
     wait: number,
     options?: DebounceThrottleOptions
-  ): T {
-    return func;
+  ): DebouncedFunction<T> {
+    let leading = true;
+    let trailing = true;
+
+    if (options) {
+      leading = "leading" in options ? !!options.leading : leading;
+      trailing = "trailing" in options ? !!options.trailing : trailing;
+    }
+    return debounce(func, wait, {
+      leading,
+      trailing,
+    });
   }
 
   /**

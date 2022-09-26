@@ -14,7 +14,7 @@ export type OmitResult<T extends DefinitelyObject, K extends (keyof T)[]> = {
   [P in keyof Omit<T, K[number]>]: T[P];
 };
 
-export type DebounceThrottleOptions = Record<"leading" | "trailing", number>;
+export type DebounceThrottleOptions = Record<"leading" | "trailing", boolean>;
 
 export type HTTPMethod = keyof typeof HTTP_METHOD;
 
