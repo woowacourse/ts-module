@@ -48,7 +48,9 @@ module _ {
     return input === null;
   }
 
-  export function isNil() {}
+  export function isNil(input: unknown): boolean {
+    return true;
+  }
 
   export function isNumber() {}
 

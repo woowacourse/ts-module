@@ -24,3 +24,7 @@ test('fetch 타입확인', () => {
 test('isNull 타입확인', () => {
   expectType<boolean>(_.isNull('hi'));
 });
+
+test('isNill 타입 확인', () => {
+  expectType<boolean>(_.isNil('hi'));
+});
