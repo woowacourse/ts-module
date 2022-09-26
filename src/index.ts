@@ -45,7 +45,7 @@ module _ {
   }
 
   export function isNull(input: unknown): boolean {
-    return true;
+    return input === null;
   }
 
   export function isNil() {}
