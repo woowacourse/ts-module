@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "noImplicitAny": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "esModuleInterop": true
   }
 }
