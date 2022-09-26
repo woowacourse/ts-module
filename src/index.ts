@@ -44,7 +44,9 @@ module _ {
     return window.fetch(input, init);
   }
 
-  export function isNull() {}
+  export function isNull(input: unknown): boolean {
+    return true;
+  }
 
   export function isNil() {}
 

@@ -11,7 +11,7 @@ test('addEvent 타입확인', () => {
   });
 });
 
-test('fetch Type 테스트', () => {
+test('fetch 타입확인', () => {
   global.window.fetch = jest.fn(() =>
     Promise.resolve({
       json: () => Promise.resolve({ test: 100 }),
@@ -19,4 +19,8 @@ test('fetch Type 테스트', () => {
   ) as jest.Mock;
 
   expectType<Promise<Response>>(_.fetch('helloWorld.com'));
+});
+
+test('isNull 타입확인', () => {
+  expectType<boolean>(_.isNull('hi'));
 });
