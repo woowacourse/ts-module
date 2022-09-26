@@ -52,7 +52,9 @@ module _ {
     return input == null;
   }
 
-  export function isNumber() {}
+  export function isNumber(input: unknown): input is number {
+    return true;
+  }
 
   export function isFunction() {}
 
