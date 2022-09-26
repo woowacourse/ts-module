@@ -1,6 +1,7 @@
 import __ from '../index';
 type isNumberType = typeof __.isNumber;
 type isNullType = typeof __.isNull;
+type isNilType = typeof __.isNil;
 
 function _(selector: string): any {
   /**
@@ -27,7 +28,9 @@ module _ {
     return value === null;
   };
 
-  export function isNil() {}
+  export const isNil: isNilType = (value) => {
+    return value === null || value === undefined;
+  };
 
   export const isNumber: isNumberType = (value) => {
     return typeof value === 'number';
