@@ -1,4 +1,4 @@
-import { expectType } from "tsd";
+import { expectType } from "tsd-lite";
 import _ from "../dist/index";
 
 _(".button").addEvent("click", function (event) {
@@ -10,7 +10,7 @@ expectType<boolean>(_.isNil(null));
 expectType<boolean>(_.isNumber(1));
 expectType<boolean>(_.isFunction(() => {}));
 expectType<Array<number | string>>(_.shuffle([1, "a", 3]));
-expectType<Pick<{ a: 1; b: 2; c: 3 }, "a" | "c"> | {}>(
+expectType<Pick<{ a: number; b: number; c: number }, "a" | "c"> | {}>(
 	_.pick({ a: 1, b: 2, c: 3 }, ["a", "c"])
 );
 
