@@ -53,16 +53,16 @@ module tt {
   export function debounce<Params extends any[], ReturnValue>(
     func: (...params: Params) => ReturnValue,
     timeInterval: number
-  ): (...params: Params) => ReturnValue {}
+  ): typeof func {}
 
   export function throttle<Params extends any[], ReturnValue>(
     func: (...params: Params) => ReturnValue,
     timeInterval: number
-  ): (...params: Params) => ReturnValue {}
+  ): typeof func {}
 
   export function clickOutside(
     target: EventTarget,
-    handler: EventListener
+    handler: (event: GlobalEventHandlersEventMap["click"]) => void
   ): void {}
 }
 
