@@ -8,6 +8,11 @@
 		"outDir": "dist", // 컴파일된 파일이 있을 디렉터리
 		"declaration": true // 컴파일 시 d.ts 파일을 출력
 	},
+	"ts-node": {
+		"compilerOptions": {
+			"module": "CommonJS"
+		}
+	},
 	"include": ["src"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "__tests__"]
 }

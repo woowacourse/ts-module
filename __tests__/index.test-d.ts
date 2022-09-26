@@ -10,11 +10,15 @@ expectType<boolean>(_.isNil(null));
 expectType<boolean>(_.isNumber(1));
 expectType<boolean>(_.isFunction(() => {}));
 expectType<Array<number | string>>(_.shuffle([1, "a", 3]));
+expectType<Pick<{ a: 1; b: 2; c: 3 }, "a" | "c"> | {}>(
+	_.pick({ a: 1, b: 2, c: 3 }, ["a", "c"])
+);
 
 expectType<(value: any) => value is null>(_.isNull);
-
-expectType<() => void>(_.fetch); // d.ts들어가서 타입만 본다....
-// expectType<() => void>(_.shuffle);
-
+type pick = <T extends object, U extends keyof T>(
+	object: T,
+	targetList: Array<U>
+) => Pick<T, U> | {};
+expectType<pick>(_.pick);
 // 모든 타입 테스트
-// pick, omit, memoize, debounce, throttle,  debounce, clickOutside...
+// omit, memoize, debounce, throttle,  debounce, clickOutside...

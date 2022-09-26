@@ -50,4 +50,11 @@ test('`_("").hidden()`~~~~', () => {});
 
 test('`_("").addEvent()`~~~~', () => {});
 
-// pick, omit, memoize, debounce, throttle,  debounce, clickOutside...
+test("pick", () => {
+	expect(_.pick({ a: 1, b: 2, c: 3 }, ["a", "c"])).toStrictEqual({
+		a: 1,
+		c: 3,
+	});
+});
+
+//  omit, memoize, debounce, throttle,  debounce, clickOutside...

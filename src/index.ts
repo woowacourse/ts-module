@@ -118,7 +118,30 @@ module _ {
 	 *
 	 * @param {*} value 체크할 값
 	 */
-	export function pick() {}
+	type pick = <T extends object, U extends keyof T>(
+		object: T,
+		targetList: Array<U>
+	) => Pick<T, U> | {};
+
+	export const pick: pick = (object, targetList) => {
+		if (object === null) {
+			return {};
+		}
+
+		const pickedObject = {};
+
+		Object.keys(object).forEach((key, index) => {
+			targetList.forEach(target => {
+				if (target === key) {
+					Object.assign(pickedObject, {
+						[key]: Object.values(object)[index],
+					});
+				}
+			});
+		});
+
+		return pickedObject;
+	};
 
 	/**
 	 *

@@ -98,13 +98,22 @@ function _(selector) {
         }
         return result;
     };
-    /**
-     *
-     *
-     * @param {*} value 체크할 값
-     */
-    function pick() { }
-    _.pick = pick;
+    _.pick = (object, targetList) => {
+        if (object === null) {
+            return {};
+        }
+        const pickedObject = {};
+        Object.keys(object).forEach((key, index) => {
+            targetList.forEach(target => {
+                if (target === key) {
+                    Object.assign(pickedObject, {
+                        [key]: Object.values(object)[index],
+                    });
+                }
+            });
+        });
+        return pickedObject;
+    };
     /**
      *
      *
