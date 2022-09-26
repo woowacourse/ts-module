@@ -2,6 +2,7 @@ import __ from '../index';
 type isNumberType = typeof __.isNumber;
 type isNullType = typeof __.isNull;
 type isNilType = typeof __.isNil;
+type shuffleType = typeof __.shuffle;
 
 function _(selector: string): any {
   /**
@@ -38,7 +39,9 @@ module _ {
 
   export function isFunction() {}
 
-  export function shuffle() {}
+  export const shuffle: shuffleType = (arr) => {
+    return [...arr].sort(() => Math.random() - 0.5);
+  };
 
   export function pick() {}
 
