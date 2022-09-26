@@ -1,14 +1,28 @@
 {
-  "name": "playground",
-  "description": "로컬/배포용 모듈 테스트를 위한 패키지입니다.",
-  "version": "1.0.0",
+  "name": "compy-playground",
+  "version": "0.0.1",
+  "description": "모듈 테스트용 JS",
   "main": "index.js",
+  "author": "Ryu Hyun Seung <94832610+compy-ryu@users.noreply.github.com>",
   "license": "MIT",
-  "type": "module",
+  "private": false,
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node ./index.js"
+    "start": "webpack serve --open"
   },
   "dependencies": {
-    "@compy-ryu/ts-module": "^1.0.7"
+    "@babel/runtime": "^7.18.9",
+    "@compy-ryu/ts-module": "^1.0.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "@babel/eslint-parser": "^7.18.9",
+    "@babel/preset-env": "^7.18.10",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.1"
   }
 }
