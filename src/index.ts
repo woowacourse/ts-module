@@ -128,7 +128,18 @@ module _ {
   export function throttle<T extends unknown[]>(
     func: (...args: T) => void,
     wait: number
-  ): (...args: T) => void;
+  ): (...args: T) => void {
+    let timer: number | undefined;
+
+    return (...args) => {
+      if (!timer) {
+        timer = setTimeout(() => {
+          timer = undefined;
+          func.apply(null, args);
+        }, 50);
+      }
+    };
+  }
 
   export function clickOutside(
     target: Node,
