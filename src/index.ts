@@ -6,21 +6,21 @@ class CustomElement {
 
   innerHTML(HTMLString: string): void {
     if (_.isNull(this.element)) {
-      throw "유효한 Element가 아닙니다";
+      throw "Invalid Element";
     }
     this.element.innerHTML = HTMLString;
   }
 
   show() {
     if (_.isNull(this.element)) {
-      throw "유효한 Element가 아닙니다";
+      throw "Invalid Element";
     }
     this.element.style.display = "block";
   }
 
   hide() {
     if (_.isNull(this.element)) {
-      throw "유효한 Element가 아닙니다";
+      throw "Invalid Element";
     }
     this.element.style.display = "none";
   }
@@ -30,7 +30,7 @@ class CustomElement {
     listener: (event: HTMLElementEventMap[T]) => void
   ) {
     if (_.isNull(this.element)) {
-      throw "유효한 Element가 아닙니다";
+      throw "Invalid Element";
     }
 
     this.element.addEventListener(type, listener);
