@@ -161,11 +161,11 @@ module _ {
   /**
    * "wait" 밀리초마다 최대 한 번(또는 브라우저 프레임당 한 번) 'func'를 호출하는 쓰로틀 함수를 만든다.
    */
-  export function throttle(
-    func: DefinitelyFunction,
+  export function throttle<T extends DefinitelyFunction>(
+    func: T,
     wait: number,
     options: DebounceThrottleOptions
-  ): DefinitelyFunction {
+  ): T {
     return func;
   }
 
