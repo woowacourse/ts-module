@@ -70,3 +70,12 @@ test("clickOutside 함수의 호출 시그니처를 확인한다", () => {
 
 	expectType<clickOutside>(_.clickOutside);
 });
+
+test("memoize 함수의 호출 시그니처를 확인한다", () => {
+	type memoize = (
+		func: RealFunction,
+		resolver?: RealFunction
+	) => RealFunction;
+
+	expectType<memoize>(_.memoize);
+});

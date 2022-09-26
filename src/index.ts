@@ -180,7 +180,6 @@ module _ {
 		return omittedObject;
 	};
 
-	type memoize = <T extends RealFunction>(func: T) => T;
 	/**
 	 * 함수의 결과를 기억하는 함수를 생성한다.
 	 *
@@ -188,7 +187,31 @@ module _ {
 	 * @param resolver 캐시 키를 resolve할 함수
 	 * @return 새로운 memoizing 함수를 반환한다
 	 */
-	export const memoize = () => {};
+	export function memoize(
+		func: RealFunction,
+		resolver?: RealFunction
+	): RealFunction {
+		if (
+			typeof func != "function" ||
+			(resolver != null && typeof resolver != "function")
+		) {
+			throw new TypeError("함수를 기대했어요..");
+		}
+
+		const memoized = function (this: any, args: any) {
+			const key = resolver ? resolver.apply(this, args) : args[0];
+			const cache = memoized.cache;
+
+			if (cache.has(key)) {
+				return cache.get(key);
+			}
+			const result = func.apply(this, args);
+			memoized.cache = cache.set(key, result) || cache;
+			return result;
+		};
+		memoized.cache = new Map();
+		return memoized;
+	}
 
 	/**
 	 * 호출한 함수를 지정한 시간만큼 지연시키는 디바운스 함수를 만든다.
