@@ -63,8 +63,12 @@ function _(selector) {
      * @returns Value가 함수이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
      */
     _.isFunction = function (value) { return value instanceof Function; };
-    function shuffle() { }
-    _.shuffle = shuffle;
+    _.shuffle = function (collection) {
+        if (collection instanceof Array) {
+            return collection.sort(function () { return (Math.random() > 0.5 ? 1 : -1); });
+        }
+        return Object.values(collection).sort(function () { return (Math.random() > 0.5 ? 1 : -1); });
+    };
     function pick() { }
     _.pick = pick;
     function omit() { }
@@ -79,3 +83,4 @@ function _(selector) {
     _.clickOutside = clickOutside;
 })(_ || (_ = {}));
 exports["default"] = _;
+var test = { 1: 1, 2: 3 };

@@ -14,6 +14,10 @@ interface CustomElement extends HTMLElement {
     addEvent: <T extends keyof HTMLElementEventMap>(type: T, listener: (event: HTMLElementEventMap[T]) => void) => void;
 }
 declare type TypeValidator = (value: unknown) => boolean;
+declare type Shuffle = <T extends Array<unknown> | Object>(collection: T) => Array<ShuffleReturn<T>>;
+declare type ShuffleReturn<T> = T extends {
+    [key: string | number | symbol]: infer R1;
+} ? R1 : T extends Array<infer R2> ? R2 : never;
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
  *
@@ -51,7 +55,7 @@ declare namespace _ {
      * @returns Value가 함수이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
      */
     const isFunction: TypeValidator;
-    function shuffle(): void;
+    const shuffle: Shuffle;
     function pick(): void;
     function omit(): void;
     function memoize(): void;
