@@ -23,9 +23,9 @@ module _ {
     return value === null;
   }
 
-  export function isNil<T extends unknown>(
-    value: T
-  ): T extends undefined | null ? true : false;
+  export function isNil<T extends unknown>(value: T): boolean {
+    return value === undefined || value === null;
+  }
 
   export function isNumber<T extends unknown>(
     value: T
