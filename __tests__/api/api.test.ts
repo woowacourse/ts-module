@@ -269,7 +269,7 @@ describe('isFunction 구현 테스트', () => {
   });
 });
 
-describe.only('shuffle 구현 테스트', () => {
+describe('shuffle 구현 테스트', () => {
   test('숫자 타입 배열을 collection으로 전달하면, 무작위 순서로 요소가 섞인 배열이 반환된다.', () => {
     const collection = [5, 3, 2, 1, 4];
 
@@ -300,5 +300,40 @@ describe.only('shuffle 구현 테스트', () => {
 
     console.log(result);
     expect(result.every((element) => collectionValues.includes(element))).toEqual(true);
+  });
+});
+
+describe('pick 구현 테스트', () => {
+  test('paths를 전달하면 paths의 요소에 해당되는 object의 키와 값이 선택돼서 반환된다.', () => {
+    const object = {
+      a: 1,
+      b: 2,
+      c: 5,
+      d: 4,
+      e: 3,
+    };
+    const paths = ['a', 'c'];
+
+    const result = _.pick(object, paths);
+
+    expect(Object.entries(result).every(([key, value]) => value === object[key])).toEqual(
+      true,
+    );
+  });
+
+  test('paths를 전달하지 않으면 전달한 object가 그대로 반환된다.', () => {
+    const object = {
+      a: 1,
+      b: 2,
+      c: 5,
+      d: 4,
+      e: 3,
+    };
+
+    const result = _.pick(object);
+
+    expect(Object.entries(result).every(([key, value]) => value === object[key])).toEqual(
+      true,
+    );
   });
 });

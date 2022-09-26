@@ -25,3 +25,17 @@ expectType<Array<number>>(
     e: 3,
   }),
 );
+
+// pick 타입 테스트
+expectType<Object>(
+  _.pick(
+    {
+      a: 1,
+      b: 2,
+      c: 5,
+      d: 4,
+      e: 3,
+    },
+    ['a', 'd'],
+  ),
+);
