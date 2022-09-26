@@ -10,7 +10,7 @@
     - [x] hidden()
     - [x] addEvent()
   - [ ] 유틸
-    - [ ] fetch()
+    - [x] fetch()
     - [x] isNull()
     - [x] isNil()
     - [x] isNumber()
@@ -51,7 +51,7 @@
     - [x] hidden()
     - [x] addEvent()
   - [ ] 유틸
-    - [ ] fetch()
+    - [x] fetch()
     - [x] isNull()
     - [x] isNil()
     - [x] isNumber()

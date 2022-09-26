@@ -1,6 +1,6 @@
-function _(
-  selector: string
-): void | Error {
+import axios from "axios";
+
+function _(selector: string) {
   const selectedNode =
     document.querySelector(selector);
   if (!selectedNode) {
@@ -45,15 +45,21 @@ function _(
       func
     );
   }
+  return {
+    innerHTML,
+    show,
+    hidden,
+    addEvent,
+  };
 }
 
 module _ {
-  // export function fetch<T>(
-  //   url: string,
-  //   options: FetchOption
-  // ): Promise<FetchResponse<T>> {
-  //   const response = new Promise();
-  // }
+  export function fetch<T>(
+    url: string,
+    options: FetchOption
+  ): Promise<FetchResponse<T>> {
+    return axios.get(url);
+  }
 
   export function isNull<T>(
     arg: T
