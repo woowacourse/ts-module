@@ -20,7 +20,7 @@ declare global {
 }
 
 function _(selector: string) {
-  const element: HTMLElement = document.querySelector(selector);
+  const element = document.querySelector<HTMLElement>(selector);
   if (element === null) throw new Error("요소 없음");
 
   function html(): string;
@@ -58,9 +58,36 @@ function _(selector: string) {
 }
 
 module _ {
-  export function fetch(request: Request | string): Promise<Response>;
-  export function fetch() {
-    return {};
+  export function fetch(
+    url: string,
+    method: string,
+    payload?: unknown
+  ): Promise<any> {
+    const request = new XMLHttpRequest();
+    request.open(method, url);
+    request.responseType = "json";
+    const requestBody = JSON.stringify(payload);
+
+    let resolve: unknown, reject: unknown;
+
+    request.onload = function (this: XMLHttpRequest) {
+      if (typeof resolve !== "function")
+        throw new Error("잘못 설정된  resolver");
+      return resolve(this.response);
+    };
+
+    request.onerror = function (this: XMLHttpRequest) {
+      if (typeof reject !== "function")
+        throw new Error("잘못 설정된  rejecter");
+      return reject(this.response);
+    };
+
+    request.send(requestBody);
+
+    return new Promise((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
   }
 
   export function isNull<T>(input: T): T extends null ? true : false;

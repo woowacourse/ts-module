@@ -58,6 +58,15 @@ describe("Selector 및 Element 메서드 테스트", () => {
 });
 
 describe("모듈 함수 동작 확인", () => {
+  test("fetch 함수 동작 확인", async () => {
+    const response = await _.fetch(
+      "https://jsonplaceholder.typicode.com/posts/1",
+      "get"
+    );
+    expect(response).not.toEqual(undefined);
+    expect(response).not.toEqual(null);
+  });
+
   test("isNull 함수 동작 확인", () => {
     expect(_.isNull(null)).toEqual(true);
     expect(_.isNull(undefined)).toEqual(false);

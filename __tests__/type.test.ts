@@ -30,7 +30,7 @@ expectType<void>(_(".button").show(500, () => {}));
 expectType<void>(_(".button").hide());
 expectType<void>(_(".button").hide(500, () => {}));
 
-expectType<Promise<Response>>(_.fetch(""));
+expectType<Promise<any>>(_.fetch("test.com", "get"));
 
 expectType<true>(_.isNull(null));
 expectType<false>(_.isNull(undefined));

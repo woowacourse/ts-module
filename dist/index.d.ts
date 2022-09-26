@@ -14,7 +14,7 @@ declare global {
 }
 declare function _(selector: string): HTMLElement;
 declare module _ {
-    function fetch(request: Request | string): Promise<Response>;
+    function fetch(url: string, method: string, payload?: unknown): Promise<any>;
     function isNull<T>(input: T): T extends null ? true : false;
     function isNil<T>(input: T): T extends null | undefined ? true : false;
     function isNumber<T>(input: T): T extends number ? true : false;
