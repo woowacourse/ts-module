@@ -37,3 +37,11 @@ describe('_(selector).addEvent 타입 테스트', () => {
     document.body.removeChild(divElement);
   });
 });
+
+describe('isNil 타입 테스트', () => {
+  test('value를 전달하면 boolean 타입이 반환된다.', () => {
+    const value = null;
+
+    expectType<boolean>(_.isNil(value));
+  });
+});
