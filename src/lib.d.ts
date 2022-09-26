@@ -1,5 +1,5 @@
 /**
- * CustomElement는 Element를 확장한 타입이다.
+ * CustomElement는 HTMLElement를 확장한 타입이다.
  * CustomElement는 다음과 같은 메서드를 추가로 갖는다.
  *
  * - addEvent
@@ -20,3 +20,5 @@ interface CustomElement extends HTMLElement {
 type IsNil = (value: unknown) => boolean;
 
 type IsNumber = (value: unknown) => boolean;
+
+type IsFunction = (value: unknown) => boolean;
