@@ -26,6 +26,7 @@ function _(selector: string) {
   function html(): string;
   function html(content: string): void;
   function html(content?: string): string | void {
+    if (element === null) throw new Error("요소 없음");
     if (content) {
       element.innerHTML = content;
       return;
@@ -35,10 +36,12 @@ function _(selector: string) {
   }
 
   const show = () => {
+    if (element === null) throw new Error("요소 없음");
     element.style.display = "block";
   };
 
   const hide = () => {
+    if (element === null) throw new Error("요소 없음");
     element.style.display = "hidden";
   };
 
@@ -46,6 +49,7 @@ function _(selector: string) {
     eventType: T,
     handler: (event: GlobalEventHandlersEventMap[T]) => void
   ): void => {
+    if (element === null) throw new Error("요소 없음");
     element.addEventListener(eventType, handler);
   };
 
@@ -194,7 +198,7 @@ module _ {
   export const throttle: <T extends unknown[], U>(
     func: (...args: T) => U,
     wait?: number
-  ) => (...args: T) => U = <T extends unknown[], U>(
+  ) => (...args: T) => U | undefined = <T extends unknown[], U>(
     func: (...args: T) => U,
     wait = 0
   ) => {
