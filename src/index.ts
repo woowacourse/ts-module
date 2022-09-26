@@ -55,7 +55,16 @@ module _ {
   export function pick<
     T extends Record<string, unknown>,
     R extends (keyof T)[]
-  >(obj: T, selectedKeyArray: R): PickResponse<T, R>;
+  >(obj: T, selectedKeyArray: R): PickResponse<T, R> {
+    const result = {} as T;
+    for (let key in obj) {
+      if (selectedKeyArray.includes(key)) {
+        result[key] = obj[key];
+      }
+    }
+
+    return result;
+  }
 
   export function omit<
     T extends Record<string, unknown>,
