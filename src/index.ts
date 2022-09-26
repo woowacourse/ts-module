@@ -175,7 +175,12 @@ module _ {
     return func;
   }
 
-  export function clickOutside() {}
+  export function clickOutside(
+    eventTarget: HTMLElement,
+    innerElement: HTMLElement
+  ): boolean {
+    return !innerElement.contains(eventTarget);
+  }
 }
 
 export default _;
