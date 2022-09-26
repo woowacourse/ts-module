@@ -92,7 +92,7 @@ module _ {
     T extends Record<string, unknown>,
     R extends (keyof T)[]
   >(obj: T, selectedKeyArray: R): PickResponse<T, R> {
-    const result = {} as T;
+    const result = <T>{};
     for (let key in obj) {
       if (selectedKeyArray.includes(key)) {
         result[key] = obj[key];
@@ -106,7 +106,7 @@ module _ {
     T extends Record<string, unknown>,
     R extends (keyof T)[]
   >(obj: T, selectedKeyArray: R): OmitResponse<T, R> {
-    const result = {} as T;
+    const result = <T>{};
     for (let key in obj) {
       if (!selectedKeyArray.includes(key)) {
         result[key] = obj[key];
