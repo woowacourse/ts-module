@@ -6,11 +6,11 @@ export type DefinitelyFunction<T = any, K = any> = (...args: T[]) => K;
 
 export type DefinitelyObject<T = any> = Record<string, T>;
 
-export type PickResult<T extends Record<string, any>, K extends (keyof T)[]> = {
+export type PickResult<T extends DefinitelyObject, K extends (keyof T)[]> = {
   [P in K[number]]: T[P];
 };
 
-export type OmitResult<T extends Record<string, any>, K extends (keyof T)[]> = {
+export type OmitResult<T extends DefinitelyObject, K extends (keyof T)[]> = {
   [P in keyof Omit<T, K[number]>]: T[P];
 };
 
