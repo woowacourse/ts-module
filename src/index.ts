@@ -175,7 +175,23 @@ module _ {
     return result;
   }
 
-  // export function memoize() {}
+  export function memoize<T1, T2>(
+    func: () => T1,
+    resolver: (
+      args: Record<string, T1>
+    ) => string[]
+  ): Function | null {
+    if (
+      typeof func !== "function" ||
+      typeof resolver !== "function"
+    ) {
+      return;
+    }
+    let result = func();
+    return function showResult() {
+      return result;
+    };
+  }
 
   export function debounce<T>(
     func: (args: T) => void,
