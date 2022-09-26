@@ -1,4 +1,4 @@
-declare function _(selector: string): HTMLElement;
+declare function _(selector: string): HTMLElement | null;
 declare global {
   interface HTMLElement {
     setInnerHTML(str?: string): void;
@@ -10,33 +10,55 @@ declare global {
     ): void;
   }
 }
-
 module _ {
-  export function fetch() {
-    return {};
-  }
+  export declare function fetch<
+    T extends RequestInfo | URL,
+    K extends RequestInit | undefined
+  >(input: T, init?: K): Promise<Response>;
 
-  export function isNull() {}
+  export declare function isNull<T extends unknown>(
+    value: T
+  ): T extends null ? true : false;
 
-  export function isNil() {}
+  export declare function isNil<T extends unknown>(
+    value: T
+  ): T extends undefined | null ? true : false;
 
-  export function isNumber() {}
+  export declare function isNumber<T extends unknown>(
+    value: T
+  ): T extends number ? true : false;
 
-  export function isFunction() {}
+  export declare function isFunction<T extends unknown>(
+    value: T
+  ): T extends Function ? true : false;
 
-  export function shuffle() {}
+  export declare function shuffle<T extends Array<unknown>>(value: T): T;
 
-  export function pick() {}
+  export declare function pick<
+    T extends Record<string | number, unknown>,
+    K extends keyof T
+  >(obj: T, array: K[]): Record<string | number, unknown>;
 
-  export function omit() {}
+  export declare function omit<
+    T extends Record<string | number, unknown>,
+    K extends keyof T
+  >(obj: T, array: K[]): Record<string | number, unknown>;
 
-  export function memoize() {}
+  export declare function memoize<T extends unknown[]>(
+    func: (...args: T) => unknown
+  ): unknown;
 
-  export function debounce() {}
+  export declare function debounce<T extends unknown[]>(
+    func: (...args: T) => unknown,
+    delay: number
+  ): Function;
 
-  export function throttle() {}
+  export declare function throttle<T extends unknown[]>(
+    func: (...args: T) => unknown,
+    delay: number
+  ): Function;
 
-  export function clickOutside() {}
+  export declare function clickOutside<T extends HTMLElement>(target: T): void;
 }
 
 export default _;
