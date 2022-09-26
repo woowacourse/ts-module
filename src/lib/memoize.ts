@@ -1,27 +1,34 @@
-const cacheData = new Map();
+import { PickParameterType, PickReturnType } from '../utils'
 
-function memoize<CacheFunction extends (...rest: any[]) => unknown>(cacheFunction: CacheFunction, key: string = "") {
-  type ParameterType = CacheFunction extends (...args: infer CacheParameters) => unknown ? CacheParameters : never;
-  type ReturnType = CacheFunction extends (...args: any[]) => infer CacheReturn ? CacheReturn : never;
+const cacheData = new Map()
+
+function memoize<CacheFunction extends (...rest: any[]) => unknown>(
+  cacheFunction: CacheFunction,
+  key: string = '',
+) {
+  type ParameterType = PickParameterType<CacheFunction>
+  type ReturnType = PickReturnType<CacheFunction>
 
   const memoized = (...args: ParameterType): ReturnType => {
-    if (!cacheData.has(cacheFunction)) {
-      cacheData.set(cacheFunction, {});
+    const isCached = cacheData.has(cacheFunction)
+
+    isCached === false && cacheData.set(cacheFunction, {})
+
+    const cache: Record<string, unknown> = cacheData.get(cacheFunction)
+
+    if (cache[key]) {
+      return cache[key] as ReturnType
     }
 
-    const cache: Record<string, unknown> = cacheData.get(cacheFunction);
+    const result = cacheFunction(...args)
 
-    if (cache[key]) return cache[key] as ReturnType;
+    cache[key] = result
+    cacheData.set(cacheFunction, cache)
 
-    const result = cacheFunction(...args);
+    return result as ReturnType
+  }
 
-    cache[key] = result;
-    cacheData.set(cacheFunction, cache);
-
-    return result as ReturnType;
-  };
-
-  return memoized;
+  return memoized
 }
 
-export default memoize;
+export default memoize
