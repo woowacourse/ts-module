@@ -18,3 +18,5 @@ interface CustomElement extends HTMLElement {
 }
 
 type IsNil = (value: unknown) => boolean;
+
+type IsNumber = (value: unknown) => boolean;
