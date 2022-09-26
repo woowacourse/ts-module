@@ -1,6 +1,6 @@
 {
 	"name": "marco-ts-module",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "TypeScript & Module Typing - Marco",
 	"main": "lib/index.js",
 	"scripts": {
@@ -8,7 +8,7 @@
 		"test:all": "jest & jest -c jest.config.tsd.js",
 		"test:api": "jest",
 		"test:type": "jest -c jest.config.tsd.js",
-		"prepublishOnly": "tsc -d"
+		"prepublishOnly": "tsc -d & npm run test:all"
 	},
 	"keywords": [],
 	"author": "",
