@@ -1,6 +1,8 @@
 import { NumberRange, CreateArray } from "./util";
 
-declare function _(selector: string): Node;
+function _(selector: string): Node | null {
+  return document.querySelector(selector);
+}
 declare global {
   interface Node {
     addEvent<T extends keyof HTMLElementEventMap>(
@@ -43,7 +45,7 @@ module _ {
         ok: true,
         statusText: "example code",
         json: () => {
-          return new Promise((resolve, reject) => {
+          return new Promise<Data>((resolve, reject) => {
             resolve("아무튼 데이터임..!" as Data);
           });
         },
@@ -117,7 +119,7 @@ module _ {
   export function memoize<T extends unknown[], K>(
     func: (...args: T) => K,
     resolver?: (...args: T) => string
-  ): (...args: unknown[]) => K {
+  ): (...args: T) => K {
     const cache = new Map();
 
     const memoized = function (...args: unknown[]) {
