@@ -17,7 +17,9 @@ namespace _ {
     return value === null;
   }
 
-  export function isNil() {}
+  export function isNil(value?: unknown): Boolean {
+    return value === null || value === undefined;
+  }
 
   export function isNumber() {}
 

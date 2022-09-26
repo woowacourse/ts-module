@@ -14,3 +14,7 @@ import _ from '../src';
 test('isNull type check', () => {
   expectType<Boolean>(_.isNull());
 });
+
+test('isNill type check', () => {
+  expectType<Boolean>(_.isNil());
+});
