@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import _ from '../src';
+import _ from '../../dist';
 
 test('모듈은 기본 내보내기', () => {
   expect(_).toBeTruthy();

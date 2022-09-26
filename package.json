@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test:api": "jest --config jest.config.js",
+    "test:type": "tsd"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,9 @@
     "ts-jest": "^29.0.1",
     "tsd": "^0.24.1",
     "typescript": "^4.8.3"
+  },
+  "types": "dist/index.d.ts",
+  "tsd": {
+    "directory": "__tests__/type"
   }
 }
