@@ -16,9 +16,12 @@ expectType<Promise<{ name: string }>>(
 );
 
 expectType<true>(_.isNull<null>(null));
-expectType<false>(_.isNull<2>(2));
-expectType<false>(_.isNull<0>(0));
+expectType<false>(_.isNull(2));
+expectType<false>(_.isNull(0));
 
 expectType<true>(_.isNil<null>(null));
 expectType<true>(_.isNil<undefined>(undefined));
-expectType<false>(_.isNil<0>(0));
+expectType<false>(_.isNil(0));
+
+expectType<true>(_.isNumber(1));
+expectType<false>(_.isNumber('1'));
