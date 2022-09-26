@@ -1,31 +1,31 @@
+import { defaultFetchOptions } from "./constants";
 class CustomElement {
     element;
     constructor(selector) {
         this.element = document.body.querySelector(selector);
     }
-    insertHTML(HTMLString) {
+    innerHTML(HTMLString) {
         if (_.isNull(this.element)) {
-            throw "유효한 Element가 아닙니다";
+            throw "Invalid Element";
         }
         this.element.innerHTML = HTMLString;
     }
     show() {
         if (_.isNull(this.element)) {
-            throw "유효한 Element가 아닙니다";
+            throw "Invalid Element";
         }
         this.element.style.display = "block";
     }
     hide() {
         if (_.isNull(this.element)) {
-            throw "유효한 Element가 아닙니다";
+            throw "Invalid Element";
         }
         this.element.style.display = "none";
     }
     addEvent(type, listener) {
         if (_.isNull(this.element)) {
-            throw "유효한 Element가 아닙니다";
+            throw "Invalid Element";
         }
-        // HTMLElementEventMap
         this.element.addEventListener(type, listener);
     }
 }
@@ -34,7 +34,12 @@ function _(selector) {
     return customElement;
 }
 (function (_) {
-    function fetch() { }
+    /**
+     * `url` 과 `options` 을 통해서 API 요청을 보낸다.
+     */
+    function fetch(url, options) {
+        return fetch(url, { ...defaultFetchOptions, ...options });
+    }
     _.fetch = fetch;
     /**
      * `value` 가 `null` 인지 체크한다.
@@ -87,9 +92,11 @@ function _(selector) {
      * 선택한 'object' 속성만으로 구성된 객체를 만든다.
      */
     function pick(object, path) {
-        let newObj = {};
-        path.forEach((key) => {
-            newObj[key] = object[key];
+        const newObj = { ...object };
+        Object.keys(object).forEach((key) => {
+            if (path.indexOf(key) === -1) {
+                delete newObj[key];
+            }
         });
         return newObj;
     }
@@ -98,7 +105,7 @@ function _(selector) {
      * 선택한 'object' 속성이 제외되어 구성된 객체를 만든다.
      */
     function omit(object, path) {
-        let newObj = { ...object };
+        const newObj = { ...object };
         path.forEach((key) => {
             delete newObj[key];
         });
@@ -109,10 +116,6 @@ function _(selector) {
      * 'func'의 결과를 메모하는 함수를 만든다.
      */
     function memoize(func, resolver) {
-        if (typeof func !== "function" ||
-            (resolver != null && typeof resolver !== "function")) {
-            throw new TypeError("Expected a function");
-        }
         const memoized = function (args) {
             const key = resolver ? resolver.apply(this, args) : args[0];
             const cache = memoized.cache;
@@ -141,7 +144,12 @@ function _(selector) {
         return func;
     }
     _.throttle = throttle;
-    function clickOutside() { }
+    /**
+     * 클릭된 영역(eventTarget)이 innerElement 에 포함 되어있는지 확인한다.
+     */
+    function clickOutside(eventTarget, innerElement) {
+        return !innerElement.contains(eventTarget);
+    }
     _.clickOutside = clickOutside;
 })(_ || (_ = {}));
 export default _;
