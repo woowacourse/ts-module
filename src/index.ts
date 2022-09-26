@@ -114,18 +114,18 @@ module _ {
     return result;
   }
 
-  export function memoize<K extends unknown>(
-    func: (...args: unknown[]) => K,
-    resolver?: (...args: unknown[]) => string
+  export function memoize<T extends unknown[], K>(
+    func: (...args: T) => K,
+    resolver?: (...args: T) => string
   ): (...args: unknown[]) => K {
     const cache = new Map();
 
     const memoized = function (...args: unknown[]) {
-      const key = resolver ? resolver.apply(null, args) : args[0];
+      const key = resolver ? resolver.apply(null, args as T) : args[0];
       if (cache.has(key)) {
         return cache.get(key);
       } else {
-        const result = func.apply(null, args);
+        const result = func.apply(null, args as T);
         cache.set(key, result);
         return result;
       }
