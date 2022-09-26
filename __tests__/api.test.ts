@@ -35,7 +35,7 @@ test("innerHTML 동작 확인", () => {
   document.body.appendChild(divElement);
 
   const myElement = _("#target-div");
-  myElement.insertHTML(`<button class='test-btn'>Continue</button>`);
+  myElement.innerHTML(`<button class='test-btn'>Continue</button>`);
 
   const buttonElement = _("button.test-btn").element!;
 
