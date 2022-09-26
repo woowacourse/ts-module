@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { expectType } from 'tsd';
-import _ from '../index';
+import _ from './../index';
 
 expectType<boolean>(_.isNumber(2));
 expectType<boolean>(_.isNumber('2'));
