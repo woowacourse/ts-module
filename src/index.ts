@@ -34,7 +34,6 @@ class CustomElement {
 		if (_.isNull(this.element)) {
 			throw "유효한 Element가 아닙니다";
 		}
-		// HTMLElementEventMap
 
 		this.element.addEventListener(type, listener);
 	}
@@ -308,11 +307,17 @@ module _ {
 	}
 
 	/**
+	 * 클릭된 영역이 내부 요소에 포함되어 있는지 확인한다.
 	 *
-	 *
-	 * @param {*} value 체크할 값
+	 * @param eventTarget 클릭된 영역
+	 * @param innerElement 내부 요소
 	 */
-	export function clickOutside() {}
+	export function clickOutside(
+		eventTarget: HTMLElement,
+		innerElement: HTMLElement
+	): boolean {
+		return !innerElement.contains(eventTarget);
+	}
 }
 
 export default _;

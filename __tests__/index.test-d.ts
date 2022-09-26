@@ -61,3 +61,12 @@ test("throttle 함수의 호출 시그니처를 확인한다", () => {
 
 	expectType<throttle>(_.throttle);
 });
+
+test("clickOutside 함수의 호출 시그니처를 확인한다", () => {
+	type clickOutside = (
+		eventTarget: HTMLElement,
+		innerElement: HTMLElement
+	) => boolean;
+
+	expectType<clickOutside>(_.clickOutside);
+});
