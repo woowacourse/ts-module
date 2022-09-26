@@ -70,7 +70,7 @@ declare module _ {
     options?: ThrottleOptionsType
   ): Function;
 
-  // export function clickOutside() {}
+  export function clickOutside(elem: HTMLElement, func: Function): void;
 }
 
 export default _;
