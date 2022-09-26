@@ -1,3 +1,49 @@
+class CustomElement {
+  element;
+  constructor(selector: string) {
+    this.element = document.body.querySelector<HTMLElement>(selector);
+  }
+
+  insertHTML(HTMLString: string): void {
+    if (_.isNull(this.element)) {
+      throw "유효한 Element가 아닙니다";
+    }
+    this.element.innerHTML = HTMLString;
+  }
+
+  show() {
+    if (_.isNull(this.element)) {
+      throw "유효한 Element가 아닙니다";
+    }
+    this.element.style.display = "block";
+  }
+
+  hide() {
+    if (_.isNull(this.element)) {
+      throw "유효한 Element가 아닙니다";
+    }
+    this.element.style.display = "none";
+  }
+
+  addEvent<T extends keyof HTMLElementEventMap>(
+    type: T,
+    listener: (event: HTMLElementEventMap[T]) => void
+  ) {
+    if (_.isNull(this.element)) {
+      throw "유효한 Element가 아닙니다";
+    }
+    // HTMLElementEventMap
+
+    this.element.addEventListener(type, listener);
+  }
+}
+
+function _(selector: string): CustomElement {
+  const customElement = new CustomElement(selector);
+
+  return customElement;
+}
+
 module _ {
   export function fetch() {}
 
