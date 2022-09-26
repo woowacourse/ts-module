@@ -40,7 +40,7 @@ export type GetArgumentsTypeByIndex<
 > = Parameters<T>[K];
 
 export type DebouncedFunction<T extends DefinitelyFunction> = (
-  ...args: GetArgumentsTypeByIndex<T, 1>[]
+  ...args: GetArgumentsTypeByIndex<T, 0>[]
 ) => {
   cancel: () => void;
   pending: () => boolean;
