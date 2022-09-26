@@ -1,45 +1,50 @@
+import __ from '../index';
+type isNumberType = typeof __.isNumber;
+
 function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
+  /**
+   * innerHTML() {
+   * }
+   *
+   * show() {
+   * }
+   *
+   * hidden() {
+   * }
+   *
+   * addEvent() {
+   * }
+   */
 }
 
 module _ {
-	export function fetch() {
-		return {};
-	}
+  export function fetch() {
+    return {};
+  }
 
-	export function isNull() {}
+  export function isNull() {}
 
-	export function isNil() {}
+  export function isNil() {}
 
-	export function isNumber() {}
+  export const isNumber: isNumberType = (value) => {
+    return typeof value === 'number';
+  };
 
-	export function isFunction() {}
+  export function isFunction() {}
 
-	export function shuffle() {}
+  export function shuffle() {}
 
-	export function pick() {}
+  export function pick() {}
 
-	export function omit() {}
+  export function omit() {}
 
-	export function memoize() {}
+  export function memoize() {}
 
-	export function debounce() {}
+  export function debounce() {}
 
-	export function throttle() {}
+  export function throttle() {}
 
-	export function clickOutside() {}
+  export function clickOutside() {}
 }
 
 export default _;
