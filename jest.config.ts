@@ -12,4 +12,5 @@ module.exports = {
     "<rootDir>/**/__tests__/*.(ts|tsx))",
   ],
   transformIgnorePatterns: ["<rootDir>/node_modules/"],
+  testPathIgnorePatterns: ["__tests__/type.test.ts"],
 };
