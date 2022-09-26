@@ -1,11 +1,14 @@
 declare global {
-    export interface Node extends ElementProperty {
+    export interface HTMLElement extends ElementProperty {
     }
 }
 interface ElementProperty {
-    addEvent: any;
+    html: any;
+    show: any;
+    hide: any;
+    addEvent: <T extends keyof HTMLElementEventMap>(type: T, listener: (event: HTMLElementEventMap[T]) => void) => void;
 }
-declare function _(selector: string): Node;
+declare function _(selector: string): HTMLElement;
 declare module _ {
     /**
      *
@@ -60,9 +63,15 @@ declare module _ {
      * 매개변수로 depth가 1인 flat한 객체만 들어온다고 가정
      */
     function omit<T extends Record<string, unknown>, R extends keyof T>(object: T, keys: R[]): OmitResult<T, R>;
-    function memoize<T extends unknown[], R>(func: (...args: T) => R, resolver?: () => string): (...args: T) => R;
-    function debounce<T extends unknown[]>(func: (...args: T) => void, wait: number, options?: DebounceOption): (...args: T) => void;
-    function throttle<T extends unknown[]>(func: (...args: T) => void, wait: number, options?: DebounceOption): (...args: T) => void;
+    /**
+     *
+     * @param func
+     * @param resolver
+     * @returns
+     */
+    function memoize<T extends unknown[], R>(func: (...args: T) => R): (...args: T) => R;
+    function debounce<T extends unknown[]>(func: (...args: T) => void, wait: number): (...args: T) => void;
+    function throttle<T extends unknown[]>(func: (...args: T) => void, wait: number): (...args: T) => void;
     function clickOutside(target: Node, func: (...args: unknown[]) => void): void;
 }
 declare type FetchOptions = {
@@ -82,9 +91,4 @@ declare type PickResult<T, K extends keyof T> = {
     [k in K]: T[k];
 };
 declare type OmitResult<T, K extends keyof T> = PickResult<T, Exclude<keyof T, K>>;
-declare type DebounceOption = {
-    leading?: boolean;
-    maxWait?: number;
-    trailing?: boolean;
-};
 export default _;

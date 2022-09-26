@@ -3,17 +3,23 @@
  */
 import { expectType } from "tsd";
 
-import _ from "../src";
+import _ from "../dist";
+
+const button = document.createElement("button");
+button.className = "button";
+document.body.appendChild(button);
 
 _(".button").addEvent("click", function (event) {
   expectType<MouseEvent>(event);
 });
 
 expectType<Promise<{ name: string }>>(
-  _.fetch<{ name: string }>("https://example.com", {
+  _.fetch<{ name: string }>("aaaaaa", {
     method: "GET",
   }).then((res) => res.json())
 );
+
+expectType<boolean>(_.isNull(null));
 
 expectType<boolean>(_.isNull(null));
 expectType<boolean>(_.isNull(0));

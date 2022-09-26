@@ -1,21 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// {
-//   /**
-//    * innerHTML() {
-//    * }
-//    *
-//    * show() {
-//    * }
-//    *
-//    * hidden() {
-//    * }
-//    *
-//    * addEvent() {
-//    * }
-//    */
-// }
-var _;
+function _(selector) {
+    const element = document.querySelector(selector);
+    if (_.isNull(element))
+        throw new Error("요소가 없습니다!");
+    const addEvent = () => {
+        element === null || element === void 0 ? void 0 : element.addEventListener;
+    };
+    element.addEvent = addEvent;
+    return element;
+}
 (function (_) {
     /**
      *
@@ -114,15 +108,24 @@ var _;
         return result;
     }
     _.omit = omit;
-    function memoize(func, resolver) {
+    /**
+     *
+     * @param func
+     * @param resolver
+     * @returns
+     */
+    function memoize(func) {
+        // const value = func;
+        // const memoized = () => value;
+        // return memoized;
         return func;
     }
     _.memoize = memoize;
-    function debounce(func, wait, options) {
+    function debounce(func, wait) {
         return func;
     }
     _.debounce = debounce;
-    function throttle(func, wait, options) {
+    function throttle(func, wait) {
         return func;
     }
     _.throttle = throttle;

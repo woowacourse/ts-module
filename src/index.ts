@@ -1,27 +1,29 @@
 declare global {
-  export interface Node extends ElementProperty {}
+  export interface HTMLElement extends ElementProperty {}
 }
 
 interface ElementProperty {
-  addEvent: any;
+  html: any;
+  show: any;
+  hide: any;
+  addEvent: <T extends keyof HTMLElementEventMap>(
+    type: T,
+    listener: (event: HTMLElementEventMap[T]) => void
+  ) => void;
 }
 
-declare function _(selector: string): Node;
-// {
-//   /**
-//    * innerHTML() {
-//    * }
-//    *
-//    * show() {
-//    * }
-//    *
-//    * hidden() {
-//    * }
-//    *
-//    * addEvent() {
-//    * }
-//    */
-// }
+function _(selector: string): HTMLElement {
+  const element = document.querySelector<HTMLElement>(selector);
+  if (_.isNull(element)) throw new Error("요소가 없습니다!");
+
+  const addEvent = (): void => {
+    element.addEventListener;
+  };
+
+  element.addEvent = addEvent;
+
+  return element;
+}
 
 module _ {
   /**
@@ -136,25 +138,32 @@ module _ {
     return result;
   }
 
+  /**
+   *
+   * @param func
+   * @param resolver
+   * @returns
+   */
   export function memoize<T extends unknown[], R>(
-    func: (...args: T) => R,
-    resolver?: () => string
+    func: (...args: T) => R
   ): (...args: T) => R {
+    // const value = func;
+    // const memoized = () => value;
+
+    // return memoized;
     return func;
   }
 
   export function debounce<T extends unknown[]>(
     func: (...args: T) => void,
-    wait: number,
-    options?: DebounceOption
+    wait: number
   ): (...args: T) => void {
     return func;
   }
 
   export function throttle<T extends unknown[]>(
     func: (...args: T) => void,
-    wait: number,
-    options?: DebounceOption
+    wait: number
   ): (...args: T) => void {
     return func;
   }
@@ -185,11 +194,5 @@ type PickResult<T, K extends keyof T> = {
 };
 
 type OmitResult<T, K extends keyof T> = PickResult<T, Exclude<keyof T, K>>;
-
-type DebounceOption = {
-  leading?: boolean;
-  maxWait?: number;
-  trailing?: boolean;
-};
 
 export default _;
