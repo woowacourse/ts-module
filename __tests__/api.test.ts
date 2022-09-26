@@ -80,3 +80,17 @@ test('pick 동작 확인', () => {
 
   expect(_.pick(object, ['a', 'c'])).toEqual(expectObject);
 });
+
+test('omit 동작 확인', () => {
+  const object = {
+    a: 1,
+    b: 2,
+    c: 3,
+  };
+
+  const expectObject = {
+    b: 2,
+  };
+
+  expect(_.omit(object, ['a', 'c'])).toEqual(expectObject);
+});

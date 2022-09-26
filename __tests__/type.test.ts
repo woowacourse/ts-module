@@ -39,5 +39,15 @@ test('pick type check', () => {
     c: 3,
   };
 
-  expectType<Record<string, unknown>>(object);
+  expectType<Record<string, unknown>>(_.pick(object, ['a']));
+});
+
+test('omit type check', () => {
+  const object = {
+    a: 1,
+    b: 2,
+    c: 3,
+  };
+
+  expectType<Record<string, unknown>>(_.omit(object, ['a']));
 });

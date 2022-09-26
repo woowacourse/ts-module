@@ -54,7 +54,13 @@ namespace _ {
     return Object.fromEntries(Object.entries(object).filter((el) => paths.includes(el[0])));
   }
 
-  export function omit() {}
+  export function omit(object: Record<string, unknown>, paths: string[]) {
+    if (isNil(object)) {
+      return {};
+    }
+
+    return Object.fromEntries(Object.entries(object).filter((el) => !paths.includes(el[0])));
+  }
 
   export function memoize() {}
 
