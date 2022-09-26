@@ -1,0 +1,14 @@
+{
+  "name": "playground",
+  "description": "로컬/배포용 모듈 테스트를 위한 패키지입니다.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node --es-module-specifier-resolution=node ./index.js"
+  },
+  "dependencies": {
+    "@compy-ryu/ts-module": "^1.0.7"
+  }
+}
