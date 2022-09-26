@@ -40,7 +40,7 @@ module _ {
   export function isFunction() {}
 
   export const shuffle: shuffleType = (arr) => {
-    return [...arr].sort(() => Math.random() - 0.5);
+    return [...arr].sort(() => 0.5 - Math.random());
   };
 
   export function pick() {}
