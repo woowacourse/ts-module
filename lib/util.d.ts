@@ -2,10 +2,10 @@ import { HTTP_METHOD } from "./constants";
 export declare type Nill = null | undefined;
 export declare type DefinitelyFunction<T = any, K = any> = (...args: T[]) => K;
 export declare type DefinitelyObject<T = any> = Record<string, T>;
-export declare type PickResult<T extends Record<string, any>, K extends (keyof T)[]> = {
+export declare type PickResult<T extends DefinitelyObject, K extends (keyof T)[]> = {
     [P in K[number]]: T[P];
 };
-export declare type OmitResult<T extends Record<string, any>, K extends (keyof T)[]> = {
+export declare type OmitResult<T extends DefinitelyObject, K extends (keyof T)[]> = {
     [P in keyof Omit<T, K[number]>]: T[P];
 };
 export declare type DebounceThrottleOptions = Record<"leading" | "trailing", number>;

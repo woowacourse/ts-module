@@ -6,9 +6,9 @@
     "lib": ["ESNext", "dom", "dom.iterable"],
     "module": "ESNext", // 트리 쉐이킹이 가능하도록 한다.
     "moduleResolution": "node",
-    "outDir": "dist", // 트랜스파일링 결과물이 담길 디렉토리
+    "outDir": "lib", // 트랜스파일링 결과물이 담길 디렉토리
     "declaration": true // d.ts 파일을 생성한다.
   },
-  "include": ["src", "dist/index.d.ts"],
+  "include": ["src", "lib/index.d.ts"],
   "exclude": ["node_modules"]
 }
