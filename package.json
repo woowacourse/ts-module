@@ -4,8 +4,7 @@
 	"description": "마르코의 타입스크립트 미션 결과물",
 	"main": "index.js",
 	"scripts": {
-		"build": "tsc --build",
-		"clean": "tsc --build --clean",
+		"build": "tsc --build --clean & tsc --build",
 		"test:all": "jest & jest -c jest.config.tsd.js",
 		"test:api": "jest",
 		"test:type": "jest -c jest.config.tsd.js"
