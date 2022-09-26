@@ -80,10 +80,25 @@ module _ {
     return result;
   }
 
-  export function memoize<T extends unknown[], K extends unknown>(
-    func: (...args: T) => K,
-    resolver?: (...args: T) => string
-  ): (...args: T) => K;
+  export function memoize<K extends unknown>(
+    func: (...args: unknown[]) => K,
+    resolver?: (...args: unknown[]) => string
+  ): (...args: unknown[]) => K {
+    const cache = new Map();
+
+    const memoized = function (...args: unknown[]) {
+      const key = resolver ? resolver.apply(null, args) : args[0];
+      if (cache.has(key)) {
+        return cache.get(key);
+      } else {
+        const result = func.apply(null, args);
+        cache.set(key, result);
+        return result;
+      }
+    };
+
+    return memoized;
+  }
 
   export function debounce<T extends unknown[]>(
     func: (...args: T) => void,
