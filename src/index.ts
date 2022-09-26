@@ -16,6 +16,10 @@ function _(selector: string): HTMLElement {
   const element = document.body.querySelector<HTMLElement>(selector);
   if (_.isNull(element)) throw new Error("요소가 없습니다!");
 
+  const html = (htmlText: string) => {
+    element.innerHTML = htmlText;
+  };
+
   const show = () => {
     element.style.display = "block";
   };
@@ -31,6 +35,7 @@ function _(selector: string): HTMLElement {
     element.addEventListener(type, listener);
   };
 
+  element.html = html;
   element.addEvent = addEvent;
   element.show = show;
   element.hide = hide;
