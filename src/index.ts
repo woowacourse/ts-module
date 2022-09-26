@@ -45,7 +45,10 @@ declare module _ {
     ...keys: R[]
   ): { [K in R]: T[K] };
 
-  // export function omit() {}
+  export function omit<T extends Record<string, unknown>, R extends keyof T>(
+    obj: T,
+    ...keys: R[]
+  ): { [K in Exclude<keyof T, R>]: T[K] };
 
   // export function memoize() {}
 
