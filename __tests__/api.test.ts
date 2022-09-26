@@ -3,6 +3,10 @@
  */
 import _ from "../src";
 
+afterEach(() => {
+  document.body.innerHTML = "";
+});
+
 test("모듈은 기본 내보내기", () => {
   expect(_).toBeTruthy();
 });
@@ -40,9 +44,3 @@ test('_("").setInnerHTML() 동작 확인', () => {
   buttonElement?.setInnerHTML("안녕");
   expect(buttonElement?.textContent).toEqual("안녕");
 });
-
-test('`_("").show()`~~~~', () => {});
-
-test('`_("").hidden()`~~~~', () => {});
-
-test('`_("").addEvent()`~~~~', () => {});
