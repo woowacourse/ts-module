@@ -44,7 +44,45 @@ function _(selector: string): CustomElement {
 }
 
 module _ {
-  export function fetch() {}
+  const HTTP_METHOD = {
+    POST: "POST",
+    GET: "GET",
+    PUT: "PUT",
+    PATCH: "PATCH",
+    DELETE: "DELETE",
+  } as const;
+
+  type HTTPMethod = keyof typeof HTTP_METHOD;
+
+  type FetchOptions = {
+    method?: HTTPMethod;
+    headers?: DefinitelyObject;
+    body?: string;
+    credentials?: string;
+  };
+
+  type Response<T = any> = {
+    status: number;
+    statusText: string;
+    ok: boolean;
+    headers: Headers;
+    url: string;
+    data: T;
+  };
+
+  const defaultFetchOptions = {
+    method: HTTP_METHOD.GET,
+    headers: {},
+    body: "",
+    credentials: "",
+  };
+
+  export function fetch<T>(
+    url: string,
+    options?: FetchOptions
+  ): Promise<Response<T>> {
+    return fetch(url, { ...defaultFetchOptions, ...options });
+  }
 
   /**
    * `value` 가 `null` 인지 체크한다.
