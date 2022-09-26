@@ -34,3 +34,9 @@ expectType<(a: number, b: number) => number>(
     return a + b;
   })
 );
+
+expectType<(a: number, b: number) => void>(
+  _.debounce((a: number, b: number) => {
+    console.log(a, b);
+  }, 500)
+);
