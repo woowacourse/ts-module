@@ -20,5 +20,7 @@ const readOnlyObj = {
   hobby: 'music',
 } as const;
 
-expectType<{ job: 'frontend' }>(_.pick(readOnlyObj, 'job'));
-expectType<{ name: 'al-bur'; age: 29 }>(_.pick(readOnlyObj, ['name', 'age']));
+expectType<{ readonly job: 'frontend' }>(_.pick(readOnlyObj, 'job'));
+expectType<{ readonly name: 'al-bur'; readonly age: 29 }>(
+  _.pick(readOnlyObj, ['name', 'age'])
+);
