@@ -34,7 +34,5 @@
       "<rootDir>/node_modules/"
     ]
   },
-  "files": [
-    "lib"
-  ]
+  "types": "./__tests__/type.test-d.ts"
 }
