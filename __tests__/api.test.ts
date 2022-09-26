@@ -24,16 +24,30 @@ test("Selector 동작 확인", () => {
 	divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
 	document.body.appendChild(divElement);
 
-	const buttonElement = _("button.test-btn");
+	const buttonElement = _("button.test-btn").element!;
 	expect(buttonElement).toBeTruthy();
-
-	document.body.removeChild(buttonElement);
+	divElement.removeChild(buttonElement);
 });
 
-test('`_("").innerHTML()`~~~~', () => {});
+test('`_("").innerHTML()`~~~~', () => {
+	const divElement = document.createElement("div");
+	divElement.id = "target-div";
+	document.body.appendChild(divElement);
+
+	const myElement = _("#target-div");
+	myElement.insertHTML(`<button class='test-btn'>Continue</button>`);
+
+	const buttonElement = _("button.test-btn").element!;
+
+	expect(buttonElement).toBeTruthy();
+
+	myElement.element!.removeChild(buttonElement);
+});
 
 test('`_("").show()`~~~~', () => {});
 
 test('`_("").hidden()`~~~~', () => {});
 
 test('`_("").addEvent()`~~~~', () => {});
+
+// pick, omit, memoize, debounce, throttle,  debounce, clickOutside...
