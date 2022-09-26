@@ -1,5 +1,6 @@
 import { expectType } from "tsd-lite";
 import _ from "../dist/index";
+import { DebouncedFunc, DebounceOptions, RealFunction } from "../src/utils";
 
 _(".button").addEvent("click", function (event) {
 	expectType<MouseEvent>(event);
@@ -12,6 +13,9 @@ expectType<boolean>(_.isFunction(() => {}));
 expectType<Array<number | string>>(_.shuffle([1, "a", 3]));
 expectType<Pick<{ a: number; b: number; c: number }, "a" | "c"> | {}>(
 	_.pick({ a: 1, b: 2, c: 3 }, ["a", "c"])
+);
+expectType<Omit<{ a: number; b: number; c: number }, "a" | "c"> | {}>(
+	_.omit({ a: 1, b: 2, c: 3 }, ["a", "c"])
 );
 
 expectType<(value: any) => value is null>(_.isNull);
@@ -27,5 +31,20 @@ type omit = <T extends object, K extends keyof T>(
 	targetList: Array<K>
 ) => Omit<T, K> | {};
 expectType<omit>(_.omit);
+
+test("debounce 함수의 반환 타입을 확인한다", () => {
+	const testFunc = () => {};
+	expectType<DebouncedFunc<typeof testFunc>>(_.debounce(testFunc, 1000));
+});
+
+test("debounce 함수의 호출 시그니처를 확인한다", () => {
+	type debounce = <T extends RealFunction>(
+		func: T,
+		wait: number,
+		options?: DebounceOptions
+	) => DebouncedFunc<T>;
+	expectType<debounce>(_.debounce);
+});
+
 // 모든 타입 테스트
-// omit, memoize, debounce, throttle,  debounce, clickOutside...
+// memoize, debounce, throttle,  debounce, clickOutside...

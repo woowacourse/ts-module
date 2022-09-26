@@ -62,5 +62,3 @@ test("_.omit() 동작 확인", () => {
 		b: 2,
 	});
 });
-
-//   memoize, debounce, throttle,  debounce, clickOutside...

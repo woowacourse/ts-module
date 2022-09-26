@@ -1,3 +1,5 @@
+import { DebouncedFunc, DebounceOptions, RealFunction } from "./utils";
+
 class CustomElement {
 	element;
 	constructor(selector: string) {
@@ -113,6 +115,10 @@ module _ {
 		return result;
 	};
 
+	type pick = <T extends object, U extends keyof T>(
+		object: T,
+		targetList: Array<U>
+	) => Pick<T, U> | {};
 	/**
 	 * 객체에서 추출된 속성으로 구성된 객체를 만든다
 	 *
@@ -125,11 +131,6 @@ module _ {
 	 * pick(object, ['a','c'])
 	 * // => {'a':1, 'c':3}
 	 */
-	type pick = <T extends object, U extends keyof T>(
-		object: T,
-		targetList: Array<U>
-	) => Pick<T, U> | {};
-
 	export const pick: pick = (object, targetList) => {
 		if (object === null) {
 			return {};
@@ -153,15 +154,15 @@ module _ {
 	type ObjectType<T extends string | number | symbol> = {
 		[key in T]: T;
 	};
+	type omit = <T extends object, K extends keyof T>(
+		object: T,
+		targetList: Array<K>
+	) => Omit<T, K> | {};
 	/**
 	 * 생략할 리스트를 전달한 후 객체에서 생략되지 않은 속성들로 구성된 객체를 반환한다.
 	 *
 	 * @param {*} value 체크할 값
 	 */
-	type omit = <T extends object, K extends keyof T>(
-		object: T,
-		targetList: Array<K>
-	) => Omit<T, K> | {};
 	export const omit: omit = (object, targetList) => {
 		if (!targetList.length) return object;
 		if (object === null) {
@@ -180,19 +181,98 @@ module _ {
 		return omittedObject;
 	};
 
+	type memoize = <T extends RealFunction>(func: T) => T;
 	/**
+	 * 함수의 결과를 기억하는 함수를 생성한다.
 	 *
-	 *
-	 * @param {*} value 체크할 값
+	 * @param func 기억해야 할 결과를 가진 함수
+	 * @param resolver 캐시 키를 resolve할 함수
+	 * @return 새로운 memoizing 함수를 반환한다
 	 */
-	export function memoize() {}
+	export const memoize = () => {};
 
 	/**
 	 *
 	 *
 	 * @param {*} value 체크할 값
 	 */
-	export function debounce() {}
+	export function debounce<T extends RealFunction>(
+		func: T,
+		wait: number,
+		options?: DebounceOptions
+	): DebouncedFunc<T> {
+		let maxWait: number,
+			result: any,
+			timerId: any,
+			lastCallTime: number,
+			lastInvokeTime: number,
+			leading = false,
+			trailing = false;
+
+		if (typeof func != "function") {
+			throw new TypeError("함수를 기대했습니다..");
+		}
+		wait = +wait || 0;
+		if (options) {
+			leading = !!options.leading;
+			trailing = !!options.trailing;
+		}
+
+		function shouldInvoke(time: number) {
+			const timeSinceLastCall = time - lastCallTime;
+			const timeSinceLastInvoke = time - lastInvokeTime;
+			return (
+				lastCallTime === undefined ||
+				timeSinceLastCall >= wait ||
+				timeSinceLastCall < 0 ||
+				timeSinceLastInvoke >= maxWait
+			);
+		}
+
+		function startTimer(pendingFunc: RealFunction, wait: number) {
+			return setTimeout(pendingFunc, wait);
+		}
+
+		function remainingWait(time: number) {
+			const timeSinceLastCall = time - lastCallTime;
+			const timeWaiting = wait - timeSinceLastCall;
+
+			return timeWaiting;
+		}
+
+		function timerExpired() {
+			const time = Date.now();
+			if (shouldInvoke(time)) {
+				return;
+			}
+			timerId = startTimer(timerExpired, remainingWait(time));
+		}
+
+		function cancel() {
+			if (timerId !== undefined) {
+				clearTimeout(timerId);
+			}
+			lastInvokeTime = 0;
+		}
+
+		function flush() {
+			return timerId === undefined ? result : null;
+		}
+
+		function debounced(this: any, ...args: any[]) {
+			const time = Date.now();
+			if (shouldInvoke(time)) {
+				timerId = startTimer(timerExpired, wait);
+				lastInvokeTime = time;
+				return func.apply(this, args);
+			}
+			return result;
+		}
+		debounced.cancel = cancel;
+		debounced.flush = flush;
+
+		return debounced;
+	}
 
 	/**
 	 *
