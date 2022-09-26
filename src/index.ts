@@ -52,7 +52,13 @@ module _ {
    */
   export const isNumber: IsNumber = (value) => typeof value === 'number';
 
-  export function isFunction() {}
+  /**
+   * 전달한 value가 함수인지 확인하는 함수
+   *
+   * @param value - Value는 함수인지 확인하려는 값이다.
+   * @returns Value가 함수이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
+   */
+  export const isFunction: IsFunction = (value) => value instanceof Function;
 
   export function shuffle() {}
 
