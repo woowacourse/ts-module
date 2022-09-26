@@ -32,7 +32,14 @@ test("Selector 동작 확인", () => {
   expect(removedButtonElement).toBeFalsy();
 });
 
-test('`_("").innerHTML()`~~~~', () => {});
+test('_("").setInnerHTML() 동작 확인', () => {
+  const divElement: HTMLElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+  const buttonElement = _("button.test-btn");
+  buttonElement?.setInnerHTML("안녕");
+  expect(buttonElement?.textContent).toEqual("안녕");
+});
 
 test('`_("").show()`~~~~', () => {});
 
