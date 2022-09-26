@@ -1,4 +1,9 @@
-import { DebouncedFunc, DebounceOptions, RealFunction } from "./utils";
+import {
+	DebouncedFunc,
+	DebounceOptions,
+	FetchOptions,
+	RealFunction,
+} from "./utils";
 
 class CustomElement {
 	element;
@@ -47,11 +52,17 @@ function _(selector: string): CustomElement {
 
 module _ {
 	/**
+	 * 서버에 네트워크 요청을 보내고 새로운 데이터를 받아온다.
 	 *
-	 *
-	 * @param {*} value 체크할 값
+	 * @param url fetch할 url
+	 * @param options fetch 옵션
 	 */
-	export function fetch() {}
+	export function fetch(
+		url: string,
+		options?: FetchOptions
+	): Promise<Response> {
+		return fetch(url, { ...options });
+	}
 
 	/**
 	 * `value`가 `null`인지 체크한다.

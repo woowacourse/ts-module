@@ -1,6 +1,11 @@
 import { expectType } from "tsd-lite";
-import _ from "../dist/index";
-import { DebouncedFunc, DebounceOptions, RealFunction } from "../src/utils";
+import _ from "../lib/index";
+import {
+	DebouncedFunc,
+	DebounceOptions,
+	FetchOptions,
+	RealFunction,
+} from "../src/utils";
 
 test("addEvent 함수의 반환 타입을 확인한다", () => {
 	_(".button").addEvent("click", function (event) {
@@ -107,4 +112,10 @@ test("memoize 함수의 호출 시그니처를 확인한다", () => {
 	) => RealFunction;
 
 	expectType<memoize>(_.memoize);
+});
+
+test("fetch 함수의 호출 시그니처를 확인한다", () => {
+	type fetch = (url: string, options?: FetchOptions) => Promise<Response>;
+
+	expectType<fetch>(_.fetch);
 });
