@@ -34,8 +34,15 @@ export type FetchResponse<T> = {
   data: T;
 };
 
-export type DebouncedFunction<T> = (...args: T[]) => {
-  cancle: () => void;
+export type GetArgumentsTypeByIndex<
+  T extends DefinitelyFunction,
+  K extends number
+> = Parameters<T>[K];
+
+export type DebouncedFunction<T extends DefinitelyFunction> = (
+  ...args: GetArgumentsTypeByIndex<T, 1>[]
+) => {
+  cancel: () => void;
   pending: () => boolean;
   flush: () => T;
 };
