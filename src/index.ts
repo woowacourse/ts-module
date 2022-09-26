@@ -1,4 +1,14 @@
-import { Nill } from "./util";
+import {
+  DebounceThrottleOptions,
+  DefinitelyFunction,
+  DefinitelyObject,
+  FetchOptions,
+  Nill,
+  OmitResult,
+  PickResult,
+  FetchResponse,
+} from "./util";
+import { defaultFetchOptions } from "./constants";
 
 class CustomElement {
   element;
@@ -45,26 +55,14 @@ function _(selector: string): CustomElement {
   return customElement;
 }
 
-const HTTP_METHOD = {
-  POST: "POST",
-  GET: "GET",
-  PUT: "PUT",
-  PATCH: "PATCH",
-  DELETE: "DELETE",
-} as const;
-
-const defaultFetchOptions = {
-  method: HTTP_METHOD.GET,
-  headers: {},
-  body: "",
-  credentials: "",
-};
-
 module _ {
+  /**
+   * `url` 과 `options` 을 통해서 API 요청을 보낸다.
+   */
   export function fetch<T = any>(
     url: string,
     options?: FetchOptions
-  ): Promise<Response<T>> {
+  ): Promise<FetchResponse<T>> {
     return fetch(url, { ...defaultFetchOptions, ...options });
   }
 
@@ -175,7 +173,7 @@ module _ {
   export function debounce<T extends DefinitelyFunction>(
     func: T,
     wait: number,
-    options: DebounceThrottleOptions
+    options?: DebounceThrottleOptions
   ): T {
     return func;
   }
@@ -186,7 +184,7 @@ module _ {
   export function throttle<T extends DefinitelyFunction>(
     func: T,
     wait: number,
-    options: DebounceThrottleOptions
+    options?: DebounceThrottleOptions
   ): T {
     return func;
   }
@@ -200,38 +198,6 @@ module _ {
   ): boolean {
     return !innerElement.contains(eventTarget);
   }
-
-  type DefinitelyFunction<T = any, K = any> = (...args: T[]) => K;
-
-  type DefinitelyObject<T = any> = Record<string, T>;
-
-  type PickResult<T extends Record<string, any>, K extends (keyof T)[]> = {
-    [P in K[number]]: T[P];
-  };
-
-  type OmitResult<T extends Record<string, any>, K extends (keyof T)[]> = {
-    [P in keyof Omit<T, K[number]>]: T[P];
-  };
-
-  type DebounceThrottleOptions = Record<"leading" | "trailing", number>;
-
-  type HTTPMethod = keyof typeof HTTP_METHOD;
-
-  type FetchOptions = {
-    method?: HTTPMethod;
-    headers?: DefinitelyObject;
-    body?: string;
-    credentials?: string;
-  };
-
-  type Response<T> = {
-    status: number;
-    statusText: string;
-    ok: boolean;
-    headers: Headers;
-    url: string;
-    data: T;
-  };
 }
 
 export default _;
