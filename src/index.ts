@@ -27,9 +27,9 @@ module _ {
     return value === undefined || value === null;
   }
 
-  export function isNumber<T extends unknown>(
-    value: T
-  ): T extends number ? true : false;
+  export function isNumber<T extends unknown>(value: T): boolean {
+    return typeof value === "number";
+  }
 
   export function isFunction<T extends unknown>(
     value: T

@@ -18,8 +18,8 @@ expectType<boolean>(_.isNil(undefined));
 expectType<boolean>(_.isNil(null));
 expectType<boolean>(_.isNil("2"));
 
-expectType<true>(_.isNumber(1));
-expectType<false>(_.isNumber("2"));
+expectType<boolean>(_.isNumber(1));
+expectType<boolean>(_.isNumber("2"));
 
 expectType<true>(_.isFunction(() => {}));
 expectType<false>(_.isFunction("2"));
