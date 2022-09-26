@@ -74,4 +74,126 @@ describe("모듈 함수 동작 확인", () => {
     expect(_.isFunction("one")).toEqual(false);
     expect(_.isFunction(() => {})).toEqual(true);
   });
+
+  test("shuffle 함수 테스트", () => {
+    const testArray = [1, 2, 3, 4, 5];
+    const testObject = { a: 1, b: 2, c: "3" };
+
+    const shuffledArray = _.shuffle(testArray);
+    expect(shuffledArray).toEqual(expect.arrayContaining(testArray));
+    expect(testArray).toEqual(expect.arrayContaining(shuffledArray));
+
+    const shuffledObject = _.shuffle(testObject);
+    expect(shuffledObject).toEqual(
+      expect.arrayContaining(Object.values(testObject))
+    );
+    expect(Object.values(testObject)).toEqual(
+      expect.arrayContaining(shuffledObject)
+    );
+  });
+
+  test("pick 함수 테스트", () => {
+    const testObject = { a: 1, b: 2, c: 2 };
+    const testProps: Partial<keyof typeof testObject>[] = ["a", "b"];
+
+    expect(_.pick(testObject, testProps)).toEqual({ a: 1, b: 2 });
+  });
+  test("omit 함수 테스트", () => {
+    const testObject = { a: 1, b: 2, c: 2 };
+    const testProps: Partial<keyof typeof testObject>[] = ["a", "b"];
+
+    expect(_.omit(testObject, testProps)).toEqual({ c: 2 });
+  });
+
+  test("memoize 함수 테스트, resolver 없음", () => {
+    const testObject = { a: 1, b: 2 };
+
+    const memoizedValue = _.memoize((obj: Record<string, unknown>) =>
+      Object.values(obj)
+    );
+
+    const initial = memoizedValue(testObject);
+    testObject.a = 3;
+
+    expect(memoizedValue(testObject)).toStrictEqual(initial);
+  });
+
+  test("memoize 함수 테스트, resolver 있음", () => {
+    const testObject = { a: 1, b: 2 };
+
+    const memoizedValue = _.memoize(
+      (obj: Record<string, unknown>) => Object.values(obj),
+      (obj) => JSON.stringify(obj)
+    );
+
+    const initial = memoizedValue(testObject);
+    testObject.a = 3;
+
+    expect(memoizedValue(testObject)).not.toStrictEqual(initial);
+  });
+
+  jest.useFakeTimers();
+  test("debounce 함수 테스트", () => {
+    const result: unknown[] = [];
+    const debouncedPush = _.debounce((input) => {
+      result.push(input);
+    }, 1000);
+
+    setTimeout(() => {
+      debouncedPush("a");
+    }, 200);
+    setTimeout(() => {
+      debouncedPush("b");
+    }, 400);
+    setTimeout(() => {
+      debouncedPush("c");
+    }, 600);
+    setTimeout(() => {
+      debouncedPush("d");
+    }, 1300);
+
+    jest.runAllTimers();
+
+    expect(result).toStrictEqual(["d"]);
+  });
+
+  test("throttle 함수 테스트", () => {
+    const result: unknown[] = [];
+    const throttledPush = _.throttle((input) => {
+      result.push(input);
+    }, 1000);
+
+    setTimeout(() => {
+      throttledPush("a");
+    }, 200);
+    setTimeout(() => {
+      throttledPush("b");
+    }, 400);
+    setTimeout(() => {
+      console.log(1);
+      throttledPush("c");
+    }, 600);
+    setTimeout(() => {
+      throttledPush("d");
+    }, 1300);
+
+    jest.runAllTimers();
+
+    expect(result).toStrictEqual(["a", "d"]);
+  });
+
+  test("clickOutside 함수 테스트", () => {
+    const targetElement = document.createElement("button");
+    const outsideElement = document.createElement("button");
+    document.body.append(targetElement, outsideElement);
+
+    const mockCallback = jest.fn();
+    _.clickOutside(targetElement, mockCallback);
+
+    targetElement.click();
+    expect(mockCallback).not.toBeCalled();
+
+    outsideElement.click();
+    expect(mockCallback).toBeCalled();
+  });
 });
