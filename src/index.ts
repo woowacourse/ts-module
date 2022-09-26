@@ -1,45 +1,75 @@
+import { CreateArrayWithLengthX, NumericRange } from './utils';
+
 function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
+  /**
+   * innerHTML() {
+   * }
+   *
+   * show() {
+   * }
+   *
+   * hidden() {
+   * }
+   *
+   * addEvent() {
+   * }
+   */
 }
 
-module _ {
-	export function fetch() {
-		return {};
-	}
+declare function _(selector: string): Node;
 
-	export function isNull() {}
+declare module _ {
+  export function fetch<Data>(
+    url: string,
+    options?: FetchOptions
+  ): Promise<Response<Data>>;
 
-	export function isNil() {}
+  // export function isNull() {}
 
-	export function isNumber() {}
+  // export function isNil() {}
 
-	export function isFunction() {}
+  // export function isNumber() {}
 
-	export function shuffle() {}
+  // export function isFunction() {}
 
-	export function pick() {}
+  // export function shuffle() {}
 
-	export function omit() {}
+  // export function pick() {}
 
-	export function memoize() {}
+  // export function omit() {}
 
-	export function debounce() {}
+  // export function memoize() {}
 
-	export function throttle() {}
+  // export function debounce() {}
 
-	export function clickOutside() {}
+  // export function throttle() {}
+
+  // export function clickOutside() {}
+
+  type FetchBodyType =
+    | string
+    | URLSearchParams
+    | FormData
+    | Blob
+    | ArrayBuffer
+    | ArrayBufferView
+    | DataView;
+
+  type FetchOptions = {
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    body?: FetchBodyType | null;
+    headers?: Record<string, string>;
+    credentials?: 'omit' | 'same-origin' | 'include';
+  };
+
+  type Response<Data> = {
+    status: NumericRange<CreateArrayWithLengthX<200>, 600>;
+    ok: boolean;
+    statusText: string;
+    url: string;
+    headers: Record<string, string>;
+    json: () => Promise<Data>;
+  };
 }
 
 export default _;
