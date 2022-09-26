@@ -1,13 +1,14 @@
 {
-	"name": "ts-module",
-	"version": "1.0.0",
+	"name": "marco-ts-module",
+	"version": "1.0.1",
 	"description": "마르코의 타입스크립트 미션 결과물",
-	"main": "index.js",
+	"main": "lib/index.js",
 	"scripts": {
 		"build": "tsc --build --clean & tsc --build",
 		"test:all": "jest & jest -c jest.config.tsd.js",
 		"test:api": "jest",
-		"test:type": "jest -c jest.config.tsd.js"
+		"test:type": "jest -c jest.config.tsd.js",
+		"prepublishOnly": "tsc -d"
 	},
 	"keywords": [],
 	"author": "",
