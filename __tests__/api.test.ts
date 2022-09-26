@@ -29,26 +29,42 @@ test("Selector 동작 확인", () => {
 	divElement.removeChild(buttonElement);
 });
 
-test('`_("").innerHTML()` 동작 확인', () => {
+test("_.insertHTML() 동작 확인", () => {
 	const divElement = document.createElement("div");
 	divElement.id = "target-div";
 	document.body.appendChild(divElement);
 
-	const myElement = _("#target-div");
-	myElement.insertHTML(`<button class='test-btn'>Continue</button>`);
+	const targetElement = _("#target-div");
+	targetElement.insertHTML(`<button class='test-btn'>Continue</button>`);
 
 	const buttonElement = _("button.test-btn").element!;
 
 	expect(buttonElement).toBeTruthy();
 
-	myElement.element!.removeChild(buttonElement);
+	targetElement.element!.removeChild(buttonElement);
 });
 
-test('`_("").show()` 동작 확인', () => {});
+test("_.show() 동작 확인", () => {
+	const divElement = document.createElement("div");
+	divElement.id = "target-div";
+	document.body.appendChild(divElement);
 
-test('`_("").hidden()` 동작 확인', () => {});
+	const targetElement = _("#target-div");
+	targetElement.element!.style.display = "none";
+	targetElement.show();
 
-test('`_("").addEvent()` 동작 확인', () => {});
+	expect(targetElement.element!.style.display).toBe("block");
+});
+
+test("_.hide() 동작 확인", () => {
+	const divElement = document.createElement("div");
+	divElement.id = "target-div";
+	document.body.appendChild(divElement);
+
+	const targetElement = _("#target-div");
+	targetElement.hide();
+	expect(targetElement.element!.style.display).toBe("none");
+});
 
 test("_.pick() 동작 확인", () => {
 	expect(_.pick({ a: 1, b: 2, c: 3 }, ["a", "c"])).toStrictEqual({
