@@ -62,3 +62,53 @@ describe('`_("").addEvent()` 동작확인', () => {
     document.body.removeChild(divElement);
   });
 });
+
+describe('isNil 타입 테스트', () => {
+  test('null을 전달하면 true가 반환된다.', () => {
+    const value = null;
+
+    expect(_.isNil(value)).toEqual(true);
+  });
+
+  test('undefined를 전달하면 true가 반환된다.', () => {
+    const value = undefined;
+
+    expect(_.isNil(value)).toEqual(true);
+  });
+
+  test('string 타입을 전달하면 false가 반환된다.', () => {
+    const value = 'test';
+
+    expect(_.isNil(value)).toEqual(false);
+  });
+
+  test('number 타입을 전달하면 false가 반환된다.', () => {
+    const value = 123;
+
+    expect(_.isNil(value)).toEqual(false);
+  });
+
+  test('boolean 타입을 전달하면 false가 반환된다.', () => {
+    const value = true;
+
+    expect(_.isNil(value)).toEqual(false);
+  });
+
+  test('symbol 타입을 전달하면 false가 반환된다.', () => {
+    const value = Symbol('test');
+
+    expect(_.isNil(value)).toEqual(false);
+  });
+
+  test('bigInt 타입을 전달하면 false가 반환된다.', () => {
+    const value = BigInt(9007199254740991);
+
+    expect(_.isNil(value)).toEqual(false);
+  });
+
+  test('객체를 전달하면 false가 반환된다.', () => {
+    const value = {};
+
+    expect(_.isNil(value)).toEqual(false);
+  });
+});
