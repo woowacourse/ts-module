@@ -3,16 +3,16 @@ function $(selector: string) {
 
   if (!$element) return
 
-  const innerHTML = (html: string): void => {
+  const setHTML = (html: string): void => {
     $element.innerHTML = html
   }
 
   const show = () => {
-    $element.hidden = false
+    $element.style.removeProperty('display')
   }
 
-  const hidden = () => {
-    $element.hidden = true
+  const hide = () => {
+    $element.style.display = 'none'
   }
 
   const addEvent = <EventType extends keyof HTMLElementEventMap>(
@@ -23,9 +23,9 @@ function $(selector: string) {
   }
 
   return Object.assign($element, {
-    innerHTML,
+    setHTML,
     show,
-    hidden,
+    hide,
     addEvent,
   })
 }
