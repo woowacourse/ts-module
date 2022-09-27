@@ -29,3 +29,10 @@ test('shuffle 동작 확인', () => {
   expect(_.shuffle([1, 2, 3])).toStrictEqual([3, 2, 1]);
   expect(_.shuffle({ a: 1, b: 2, c: 3 })).toStrictEqual([3, 2, 1]);
 });
+
+test('pick 동작 확인', () => {
+  expect(_.pick({ a: 1, b: 2, c: 3 }, 'a', 'b')).toStrictEqual({
+    a: 1,
+    b: 2,
+  });
+});
