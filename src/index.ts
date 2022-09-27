@@ -202,7 +202,14 @@ module _ {
   export function clickOutside(
     target: Node,
     func: (...args: unknown[]) => void
-  ): void {}
+  ): void {
+    window.addEventListener("click", (event) => {
+      const isClickInside = target.contains(event.target as HTMLElement);
+      if (!isClickInside) {
+        func(event);
+      }
+    });
+  }
 }
 
 type FetchOptions = {
