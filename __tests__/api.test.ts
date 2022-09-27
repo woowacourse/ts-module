@@ -40,7 +40,7 @@ test("innerHTML 동작 확인", () => {
   const buttonElement = _("button.test-btn").element;
 
   expect(buttonElement).toBeTruthy();
-  myElement.element!.removeChild(buttonElement);
+  myElement.element.removeChild(buttonElement);
 });
 
 test("show 동작 확인", () => {
