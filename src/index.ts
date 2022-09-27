@@ -81,6 +81,16 @@ module _ {
 
     return newArray;
   }
+
+  export function pick<T extends Record<string, unknown>, U extends keyof T>(
+    object: T,
+    selectedItems: U[]
+  ): Pick<T, U> {
+    return selectedItems.reduce((result, selectedItem) => {
+      result[selectedItem] = object[selectedItem];
+      return result;
+    }, {} as Pick<T, U>);
+  }
 }
 
 export default _;
