@@ -76,7 +76,7 @@ module _ {
     return typeof value === "function";
   }
 
-  // 배열을 섞어서 새로운 배열으로 반환
+  // 배열을 섞어서 새로운 배열으로 반환 (단, 들어오는 value는 같은 타입을 가진 것으로 한정한다.)
   export function shuffle<T>(value: Array<T>): Array<T> {
     const copyArray = [...value];
     for (let i = copyArray.length - 1; i > 0; i--) {
@@ -87,20 +87,16 @@ module _ {
   }
 
   // obj에 대한 keys만 뽑은 새로운 obj를 반환
-  // 아무런 keys도 넣지 않았을 때는 빈 객체를 return해줌
   export function pick<T extends Record<string, unknown>, K extends keyof T>(
     obj: T,
-    keys?: Array<K>
-  ): Pick<T, K> | {} {
-    if (keys === undefined) {
-      return obj;
+    keys: Array<K>
+  ): Pick<T, K> {
+    const result: any = {}; // TODO
+    for (const key of keys) {
+      result[key] = obj[key];
     }
 
-    const ret: any = {}; // TODO
-    for (const key of keys) {
-      ret[key] = obj[key];
-    }
-    return ret;
+    return result;
   }
 
   // obj에 대한 keys를 제거한 새로운 obj를 반환
@@ -121,8 +117,12 @@ module _ {
     return result;
   }
 
-  // TODO
-  // export function memoize(func: Function, resolver?: Function): Function;
+  // 들어온 함수를 저장 후 리턴한다.
+  export function memoize(func: Function): () => unknown {
+    return function memoize() {
+      return func();
+    };
+  }
 
   // wait로 설정한 시간을 대기한 이후에 로직을 실행하도록 디바운싱 된 func 함수 리턴
   // 설정한 시간 이전에 로직을 실행하면, wait가 리셋된다
