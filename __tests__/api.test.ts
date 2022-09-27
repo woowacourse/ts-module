@@ -52,6 +52,25 @@ test('omit 함수로 원하는 요소를 제거할 수 있다.', () => {
   expect(_.omit(obj, ['name', 'age'])).toStrictEqual({});
 });
 
+describe('timer mock해서 사용', () => {
+  jest.useFakeTimers();
+
+  test('debounce 함수를 활용하면 5번이 아닌 1번만 callback 함수가 호출된다', () => {
+    const mockCallback = jest.fn(() => {});
+    const consoleFunc = _.debounce(mockCallback, 1000);
+
+    consoleFunc();
+    consoleFunc();
+    consoleFunc();
+    consoleFunc();
+    consoleFunc();
+
+    jest.runAllTimers();
+
+    expect(mockCallback.mock.calls.length).toBe(1);
+  });
+});
+
 // test('Selector 동작 확인', () => {
 //   const divElement = document.createElement('div');
 //   divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
