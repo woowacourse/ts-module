@@ -99,7 +99,23 @@ module _ {
     return result;
   }
 
-  export function omit() {}
+  export function omit<
+    T extends Record<string, unknown>,
+    K extends string[] | string[][]
+  >(obj: T, ...target: K): Partial<T> {
+    let result: Partial<T> = {};
+    target.forEach((item) => {
+      let target;
+      if (typeof item !== 'string') {
+        target = omit(obj, ...item);
+        result = target;
+      } else if (typeof item === 'string' && Object.keys(obj).includes(item)) {
+        delete obj.item;
+        result = obj;
+      }
+    });
+    return result;
+  }
 
   export function memoize() {}
 
