@@ -36,6 +36,13 @@ type Pick = <T extends Object, U extends Array<keyof T>>(
 
 type UnwrapArray<T> = T extends Array<infer R2> ? R2 : never;
 
+type Omit = <T extends Object, U extends Array<keyof T>>(
+  object: T,
+  paths: U,
+) => { [key in Exclude<keyof T, U[number]>]: T[key] };
+
+type ArrayToUnion<T> = T extends Array<infer U> ? U : never;
+
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
  *
@@ -114,6 +121,25 @@ namespace _ {
   };
 
   export const pick: Pick = (object, paths) => {
+    const copiedObject1 = { ...object };
+    const copiedObject2 = { ...object };
+
+    paths.forEach((key) => {
+      delete copiedObject1[key];
+    });
+
+    const tempKeys = Object.keys(copiedObject1);
+
+    Object.keys(object).forEach((key) => {
+      if (tempKeys.includes(key)) {
+        delete copiedObject2[key];
+      }
+    });
+
+    return copiedObject2;
+  };
+
+  export const omit: Omit = (object, paths) => {
     const copiedObject = { ...object };
 
     paths.forEach((key) => {
@@ -122,8 +148,6 @@ namespace _ {
 
     return copiedObject;
   };
-
-  export function omit() {}
 
   export function memoize() {}
 
@@ -135,7 +159,3 @@ namespace _ {
 }
 
 export default _;
-
-const test = { 1: 1, 2: 3 };
-
-const test2: Partial<typeof test> = { 1: 1 };

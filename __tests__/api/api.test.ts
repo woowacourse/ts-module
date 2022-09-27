@@ -298,7 +298,6 @@ describe('shuffle 구현 테스트', () => {
 
     const result = _.shuffle(collection);
 
-    console.log(result);
     expect(result.every((element) => collectionValues.includes(element))).toEqual(true);
   });
 });
@@ -322,7 +321,7 @@ describe('pick 구현 테스트', () => {
   });
 });
 
-describe.only('omit 구헌 테스트', () => {
+describe('omit 구헌 테스트', () => {
   test('paths를 전달하면 paths의 요소에 해당되는 object의 키와 값을 제외하고 나머지 키와 값이 반환된다.', () => {
     const object = {
       a: 1,

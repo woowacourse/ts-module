@@ -81,14 +81,26 @@ function _(selector) {
         return Object.values(collection).sort(function () { return (Math.random() > 0.5 ? 1 : -1); });
     };
     _.pick = function (object, paths) {
+        var copiedObject1 = __assign({}, object);
+        var copiedObject2 = __assign({}, object);
+        paths.forEach(function (key) {
+            delete copiedObject1[key];
+        });
+        var tempKeys = Object.keys(copiedObject1);
+        Object.keys(object).forEach(function (key) {
+            if (tempKeys.includes(key)) {
+                delete copiedObject2[key];
+            }
+        });
+        return copiedObject2;
+    };
+    _.omit = function (object, paths) {
         var copiedObject = __assign({}, object);
         paths.forEach(function (key) {
             delete copiedObject[key];
         });
         return copiedObject;
     };
-    function omit() { }
-    _.omit = omit;
     function memoize() { }
     _.memoize = memoize;
     function debounce() { }
@@ -99,5 +111,3 @@ function _(selector) {
     _.clickOutside = clickOutside;
 })(_ || (_ = {}));
 exports["default"] = _;
-var test = { 1: 1, 2: 3 };
-var test2 = { 1: 1 };

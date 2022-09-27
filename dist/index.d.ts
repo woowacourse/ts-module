@@ -21,6 +21,9 @@ declare type ShuffleReturn<T> = T extends {
 declare type Pick = <T extends Object, U extends Array<keyof T>>(object: T, paths: U) => {
     [key in U[number]]: T[key];
 };
+declare type Omit = <T extends Object, U extends Array<keyof T>>(object: T, paths: U) => {
+    [key in Exclude<keyof T, U[number]>]: T[key];
+};
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
  *
@@ -60,7 +63,7 @@ declare namespace _ {
     const isFunction: TypeValidator;
     const shuffle: Shuffle;
     const pick: Pick;
-    function omit(): void;
+    const omit: Omit;
     function memoize(): void;
     function debounce(): void;
     function throttle(): void;
