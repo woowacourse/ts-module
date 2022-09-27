@@ -91,6 +91,16 @@ module _ {
       return result;
     }, {} as Pick<T, U>);
   }
+
+  export function omit<T extends Record<string, unknown>, U extends keyof T>(
+    object: T,
+    selectedItems: U[]
+  ): Omit<T, U> {
+    return selectedItems.reduce((result, selectedItem) => {
+      delete object[selectedItem];
+      return result;
+    }, object);
+  }
 }
 
 export default _;
