@@ -60,13 +60,25 @@ test("Selector 동작 확인", () => {
   divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
   document.body.appendChild(divElement);
 
-  const buttonElement = _("button.test-btn");
+  const buttonElement = _("button.test-btn").element;
   expect(buttonElement).toBeTruthy();
 
-  document.body.removeChild(buttonElement as Element);
+  document.body.childNodes[0].removeChild(buttonElement);
 });
 
-test('`_("").innerHTML()`~~~~', () => {});
+test('_("").innerHTML() 동작 확인', () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const selectedElement = _("button.test-btn").element;
+
+  _("button.test-btn").innerHTML(`<div id='domMorello'>TEST</div>`);
+
+  expect(_("div#domMorello").element).toBeTruthy();
+
+  selectedElement.remove();
+});
 
 test('`_("").show()`~~~~', () => {});
 
