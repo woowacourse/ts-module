@@ -23,3 +23,11 @@ test("addEvent 함수 타입을 테스트한다. ", () => {
     expectType<FocusEvent>(event);
   });
 });
+
+test("fetch 함수 타입을 테스트한다. ", () => {
+  const options = {
+    method: "GET" as Method,
+  };
+
+  expectType<Promise<unknown>>(_.fetch("https://ternoko.site", options));
+});
