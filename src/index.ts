@@ -1,3 +1,4 @@
+import { GeneralFunction } from "./util";
 declare global {
   export interface HTMLElement extends ElementProperty {}
 }
@@ -162,12 +163,12 @@ module _ {
    * @param resolver
    * @returns
    */
-  export function memoize<T extends unknown[], R>(
-    func: (...args: T) => R,
-    resolver?: (...args: T) => R
-  ): (...args: T) => R {
+  export function memoize<T, R>(
+    func: GeneralFunction<T, R>,
+    resolver?: GeneralFunction<T, R>
+  ): GeneralFunction<T, R> {
     const cache = new Map();
-    const memoized = function (...args: T) {
+    const memoized = function (...args: T[]) {
       const key = resolver ? resolver(...args) : args[0];
 
       if (cache.has(key)) {
@@ -181,10 +182,10 @@ module _ {
     return memoized;
   }
 
-  export function debounce<T extends unknown[]>(
-    func: (...args: T) => void,
+  export function debounce<T>(
+    func: GeneralFunction<T, void>,
     wait: number
-  ): (...args: T) => void {
+  ): GeneralFunction<T, void> {
     let timerId: NodeJS.Timeout | null;
 
     return (...args) => {
@@ -193,10 +194,10 @@ module _ {
     };
   }
 
-  export function throttle<T extends unknown[]>(
-    func: (...args: T) => void,
+  export function throttle<T>(
+    func: GeneralFunction<T, void>,
     wait: number
-  ): (...args: T) => void {
+  ): GeneralFunction<T, void> {
     let timerId: NodeJS.Timeout | null;
 
     return (...args) => {
@@ -210,7 +211,7 @@ module _ {
 
   export function clickOutside(
     target: Node,
-    func: (...args: unknown[]) => void
+    func: GeneralFunction<unknown, void>
   ): void {
     window.addEventListener("click", (event) => {
       const isClickInside = target.contains(event.target as HTMLElement);
