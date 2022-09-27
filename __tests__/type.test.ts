@@ -64,3 +64,10 @@ test("shuffle 함수 타입을 테스트한다. ", () => {
   const array_2 = [1, 2, 3, 4, "5"];
   expectType<(number | string)[]>(_.shuffle(array_2));
 });
+
+test("pick 함수 타입을 테스트한다. ", () => {
+  const object = { a: 1, b: 2 };
+
+  expectType<Pick<typeof object, "a">>(_.pick(object, ["a"]));
+  expectType<Pick<typeof object, "a" | "b">>(_.pick(object, ["a", "b"]));
+});
