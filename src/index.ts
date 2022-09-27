@@ -1,11 +1,4 @@
-interface NewElement extends HTMLElement {
-  show(): void;
-  hide(): void;
-  addEvent<C extends keyof HTMLElementEventMap>(
-    cmd: C,
-    callback: (event: HTMLElementEventMap[C]) => void
-  ): unknown;
-}
+import type { NewElement, Function } from './type';
 
 function _(selector: string): NewElement {
   if (!selector) {
@@ -67,7 +60,7 @@ namespace _ {
     return result;
   }
 
-  export function pick(object: Record<string, unknown>, paths: string[]) {
+  export function pick<T extends Record<string, unknown>>(object: T, paths: (keyof T)[]) {
     if (isNil(object)) {
       return {};
     }
@@ -75,7 +68,7 @@ namespace _ {
     return Object.fromEntries(Object.entries(object).filter((el) => paths.includes(el[0])));
   }
 
-  export function omit(object: Record<string, unknown>, paths: string[]) {
+  export function omit<T extends Record<string, unknown>>(object: T, paths: (keyof T)[]) {
     if (isNil(object)) {
       return {};
     }
@@ -83,24 +76,7 @@ namespace _ {
     return Object.fromEntries(Object.entries(object).filter((el) => !paths.includes(el[0])));
   }
 
-  type Function = (...args: unknown[]) => unknown;
-
-  interface MapCache {
-    delete(key: string): boolean;
-    get(key: string): unknown;
-    has(key: string): boolean;
-    set(key: string, value: unknown): { [index: string]: unknown };
-  }
-
-  interface MemoizedFunction extends Function {
-    cache: MapCache;
-  }
-
-  interface Memoize {
-    <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
-    Cache: MapCache;
-  }
-
+  memoize.Cache = Map;
   export function memoize<T extends Function>(func: T, resolver?: Function) {
     if (typeof func !== 'function' || (!isNil(resolver) && typeof resolver !== 'function')) {
       throw new TypeError('Expected a function');
@@ -123,8 +99,6 @@ namespace _ {
 
     return memoized;
   }
-
-  memoize.Cache = Map;
 
   export function debounce(callback: Function, delay: number) {
     let timer: NodeJS.Timeout;
