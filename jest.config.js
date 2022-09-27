@@ -2,4 +2,5 @@
 
 module.exports = {
   preset: 'ts-jest',
+  testPathIgnorePatterns: ['/__tests__/type.test-d.ts'],
 };
