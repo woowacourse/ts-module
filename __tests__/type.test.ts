@@ -103,7 +103,7 @@ test("throttle 함수 타입을 테스트한다. ", () => {
   expectType<typeof callbackFunction>(_.throttle(callbackFunction, delay));
 });
 
-test("clickOutsidce 함수 타입을 테스트한다. ", () => {
+test("clickOutside 함수 타입을 테스트한다. ", () => {
   const divElement = document.createElement("div");
   const callbackFunction = (e: MouseEvent) => {
     console.log(e);
