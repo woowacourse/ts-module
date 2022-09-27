@@ -1,20 +1,15 @@
 import { CreateArrayWithLengthX, NumericRange } from './utils';
 
-function _(selector: string): any {
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
+interface Node {
+  addEvent<T extends HTMLElementEventMap, K extends keyof HTMLElementEventMap>(
+    eventType: K,
+    eventListener: (event: T[K]) => void
+  ): void;
+  innerHTML: (value: string) => void | string;
+  show: () => void;
+  hidden: () => void | boolean;
 }
+declare function _(selector: string): Node;
 
 declare module _ {
   export function fetch<Data>(
