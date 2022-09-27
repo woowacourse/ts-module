@@ -67,3 +67,10 @@ test('debounce 타입 확인', () => {
   }
   expectType<DebouncedFunc<typeof testFunc>>(_.debounce(testFunc, 300));
 });
+
+test('throttle 타입 확인', () => {
+  function testFunc(hello: string) {
+    return 'test';
+  }
+  expectType<DebouncedFunc<typeof testFunc>>(_.throttle(testFunc, 300));
+});

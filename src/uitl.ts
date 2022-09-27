@@ -21,3 +21,8 @@ export interface DebouncedFunc<T extends (...args: any[]) => any> {
   cancel(): void;
   flush(): ReturnType<T> | undefined;
 }
+
+export interface ThrottleSettings {
+  leading?: boolean | undefined;
+  trailing?: boolean | undefined;
+}

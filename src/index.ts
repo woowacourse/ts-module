@@ -1,4 +1,9 @@
-import { DebouncedFunc, DebounceSettings, isIterable } from './uitl';
+import {
+  DebouncedFunc,
+  DebounceSettings,
+  isIterable,
+  ThrottleSettings,
+} from './uitl';
 
 declare global {
   interface HTMLElement extends CustomElement {}
@@ -271,7 +276,24 @@ module _ {
     return debounced;
   }
 
-  export function throttle() {}
+  export function throttle<T extends (...args: any) => any>(
+    func: T,
+    wait?: number,
+    options?: ThrottleSettings
+  ): DebouncedFunc<T> {
+    let leading = true;
+    let trailing = true;
+
+    if (options) {
+      leading = 'leading' in options ? !!options.leading : leading;
+      trailing = 'trailing' in options ? !!options.trailing : trailing;
+    }
+    return debounce(func, wait, {
+      leading,
+      trailing,
+      maxWait: wait,
+    });
+  }
 
   export function clickOutside() {}
 }
