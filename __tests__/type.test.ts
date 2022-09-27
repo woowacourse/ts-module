@@ -22,6 +22,10 @@ if (typeof $button.hidden === 'function') {
   expectType<void>($button.hidden());
 }
 
+if (typeof $button.innerHTML === 'function') {
+  expectType<void>($button.innerHTML('<div>a</div>'));
+}
+
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>('https://example.com', {
     method: 'GET',
