@@ -34,10 +34,10 @@ describe("기본 모듈 정의 테스트", () => {
 
 describe("모듈 호출(selector) 동작 테스트", () => {
   const divElement = document.createElement("div");
-  const selector = "button.test-btn";
+  const selector = "button";
 
   beforeAll(() => {
-    divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+    divElement.innerHTML = `<button>Continue</button>`;
     document.body.appendChild(divElement);
   });
 
@@ -74,22 +74,6 @@ describe("모듈 호출(selector) 동작 테스트", () => {
 });
 
 describe("모듈 메서드 테스트", () => {
-  const divElement = document.createElement("div");
-  const selector = "button.test-btn";
-
-  beforeAll(() => {
-    divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
-    document.body.appendChild(divElement);
-  });
-
-  afterAll(() => {
-    document.body.removeChild(divElement);
-  });
-
-  test("fetch ", () => {
-    tt.fetch("https://naver.com").then(() => {});
-  });
-
   test("isNull ", () => {
     expect(tt.isNull(null)).toBe(true);
     expect(tt.isNull(undefined)).toBe(false);
@@ -142,20 +126,11 @@ describe("모듈 메서드 테스트", () => {
 
   test("omit ", () => {
     const obj = { 1: 1, 2: 2 };
-    expect(tt.pick(obj, [1])).toEqual(expect.objectContaining({ 2: 2 }));
+    expect(tt.omit(obj, [1])).toEqual(expect.objectContaining({ 2: 2 }));
   });
 
   test("memoize ", () => {
     const func = () => "hi";
     expect(tt.memoize(func)()).toBe(func());
   });
-
-  // test("debounce ", () => {
-  //   const func = () => "hi";
-  //   expect(tt.debounce(func, 100))
-  // });
-
-  // test("throttle ", () => {});
-
-  // test("clickOutside ", () => {});
 });
