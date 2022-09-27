@@ -31,3 +31,8 @@ expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([1, 3, 2, 4]));
 expectType<{ a: 1; b: 2 }>(_.pick({ a: 1, b: 2, c: 3 }, 'a', 'b'));
 
 expectType<{ c: number }>(_.omit({ a: 1, b: 2, c: 3 }, 'a', 'b'));
+
+expectType<() => 1>(_.memoize(() => 1));
+expectType<(a: number, b: number) => number>(
+  _.memoize((a: number, b: number) => a + b)
+);
