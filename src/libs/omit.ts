@@ -22,7 +22,7 @@ export default function omit<
     throw new Error('omit(object, keys) - keys의 타입이 Array가 아닙니다.');
   }
 
-  const omitted = <T>{};
+  const omitted = {} as T;
 
   const pickedKeys = (Object.keys(object) as K[]).filter(
     (key) => !keys.includes(key)

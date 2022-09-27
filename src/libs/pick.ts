@@ -7,10 +7,10 @@
  *
  * @returns {Object}
  */
-export default function pick<T extends {}, K extends keyof T>(
-  object: T,
-  keys: K[]
-) {
+export default function pick<
+  T extends Record<string, unknown>,
+  K extends keyof T
+>(object: T, keys: K[]) {
   if (
     typeof object !== 'object' ||
     Object.prototype.toString.call(object) !== '[object Object]'
@@ -21,7 +21,7 @@ export default function pick<T extends {}, K extends keyof T>(
     throw new Error('pick(object, keys) - keys의 타입이 Array가 아닙니다.');
   }
 
-  const picked: Partial<T> = {};
+  const picked = {} as T;
 
   for (const key of keys) {
     picked[key] = object[key];
