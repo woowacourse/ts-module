@@ -40,3 +40,14 @@ expectType<(a: number, b: number) => number>(
 expectType<() => void>(_.debounce(() => console.log('debounce'), 400));
 
 expectType<() => void>(_.throttle(() => console.log('throttle'), 400));
+
+expectType<void>(
+  _.clickOutside(document.createElement('div'), () =>
+    console.log('click outside')
+  )
+);
+
+expectType<void>(
+  //@ts-expect-error
+  _.clickOutside('div', () => console.log('click outside'))
+);
