@@ -1,0 +1,1 @@
+{"version":3,"file":"omit.js","sourceRoot":"","sources":["../../src/lib/omit.ts"],"names":[],"mappings":";;AAAA,SAAS,IAAI,CAAsC,MAAS,EAAE,GAAG,IAAS;IACxE,MAAM,gBAAgB,qBAAQ,MAAM,CAAE,CAAA;IAEtC,IAAI,CAAC,OAAO,CAAC,CAAC,GAAG,EAAE,EAAE,CAAC,OAAO,gBAAgB,CAAC,GAAG,CAAC,CAAC,CAAA;IACnD,OAAO,gBAAgB,CAAA;AACzB,CAAC;AAED,kBAAe,IAAI,CAAA"}
