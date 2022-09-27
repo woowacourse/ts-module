@@ -88,7 +88,13 @@ module _ {
   export function pick<T extends Record<string, unknown>, R extends keyof T>(
     obj: T,
     ...keys: R[]
-  ): { [K in R]: T[K] };
+  ): Pick<T, R> {
+    return keys.reduce((acc, key) => {
+      acc[key] = obj[key];
+
+      return acc;
+    }, {} as Pick<T, R>);
+  }
 
   export function omit<T extends Record<string, unknown>, R extends keyof T>(
     obj: T,
