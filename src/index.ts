@@ -10,4 +10,6 @@ export { default as memoize } from './lib/memoize'
 export { default as debounce } from './lib/debounce'
 export { default as throttle } from './lib/throttle'
 export { default as fetch } from './lib/fetch'
+export { default as clickOutside } from './lib/clickOutside'
+
 export { default } from './index.default'

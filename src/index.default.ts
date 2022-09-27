@@ -11,6 +11,7 @@ import memoize from './lib/memoize'
 import debounce from './lib/debounce'
 import throttle from './lib/throttle'
 import fetch from './lib/fetch'
+import clickOutside from './lib/clickOutside'
 
 const _ = Object.assign(selector, {
   isNull,
@@ -24,6 +25,7 @@ const _ = Object.assign(selector, {
   debounce,
   throttle,
   fetch,
+  clickOutside,
 })
 
 export default _
