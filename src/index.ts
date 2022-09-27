@@ -16,6 +16,7 @@ interface CustomElement extends HTMLElement {
     listener: (event: HTMLElementEventMap[T]) => void,
   ) => void;
   show: () => void;
+  hide: () => void;
 }
 
 type TypeValidator = (value: unknown) => boolean;
@@ -56,6 +57,10 @@ function _(selector: string): CustomElement | null {
 
     target.show = () => {
       target.style.display = 'block';
+    };
+
+    target.hide = () => {
+      target.style.display = 'none';
     };
   }
 
