@@ -1,32 +1,52 @@
-import _ from 'lodash';
+interface CustomElementMethod {
+  addEvent<T extends keyof GlobalEventHandlersEventMap>(
+    eventType: T,
+    handler: (event: GlobalEventHandlersEventMap[T]) => void,
+  ): void;
 
-function _(selector: string): any {
-  const element = document.querySelector<HTMLElement>(selector);
-  if (element === null) throw new Error('no element');
+  innerHtml(content?: string): string | void;
 
-  return {
-    innerHTML: (content: string): void => {
-      element.innerHTML = content;
-    },
-
-    show: () => {
-      element.style.display = 'block';
-    },
-
-    hide: () => {
-      element.style.display = 'hidden';
-    },
-
-    addEvent: <T extends keyof GlobalEventHandlersEventMap>(event: T, handler: () => void) => {
-      element.addEventListener(event, handler);
-    },
-  };
+  show(): void;
+  hide(): void;
 }
-module _ {
-  export function fetch() {
-    return {};
+
+declare global {
+  interface HTMLElement extends CustomElementMethod {}
+}
+
+function _(selector: string) {
+  const element = document.querySelector<HTMLElement>(selector);
+  if (element === null) throw new Error('error no Element');
+
+  const show = () => {
+    element.style.display = 'block';
+  };
+
+  const hide = () => {
+    element.style.display = 'hidden';
+  };
+
+  const addEvent = <T extends keyof GlobalEventHandlersEventMap>(event: T, handler: (...args: any) => void) => {
+    element.addEventListener(event, handler);
+  };
+
+  function innerHtml(content?: string): string | void {
+    if (element === null) throw new Error('요소 없음');
+    if (!content) {
+      return element.innerHTML;
+    }
+    element.innerHTML = content;
+    return;
   }
 
+  element.hide = hide;
+  element.show = show;
+  element.addEvent = addEvent;
+  element.innerHtml = innerHtml;
+
+  return element;
+}
+module _ {
   export function isNull(input: unknown): input is null {
     return input === null;
   }
@@ -70,7 +90,7 @@ module _ {
     const omitTarget = () => {
       const newObj = {};
       const inputKeys = Object.keys(input);
-      const filteredKeys = inputKeys.filter((key) => target.includes(key));
+      const filteredKeys = inputKeys.filter((key) => !target.includes(key));
       filteredKeys.forEach((key) => {
         newObj[key] = input[key];
       });
@@ -79,6 +99,32 @@ module _ {
     };
 
     return input === null ? {} : omitTarget();
+  }
+
+  export function fetch(url: string, method: string, payload?: unknown): Promise<any> {
+    const request = new XMLHttpRequest();
+    request.open(method, url);
+    request.responseType = 'json';
+    const requestBody = JSON.stringify(payload);
+
+    let resolve: unknown, reject: unknown;
+
+    request.onload = function (this: XMLHttpRequest) {
+      if (typeof resolve !== 'function') throw new Error('잘못 설정된  resolver');
+      return resolve(this.response);
+    };
+
+    request.onerror = function (this: XMLHttpRequest) {
+      if (typeof reject !== 'function') throw new Error('잘못 설정된  rejecter');
+      return reject(this.response);
+    };
+
+    request.send(requestBody);
+
+    return new Promise((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
   }
 
   export function memoize<T extends unknown[], U>(
