@@ -5,9 +5,9 @@ import { expectType } from "tsd";
 
 import _ from "../src";
 
-// _(".button").addEvent("click", function (event) {
-//   expectType<MouseEvent>(event);
-// });
+_(".button").addEvent("click", function (event) {
+  expectType<MouseEvent>(event);
+});
 
 // fetch
 expectType<Promise<Response>>(
@@ -41,7 +41,9 @@ expectType<string[]>(_.shuffle(["a", "b", "c", "d"]));
 expectType<{ a: number; c: number }>(
   _.pick({ a: 1, b: "2", c: 3 }, ["a", "c"])
 );
-expectType<{ b: string }>(_.pick({ a: 1, b: "2", c: 3 }, ["a", "b"]));
+expectType<{ a: number; b: string }>(
+  _.pick({ a: 1, b: "2", c: 3 }, ["a", "b"])
+);
 expectType<{}>(_.pick({ a: 1, b: "2", c: 3 })); // {}
 
 // omit
@@ -49,11 +51,11 @@ expectType<{ b: string }>(_.omit({ a: 1, b: "2", c: 3 }, ["a", "c"]));
 expectType<{ b: string; c: number }>(_.omit({ a: 1, b: "2", c: 3 }, ["a"])); // TODO b, c 하나 빼도 됨
 
 // memoize
-expectType<Function>(
-  _.memoize(() => {
-    return `test`;
-  })
-);
+// expectType<Function>(
+//   _.memoize(() => {
+//     return `test`;
+//   })
+// );
 
 // debounce
 expectType<Function>(
@@ -69,9 +71,7 @@ expectType<Function>(
   }, 500)
 );
 
-// clickOutside: 엘리먼트 밖을 클릭했을 때 실행 할 함수를 등록 (clickOutside 구현부에서는 $element 밖을 클릭했을 때 func를 실행할 수 있도록 이벤트 리스너를 등록한다.)
-// @element: 대상 엘리먼트
-// @func: 실행 할 함수
+// clickOutside
 const $element = document.createElement("div");
 
 expectType<void>(
