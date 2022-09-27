@@ -9,6 +9,7 @@ type shuffleType = typeof __.shuffle;
 type PickType = typeof __.pick;
 type OmitType = typeof __.omit;
 type MemoizeType = typeof __.memoize;
+type DebounceType = typeof __.debounce;
 
 function _(selector: string): any {
   /**
@@ -89,7 +90,15 @@ module _ {
     };
   };
 
-  export function debounce() {}
+  export const debounce: DebounceType = (func, delay) => {
+    let timer: number;
+    return () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        func();
+      }, delay);
+    };
+  };
 
   export function throttle() {}
 
