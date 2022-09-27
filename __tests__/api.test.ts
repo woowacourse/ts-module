@@ -143,28 +143,4 @@ describe('_ 함수 테스트', () => {
 
     expect(_('body').innerHTML).toBe(`<div><button class=\"test-btn\">Continue</button></div>`);
   });
-
-  test('`_("").hidden()`~~~~', () => {
-    const divElement = document.createElement('div');
-    divElement.innerHTML = `<button id='test-btn'>Continue</button>`;
-    document.body.appendChild(divElement);
-    expect(document.getElementById('test-btn')!.style.display).toBe('');
-
-    _('.test-btn').hidden();
-
-    expect(document.getElementById('test-btn')?.style.display).toBe('none');
-
-    // expect(document.getElementById('test-btn')?.style.display).toBe('none');
-  });
-
-  test('`_("").show()`~~~~', () => {
-    const divElement = document.createElement('div');
-    divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
-    document.body.appendChild(divElement);
-
-    _('.test-btn').hidden();
-    _('.test-btn').show();
-
-    expect(document.getElementById('test-btn')?.style.display).toBe('block');
-  });
 });
