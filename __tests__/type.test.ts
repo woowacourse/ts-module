@@ -57,3 +57,11 @@ test('memoize type check', () => {
 
   expectType<{ (arg1: any, arg2: any): string; cache: Map<any, any> }>(_.memoize(func));
 });
+
+test('debounce type check', () => {
+  const func = () => {};
+  const time = 1000;
+  const debouncedFunc = _.debounce(func, time);
+
+  expectType<(...args: unknown[]) => void>(debouncedFunc);
+});

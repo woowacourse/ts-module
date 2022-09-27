@@ -122,15 +122,15 @@ namespace _ {
 
   memoize.Cache = Map;
 
-  // export function debounce<T>(callback: Function, delay: number) {
-  //   let timer: NodeJS.Timeout;
-  //   return function (...args: Parameters<typeof callback>) {
-  //     clearTimeout(timer);
-  //     timer = setTimeout(() => {
-  //       callback.apply(this, args);
-  //     }, delay);
-  //   };
-  // }
+  export function debounce(callback: Function, delay: number) {
+    let timer: NodeJS.Timeout;
+    return function (...args: Parameters<typeof callback>) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        callback.apply(this, args);
+      }, delay);
+    };
+  }
 
   // export function throttle(callback: Function, delay: number) {
   //   let timer: NodeJS.Timeout;

@@ -4,6 +4,8 @@
 import _ from '../src';
 
 // const fetchMock = jest.mock('fetch', () => 'kam');
+jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 test('모듈은 기본 내보내기', () => {
   expect(_).toBeTruthy();
@@ -106,4 +108,14 @@ test('memoize 동작 확인', () => {
 
   expect(funcM2('kam', 'woo')).toEqual('kam woo');
   expect(funcM2('kam', 'yeong')).toEqual('kam yeong');
+});
+
+test('debounce 동작 확인', () => {
+  const func = () => {};
+  const time = 1000;
+  const debouncedFunc = _.debounce(func, time);
+  debouncedFunc();
+
+  expect(setTimeout).toHaveBeenCalledTimes(1);
+  expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), time);
 });
