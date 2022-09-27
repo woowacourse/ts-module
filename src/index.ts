@@ -124,26 +124,26 @@ module _ {
     if (!object || !paths) {
       return;
     }
-    const result = Object.fromEntries(
-      Object.entries(object).map(
-        (item) => {
-          if (
-            typeof paths != "string" &&
-            paths.includes(
-              String(item[0])
-            )
-          ) {
-            return item;
-          }
-          if (
-            typeof paths === "string" &&
-            paths === String(item[0])
-          ) {
-            return item;
-          }
-          return;
+    let result: Record<string, T> = {};
+
+    Object.entries(object).forEach(
+      (item) => {
+        if (
+          typeof paths != "string" &&
+          paths.includes(
+            String(item[0])
+          )
+        ) {
+          result[item[0]] = item[1];
         }
-      )
+        if (
+          typeof paths === "string" &&
+          paths === String(item[0])
+        ) {
+          result[item[0]] = item[1];
+        }
+        return;
+      }
     );
 
     return result;
@@ -156,26 +156,26 @@ module _ {
     if (!object || !paths) {
       return;
     }
-    const result = Object.fromEntries(
-      Object.entries(object).map(
-        (item) => {
-          if (
-            typeof paths != "string" &&
-            !paths.includes(
-              String(item[0])
-            )
-          ) {
-            return item;
-          }
-          if (
-            typeof paths === "string" &&
-            paths !== String(item[0])
-          ) {
-            return item;
-          }
-          return;
+    let result: Record<string, T> = {};
+
+    Object.entries(object).forEach(
+      (item) => {
+        if (
+          typeof paths != "string" &&
+          !paths.includes(
+            String(item[0])
+          )
+        ) {
+          result[item[0]] = item[1];
         }
-      )
+        if (
+          typeof paths === "string" &&
+          paths !== String(item[0])
+        ) {
+          result[item[0]] = item[1];
+        }
+        return;
+      }
     );
 
     return result;
