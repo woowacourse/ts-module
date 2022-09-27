@@ -92,7 +92,7 @@ module _ {
         target = pick(obj, ...item);
         Object.assign(result, target);
       } else if (typeof item === 'string' && Object.keys(obj).includes(item)) {
-        target = obj[item];
+        target = { [item]: obj[item] };
         Object.assign(result, target);
       }
     });
