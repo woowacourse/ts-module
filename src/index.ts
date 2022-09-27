@@ -152,7 +152,21 @@ module _ {
     };
   }
 
-  export function clickOutside(dom: Node, func: (...args: any[]) => void): void;
+  export function clickOutside(
+    dom: HTMLElement,
+    func: (...args: any[]) => void
+  ): void {
+    window.addEventListener('click', (e, ...args) => {
+      if (!(e.target instanceof HTMLElement)) {
+        return;
+      }
+      if (dom.isSameNode(e.target)) {
+        return;
+      }
+
+      func(...args);
+    });
+  }
 }
 
 export default _;
