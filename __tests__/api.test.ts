@@ -9,12 +9,12 @@ test("모듈은 기본 내보내기", () => {
 
 test("isNull test", () => {
   expect(_.isNull("sss")).toBe(false);
-  expect(_.isNull("")).toBe(true);
+  expect(_.isNull(null)).toBe(true);
 });
 
 test("isNill test", () => {
   expect(_.isNil("sss")).toBe(false);
-  expect(_.isNil("")).toBe(true);
+  expect(_.isNil(null)).toBe(true);
 });
 
 test("isNumber test", () => {
@@ -36,35 +36,63 @@ test("isFunction test", () => {
 test("모듈에 포함된 pick 함수 확인", () => {
   expect(
     _.pick({ a: "1", b: "2" }, ["a"])
-  ).toBe({ a: "1" });
+  ).toStrictEqual({ a: "1" });
 });
 
 test("모듈에 포함된 omit 함수 확인", () => {
   expect(
     _.omit({ a: "1", b: "2" }, ["a"])
-  ).toBe({ b: "2" });
+  ).toStrictEqual({ b: "2" });
 });
 
-// test("Selector 동작 확인", () => {
-//   const divElement =
-//     document.createElement("div");
-//   divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
-//   document.body.appendChild(divElement);
+test("Selector 동작 확인", () => {
+  const divElement =
+    document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
 
-//   const buttonElement = _(
-//     "button.test-btn"
-//   );
-//   expect(buttonElement).toBeTruthy();
+  const buttonElement = _(
+    "button.test-btn"
+  );
+  expect(buttonElement).toBeTruthy();
+});
 
-//   //   document.body.removeChild(
-//   //     buttonElement
-//   //   );
-// });
+test('`_("").innerHTML()`의 작동을 확인한다', () => {
+  const container =
+    document.createElement("button");
+  container.className = "button";
+  document.body.appendChild(container);
+  _(".button").innerHTML("test");
 
-// test('`_("").innerHTML()`~~~~', () => {});
+  expect(container.textContent).toEqual(
+    "test"
+  );
+});
 
-// test('`_("").show()`~~~~', () => {});
+test('`_("").show()`의 작동을 확인한다', () => {
+  const container =
+    document.createElement("div");
+  container.id = "button";
+  document.body.appendChild(container);
 
-// test('`_("").hidden()`~~~~', () => {});
+  _("#button").show();
 
-// test('`_("").addEvent()`~~~~', () => {});
+  expect(
+    container.classList.contains(
+      "active"
+    )
+  ).toEqual(true);
+});
+
+test('`_("").hidden()`의 작동을 확인한다', () => {
+  const container =
+    document.createElement("div");
+  container.id = "button2";
+  document.body.appendChild(container);
+
+  _("#button2").hidden();
+
+  expect(
+    container.classList.contains("hide")
+  ).toEqual(true);
+});
