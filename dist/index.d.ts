@@ -1,4 +1,4 @@
-declare function _(selector: string): Node;
+declare function _(selector: string): Node | null;
 declare global {
     interface Node {
         setInnerHTML(value: string): void;
@@ -8,29 +8,38 @@ declare global {
     }
 }
 declare module _ {
-    function fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
-    function isNull<T extends unknown>(value: T): T extends null ? true : false;
-    function isNil<T extends unknown>(value: T): T extends undefined | null ? true : false;
-    function isNumber<T extends unknown>(value: T): T extends number ? true : false;
-    function isFunction<T extends unknown>(value: T): T extends Function ? true : false;
-    function shuffle<T>(array: T[]): T[];
-    type PickType<T, U extends readonly (keyof T)[]> = {
+    export function fetch(input: string | URL, init?: RequestInit): Promise<Response>;
+    export function isNull<T extends unknown>(value: T): boolean;
+    export function isNil<T extends unknown>(value: T): boolean;
+    export function isNumber<T extends unknown>(value: T): boolean;
+    export function isFunction<T extends unknown>(value: T): boolean;
+    export function shuffle<T>(array: T[]): T[];
+    type PickType<T extends {
+        [key: string]: unknown;
+    }, U extends readonly (keyof T)[]> = {
         [K in U[number]]: T[K];
     };
-    function pick<T extends Record<string, unknown>, U extends (keyof T)[]>(object: T, paths: U): PickType<T, U>;
-    type OmitType<T, U extends readonly (keyof T)[]> = {
+    export function pick<T extends {
+        [key: string]: unknown;
+    }, U extends (keyof T)[]>(object: T, paths: U): PickType<T, U>;
+    type OmitType<T extends {
+        [key: string]: unknown;
+    }, U extends readonly (keyof T)[]> = {
         [K in keyof Omit<T, U[number]>]: T[K];
     };
-    function omit<T extends Record<string, unknown>, U extends (keyof T)[]>(object: T, paths: U): OmitType<T, U>;
-    function memoize<T extends unknown[], U extends unknown>(func: (...args: T) => U, resolver?: (...args: T) => string): (...args: T) => U;
+    export function omit<T extends {
+        [key: string]: unknown;
+    }, U extends (keyof T)[]>(object: T, paths: U): OmitType<T, U>;
+    export function memoize<T extends unknown[], U extends unknown>(func: (...args: T) => U, resolver?: (...args: T) => string): (...args: T) => U;
     type DebounceOptionsType = {
         leading?: boolean;
         maxWait?: number;
         trailing?: boolean;
     };
-    function debounce<T extends unknown[], U extends unknown>(func: (...args: T) => U, wait?: number, options?: DebounceOptionsType): (...args: T) => void;
+    export function debounce<T extends unknown[], U extends unknown>(func: (...args: T) => U, wait?: number, options?: DebounceOptionsType): (...args: T) => void;
     type ThrottleOptionsType = Omit<DebounceOptionsType, "maxWait">;
-    function throttle<T extends unknown[], U extends unknown>(func: (...args: T) => U, wait?: number, options?: ThrottleOptionsType): (...args: T) => void;
-    function clickOutside<T extends unknown[], U extends unknown>(target: Node, func: (...args: T) => U): void;
+    export function throttle<T extends unknown[], U extends unknown>(func: (...args: T) => U, wait?: number, options?: ThrottleOptionsType): (...args: T) => void;
+    export function clickOutside<T extends unknown, U extends unknown>(target: Node, func: (...args: T[]) => U): void;
+    export {};
 }
 export default _;

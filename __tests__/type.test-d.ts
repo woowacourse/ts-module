@@ -5,25 +5,21 @@ import { expectType } from "tsd";
 
 import _ from "../src";
 
-_(".button").addEvent("click", function (event) {
-  expectType<MouseEvent>(event);
-});
-
 expectType<Promise<Response>>(_.fetch("url"));
 
-expectType<true>(_.isNull(null));
-expectType<false>(_.isNull([1, 2, 3, 4, 5]));
+expectType<boolean>(_.isNull(null));
+expectType<boolean>(_.isNull([1, 2, 3, 4, 5]));
 
-expectType<false>(_.isNil([1, 2, 3, 4, 5]));
-expectType<false>(_.isNil(1));
-expectType<true>(_.isNil(null));
-expectType<true>(_.isNil(undefined));
+expectType<boolean>(_.isNil([1, 2, 3, 4, 5]));
+expectType<boolean>(_.isNil(1));
+expectType<boolean>(_.isNil(null));
+expectType<boolean>(_.isNil(undefined));
 
-expectType<true>(_.isNumber(1));
-expectType<false>(_.isNumber("1"));
+expectType<boolean>(_.isNumber(1));
+expectType<boolean>(_.isNumber("1"));
 
-expectType<true>(_.isFunction(() => {}));
-expectType<false>(_.isFunction("1"));
+expectType<boolean>(_.isFunction(() => {}));
+expectType<boolean>(_.isFunction("1"));
 
 expectType<number[]>(_.shuffle([1, 2, 3, 4, 5]));
 expectType<(string | number)[]>(_.shuffle([1, "2", 3, "4", 5]));
@@ -52,11 +48,19 @@ expectType<(a: number) => void>(
   _.throttle((a: number) => a * 2, 2000, { leading: true })
 );
 
-expectType<void>(_.clickOutside(_(".button"), (a: number) => a * 2));
+const $button = _(".button");
 
-expectType<void>(_(".button").setInnerHTML("<h1>setInnerHTML 테스트<h1>"));
-expectType<void>(_(".button").setShow());
-expectType<void>(_(".button").setHidden());
-expectType<void>(_(".button").addEvent("click", (event) => {}));
-//@ts-expect-error
-expectType<void>(_(".button").addEvent("test", (event) => {}));
+if ($button) {
+  $button.addEvent("click", function (event) {
+    expectType<MouseEvent>(event);
+  });
+
+  expectType<void>(_.clickOutside($button, (a: number) => a * 2));
+
+  expectType<void>($button.setInnerHTML("<h1>setInnerHTML 테스트<h1>"));
+  expectType<void>($button.setShow());
+  expectType<void>($button.setHidden());
+  expectType<void>($button.addEvent("click", (event) => {}));
+  //@ts-expect-error
+  expectType<void>($button.addEvent("test", (event) => {}));
+}
