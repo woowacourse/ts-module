@@ -50,7 +50,7 @@ declare module _ {
     ...keys: R[]
   ): { [K in Exclude<keyof T, R>]: T[K] };
 
-  // export function memoize() {}
+  export function memoize<T extends (...args: any[]) => any>(func: T): T;
 
   // export function debounce() {}
 
