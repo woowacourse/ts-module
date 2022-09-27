@@ -11,6 +11,7 @@ type OmitType = typeof __.omit;
 type MemoizeType = typeof __.memoize;
 type DebounceType = typeof __.debounce;
 type ThrottleType = typeof __.throttle;
+type ClickOutsideType = typeof __.clickOutside;
 
 function _(selector: string): any {
   /**
@@ -103,7 +104,7 @@ module _ {
 
   export const throttle: ThrottleType = (func, delay) => {
     let timer: number | null = null;
-    return function () {
+    return () => {
       if (!timer) {
         timer = window.setTimeout(() => {
           func();
@@ -113,7 +114,16 @@ module _ {
     };
   };
 
-  export function clickOutside() {}
+  export const clickOutside: ClickOutsideType = (element, func) => {
+    return (event: MouseEvent) => {
+      if (
+        event.target instanceof HTMLElement &&
+        !element.contains(event.target)
+      ) {
+        func();
+      }
+    };
+  };
 }
 
 export default _;
