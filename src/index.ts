@@ -14,10 +14,20 @@ function _(selector: string) {
     const newDiv =
       document.createElement("div");
     newDiv.append(value);
+    if (!newDiv || !selectedNode) {
+      throw new Error(
+        "div 가 존재하지 않습니다"
+      );
+    }
     selectedNode.appendChild(newDiv);
   }
 
   function show(): void {
+    if (!selectedNode) {
+      throw new Error(
+        "div 가 존재하지 않습니다"
+      );
+    }
     selectedNode.classList.remove(
       "hide"
     );
@@ -27,6 +37,11 @@ function _(selector: string) {
   }
 
   function hidden(): void {
+    if (!selectedNode) {
+      throw new Error(
+        "div 가 존재하지 않습니다"
+      );
+    }
     selectedNode.classList.remove(
       "active"
     );
@@ -40,6 +55,11 @@ function _(selector: string) {
       event: Event
     ) => void
   ): void {
+    if (!selectedNode) {
+      throw new Error(
+        "div 가 존재하지 않습니다"
+      );
+    }
     selectedNode.addEventListener(
       eventType,
       func
@@ -61,36 +81,35 @@ module _ {
     return axios.get(url);
   }
 
-  export function isNull<T>(
-    arg: T
-  ): true | false {
+  export function isNull(
+    arg: unknown
+  ): arg is null {
     return arg === null;
   }
 
-  export function isNil<T>(
-    arg: T
-  ): true | false {
-    return arg === null ||
-      arg === undefined
-      ? true
-      : false;
+  export function isNil(
+    arg: unknown
+  ): arg is null | undefined {
+    return (
+      arg === null || arg === undefined
+    );
   }
 
-  export function isNumber<T>(
-    arg: T
-  ): true | false {
+  export function isNumber(
+    arg: unknown
+  ): arg is number {
     return typeof arg === "number";
   }
 
-  export function isFunction<T>(
-    arg: T
-  ): true | false {
+  export function isFunction(
+    arg: unknown
+  ): arg is Function {
     return typeof arg === "function";
   }
 
-  export function shuffle<T>(
-    collection: T[]
-  ): T[] | [] {
+  export function shuffle(
+    collection: string[]
+  ): string[] | [] {
     if (
       !collection ||
       !collection.length
@@ -117,14 +136,17 @@ module _ {
     return result;
   }
 
-  export function pick<T>(
-    object: PickObject<T>,
+  export function pick(
+    object: PickObject<string>,
     paths: PickPaths
-  ): PickObject<T> | null {
+  ): PickObject<string> | null {
     if (!object || !paths) {
-      return;
+      throw new Error(
+        "존재하지 않습니다"
+      );
     }
-    let result: Record<string, T> = {};
+    let result: Record<string, string> =
+      {};
 
     Object.entries(object).forEach(
       (item) => {
@@ -149,14 +171,17 @@ module _ {
     return result;
   }
 
-  export function omit<T>(
-    object: Record<string, T>,
+  export function omit(
+    object: Record<string, string>,
     paths: PickPaths
-  ): Record<string, T> | null {
+  ): Record<string, string> | null {
     if (!object || !paths) {
-      return;
+      throw new Error(
+        "존재하지 않습니다"
+      );
     }
-    let result: Record<string, T> = {};
+    let result: Record<string, string> =
+      {};
 
     Object.entries(object).forEach(
       (item) => {
@@ -181,17 +206,19 @@ module _ {
     return result;
   }
 
-  export function memoize<T1>(
-    func: () => T1,
+  export function memoize(
+    func: () => string,
     resolver: (
-      args: Record<string, T1>
+      args: Record<string, string>
     ) => string[]
-  ): () => T1 | null {
+  ): () => string | null {
     if (
       typeof func !== "function" ||
       typeof resolver !== "function"
     ) {
-      return;
+      throw new Error(
+        "인자가 존재하지 않습니다"
+      );
     }
     let result = func();
     return function showResult() {
@@ -199,8 +226,8 @@ module _ {
     };
   }
 
-  export function debounce<T>(
-    func: (args: T) => void,
+  export function debounce(
+    func: (args: string) => void,
     wait: number,
     options?: DebounceThrottleOption
   ): () => void | null {
@@ -208,7 +235,9 @@ module _ {
       typeof func !== "function" ||
       typeof wait !== "number"
     ) {
-      return;
+      throw new Error(
+        "인자가 존재하지 않습니다"
+      );
     }
     let timer: null | number = null;
     return function () {
@@ -219,8 +248,8 @@ module _ {
     };
   }
 
-  export function throttle<T>(
-    func: (args: T) => void,
+  export function throttle(
+    func: (args: string) => void,
     wait: number,
     options?: DebounceThrottleOption
   ): () => void | null {
@@ -228,7 +257,9 @@ module _ {
       typeof func !== "function" ||
       typeof wait !== "number"
     ) {
-      return;
+      throw new Error(
+        "인자가 존재하지 않습니다"
+      );
     }
     let timer: null | number = null;
     return function () {
@@ -244,11 +275,20 @@ module _ {
     func: (e: HTMLElement) => void
   ): void {
     if (!target) {
-      return;
+      throw new Error(
+        "인자가 존재하지 않습니다"
+      );
     }
-    target.parentElement.addEventListener(
+    const parentNode =
+      target.parentElement;
+    if (!parentNode) {
+      throw new Error(
+        "parent가 존재하지 않습니다"
+      );
+    }
+    parentNode.addEventListener(
       "click",
-      () => func(target.parentElement)
+      () => func(parentNode)
     );
   }
 }
@@ -306,7 +346,7 @@ type PickObject<T> = {
 };
 type PickPaths = string | string[];
 
-interface DebounceThrottleOption {
+export interface DebounceThrottleOption {
   leading?: boolean;
   maxWait?: number;
   trailing?: boolean;
