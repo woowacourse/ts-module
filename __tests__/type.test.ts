@@ -18,13 +18,9 @@ $button.addEvent('invalid eventType', function (event) {
 
 expectType<void>($button.show());
 
-if (typeof $button.hidden === 'function') {
-  expectType<void>($button.hidden());
-}
+expectType<void>($button.hide());
 
-if (typeof $button.innerHTML === 'function') {
-  expectType<void>($button.innerHTML('<div>a</div>'));
-}
+expectType<string>($button.innerHtml('<div>a</div>'));
 
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>('https://example.com', {

@@ -1,15 +1,45 @@
-import { CreateArrayWithLengthX, NumericRange } from './utils';
+function _(selector: string) {
+  const element = document.createElement(selector);
 
-interface Node {
-  addEvent<T extends GlobalEventHandlersEventMap, K extends keyof T>(
-    eventType: K,
-    eventListener: (event: T[K]) => void
-  ): void;
-  innerHTML: ((value: string) => void) | string;
-  show: () => void;
-  hidden: () => void;
+  if (element === undefined) {
+    throw Error('Element를 생성하는데 실패하였습니다.');
+  }
+
+  function getElement(): HTMLElement {
+    return element;
+  }
+
+  function innerHtml(content?: string): string {
+    if (content !== undefined) {
+      element.innerHTML = content;
+    }
+
+    return element.innerHTML;
+  }
+
+  function show() {
+    element.style.display = 'block';
+  }
+
+  function hide() {
+    element.style.display = 'none';
+  }
+
+  function addEvent<T extends keyof GlobalEventHandlersEventMap>(
+    type: T,
+    listener: (e: GlobalEventHandlersEventMap[T]) => void
+  ) {
+    element.addEventListener(type, listener);
+  }
+
+  return {
+    getElement,
+    innerHtml,
+    show,
+    hide,
+    addEvent,
+  };
 }
-declare function _(selector: string): Node;
 
 module _ {
   type FetchBodyType =
@@ -31,7 +61,7 @@ module _ {
   };
 
   type Response<Data> = {
-    status: NumericRange<CreateArrayWithLengthX<200>, 600>;
+    status: number;
     ok: boolean;
     statusText: string;
     url: string;
@@ -113,7 +143,7 @@ module _ {
   export function memoize<T extends (...args: any[]) => any>(
     func: T,
     makeKey: (...args: any[]) => string
-  ) {
+  ): (...args: any[]) => any {
     const cache: Record<string, any> = {};
 
     return (...args: any[]): any => {
@@ -160,7 +190,7 @@ module _ {
       if (!(e.target instanceof HTMLElement)) {
         return;
       }
-      if (dom.isSameNode(e.target)) {
+      if (e.target === dom) {
         return;
       }
 
