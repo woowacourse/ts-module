@@ -5,6 +5,10 @@ function _(selector: string) {
     throw Error("Element를 생성하는데 실패하였습니다.");
   }
 
+  function getElement(): HTMLElement {
+    return element;
+  }
+
   function innerHtml(content?: string): string {
     if (content) {
       element.innerHTML = content;
@@ -29,6 +33,7 @@ function _(selector: string) {
   }
 
   return {
+    getElement,
     innerHtml,
     show,
     hide,
