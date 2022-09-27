@@ -116,6 +116,10 @@ namespace _ {
   export const pick: Pick = (object, paths) => {
     const copiedObject = { ...object };
 
+    paths.forEach((key) => {
+      delete copiedObject[key];
+    });
+
     return copiedObject;
   };
 

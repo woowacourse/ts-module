@@ -82,6 +82,9 @@ function _(selector) {
     };
     _.pick = function (object, paths) {
         var copiedObject = __assign({}, object);
+        paths.forEach(function (key) {
+            delete copiedObject[key];
+        });
         return copiedObject;
     };
     function omit() { }
