@@ -16,8 +16,6 @@ const search = (path: Array<Key>): any => {
 };
 
 const insert = (val: any, path: Array<Key>) => {
-  console.log("insert value", val);
-  console.log("in path", path);
   let temp = cache;
   for (let i = 0; i < path.length; i += 1) {
     const key = path[i];
