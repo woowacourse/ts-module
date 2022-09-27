@@ -64,7 +64,26 @@ module _ {
     return typeof value === 'function';
   }
 
-  export function shuffle<T extends unknown>(value: T[]): T[];
+  export function shuffle<T>(value: T[]): T[] {
+    const length = value == null ? 0 : value.length;
+
+    if (!length) {
+      return [];
+    }
+
+    let index = -1;
+    const lastIndex = length - 1;
+    const result = [...value];
+
+    while (++index < length) {
+      const rand = index + Math.floor(Math.random() * (lastIndex - index + 1));
+      const value = result[rand];
+      result[rand] = result[index];
+      result[index] = value;
+    }
+
+    return result;
+  }
 
   export function pick<T extends Record<string, unknown>, R extends keyof T>(
     obj: T,
