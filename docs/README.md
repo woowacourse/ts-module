@@ -2,22 +2,22 @@
 
 DOM 유틸
 
-- [ ] innerHTML()
-- [ ] show()
-- [ ] hidden()
-- [ ] addEvent()
+- [x] innerHTML()
+- [x] show()
+- [x] hidden()
+- [x] addEvent()
 
 유틸
 
-- [ ] fetch()
-- [ ] isNull()
-- [ ] isNil()
-- [ ] isNumber()
-- [ ] isFunction()
-- [ ] shuffle()
-- [ ] pick()
-- [ ] omit()
-- [ ] memoize()
-- [ ] debounce()
-- [ ] throttle()
-- [ ] clickOutside()
+- [x] fetch()
+- [x] isNull()
+- [x] isNil()
+- [x] isNumber()
+- [x] isFunction()
+- [x] shuffle()
+- [x] pick()
+- [x] omit()
+- [x] memoize()
+- [x] debounce()
+- [x] throttle()
+- [x] clickOutside()

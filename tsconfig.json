@@ -4,9 +4,13 @@
     "target": "esnext",
     "strict": true,
     "skipLibCheck": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "outDir": "./build"
+    "outDir": "./build",
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
