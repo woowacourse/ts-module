@@ -72,3 +72,19 @@ test('debounce 동작 확인', () => {
   jest.advanceTimersByTime(2000);
   expect(console.log).toHaveBeenCalledTimes(1);
 });
+
+test('throttle 동작 확인', () => {
+  console.log = jest.fn();
+
+  const testFunc = () => {
+    console.log('hi');
+  };
+
+  const throttleFunc = _.throttle(testFunc, 3000);
+  for (let i = 0; i < 100; i++) {
+    throttleFunc();
+  }
+  expect(console.log).toHaveBeenCalledTimes(1);
+  jest.advanceTimersByTime(2500);
+  expect(console.log).toHaveBeenCalledTimes(1);
+});
