@@ -13,3 +13,13 @@ test("show 함수 타입을 테스트한다. ", () => {
 test("hide 함수 타입을 테스트한다. ", () => {
   expectType<void>(_("button").hide());
 });
+
+test("addEvent 함수 타입을 테스트한다. ", () => {
+  _("button").addEvent("click", function (event) {
+    expectType<MouseEvent>(event);
+  });
+
+  _("button").addEvent("blur", function (event) {
+    expectType<FocusEvent>(event);
+  });
+});
