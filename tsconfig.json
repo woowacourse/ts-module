@@ -4,8 +4,11 @@
     "target": "ES6",
     "module": "commonjs",
     "noImplicitAny": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "./lib",
+    "skipLibCheck": true
   },
-  "include": ["src", "__tests__"],
+  "include": ["src/index.ts"],
   "exclude": ["node_modules"]
 }
