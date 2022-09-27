@@ -5,6 +5,7 @@
  * - addEvent
  */
 interface CustomElement extends HTMLElement {
+  insertHTML: (html: string) => string;
   /**
    * Target element에 listener로 전달한 함수를 type 이벤트로 추가한다.
    *
@@ -51,6 +52,12 @@ function _(selector: string): CustomElement | null {
   const target = document.querySelector<CustomElement>(selector);
 
   if (target !== null) {
+    target.insertHTML = (html) => {
+      target.innerHTML = html;
+
+      return target.innerHTML;
+    };
+
     target.addEvent = (type, listener) => {
       target.addEventListener(type, listener);
     };
@@ -65,19 +72,6 @@ function _(selector: string): CustomElement | null {
   }
 
   return target;
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
 }
 
 namespace _ {
