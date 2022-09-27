@@ -34,7 +34,7 @@ function _(selector: string) {
   }
 
   function addEvent(
-    eventType: keyof ElementEventMap,
+    eventType: keyof HTMLElementEventMap,
     func: (
       this: Element,
       event: Event
@@ -63,13 +63,13 @@ module _ {
 
   export function isNull<T>(
     arg: T
-  ): boolean {
+  ): true | false {
     return arg === null;
   }
 
   export function isNil<T>(
     arg: T
-  ): boolean {
+  ): true | false {
     return arg === null ||
       arg === undefined
       ? true
@@ -78,13 +78,13 @@ module _ {
 
   export function isNumber<T>(
     arg: T
-  ): boolean {
+  ): true | false {
     return typeof arg === "number";
   }
 
   export function isFunction<T>(
     arg: T
-  ): boolean {
+  ): true | false {
     return typeof arg === "function";
   }
 
@@ -181,12 +181,12 @@ module _ {
     return result;
   }
 
-  export function memoize<T1, T2>(
+  export function memoize<T1>(
     func: () => T1,
     resolver: (
       args: Record<string, T1>
     ) => string[]
-  ): Function | null {
+  ): () => T1 | null {
     if (
       typeof func !== "function" ||
       typeof resolver !== "function"
@@ -242,7 +242,7 @@ module _ {
   export function clickOutside(
     target: HTMLElement,
     func: (e: HTMLElement) => void
-  ): void | null {
+  ): void {
     if (!target) {
       return;
     }
