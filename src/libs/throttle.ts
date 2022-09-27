@@ -7,7 +7,7 @@
  *
  * @returns {void}
  */
-export function throttle(callback: Function, delay: number) {
+export default function throttle(callback: Function, delay: number) {
   let timer: NodeJS.Timeout | null = null;
 
   return function () {

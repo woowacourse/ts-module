@@ -1,4 +1,4 @@
-class Dom {
+export default class Dom {
   #element: HTMLElement | null = null;
 
   constructor(selector: string) {
@@ -45,5 +45,3 @@ class Dom {
     this.#element.addEventListener(event, listener, options);
   }
 }
-
-export default Dom;

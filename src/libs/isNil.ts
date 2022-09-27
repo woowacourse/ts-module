@@ -8,6 +8,6 @@ type Nil = null | undefined;
  *
  * @returns {boolean}
  */
-export function isNil<T>(value: T | unknown): value is Nil {
+export default function isNil<T>(value: T | unknown): value is Nil {
   return value == null;
 }

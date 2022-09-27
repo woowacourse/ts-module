@@ -5,7 +5,7 @@
  *
  * @returns {Array}
  */
-export function shuffle<T>(array: readonly T[]): T[] {
+export default function shuffle<T>(array: readonly T[]): T[] {
   if (!Array.isArray(array)) {
     throw new Error('shuffle(value) - value의 타입이 Array가 아닙니다.');
   }

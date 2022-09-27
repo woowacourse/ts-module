@@ -8,6 +8,6 @@
  * @returns {boolean}
  */
 
-export function isNull<T>(value: T | unknown): value is null {
+export default function isNull<T>(value: T | unknown): value is null {
   return value === null;
 }

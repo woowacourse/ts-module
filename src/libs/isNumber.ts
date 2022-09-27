@@ -7,6 +7,6 @@
  *
  * @returns {boolean}
  */
-export function isNumber<T>(value: T | unknown): value is Number {
+export default function isNumber<T>(value: T | unknown): value is Number {
   return typeof value === 'number';
 }

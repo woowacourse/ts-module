@@ -8,10 +8,10 @@
  * @returns {Object}
  */
 
-export function omit<T extends Record<string, unknown>, K extends keyof T>(
-  object: T,
-  keys: K[]
-) {
+export default function omit<
+  T extends Record<string, unknown>,
+  K extends keyof T
+>(object: T, keys: K[]) {
   if (
     typeof object !== 'object' ||
     Object.prototype.toString.call(object) !== '[object Object]'

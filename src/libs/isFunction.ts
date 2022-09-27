@@ -7,6 +7,6 @@
  *
  * @returns {boolean}
  */
-export function isFunction<T>(value: T | unknown): value is Function {
+export default function isFunction<T>(value: T | unknown): value is Function {
   return typeof value === 'function';
 }

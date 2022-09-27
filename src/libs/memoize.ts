@@ -7,7 +7,9 @@ import { isNull } from './isNull';
  *
  * @returns {*}
  */
-export function memoize<T extends (...args: any[]) => unknown>(callback: T) {
+export default function memoize<T extends (...args: any[]) => unknown>(
+  callback: T
+) {
   const cache: { data: unknown | null; args: any[] } = {
     data: null,
     args: [],
