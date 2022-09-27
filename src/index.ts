@@ -7,15 +7,19 @@ function keys<T extends Record<string, unknown>, U extends keyof T>(
 
 function _(selector: string): {
   get: () => HTMLElement;
+
   innerHTML: (template: string) => void;
+
   show: () => void;
+
   hidden: () => void;
-  addEvent: (
-    type: keyof HTMLElementEventMap,
-    handler: (this: Element, ev: Event) => void
+
+  addEvent: <K extends keyof HTMLElementEventMap>(
+    type: K,
+    handler: (this: Element, ev: HTMLElementEventMap[K]) => void
   ) => void;
 } {
-  const element = document.querySelector(selector);
+  const element = document.querySelector(selector) as HTMLElement;
 
   if (element === null) {
     throw new Error("엘리먼트를 찾지 못하였습니다");
@@ -23,16 +27,16 @@ function _(selector: string): {
 
   return {
     get() {
-      return element as HTMLElement;
+      return element;
     },
     innerHTML(template) {
       element.innerHTML = template;
     },
     show() {
-      (element as HTMLElement).style.display = "";
+      element.style.display = "";
     },
     hidden() {
-      (element as HTMLElement).style.display = "none";
+      element.style.display = "none";
     },
     addEvent(type, handler) {
       element.addEventListener(type, handler);
@@ -68,7 +72,9 @@ module _ {
     return typeof arg === "number";
   }
 
-  export function isFunction(arg: unknown): arg is (...args: any[]) => any {
+  export function isFunction(
+    arg: unknown
+  ): arg is (...args: unknown[]) => void {
     return typeof arg === "function";
   }
 
@@ -106,41 +112,49 @@ module _ {
     );
   }
 
-  export function memoize(callbackFunction: Function): Function {
-    const cache: {
-      memoized: boolean;
-      data: any;
+  export function memoize<T>(
+    callbackFunction: (...args: unknown[]) => T
+  ): (...args: unknown[]) => T {
+    const memo: {
+      cache: { isMemoized: false; data: null } | { isMemoized: true; data: T };
     } = {
-      memoized: false,
-      data: null,
+      cache: {
+        isMemoized: false,
+        data: null,
+      },
     };
 
-    const memoizedFunction = (props: any) => {
-      if (!cache.memoized) {
-        cache.memoized = true;
-        cache.data = callbackFunction(props);
+    const memoizedFunction = (...args: unknown[]): T => {
+      if (!memo.cache.isMemoized) {
+        memo.cache = {
+          isMemoized: true,
+          data: callbackFunction(...args),
+        };
       }
 
-      return cache.data;
+      return memo.cache.data;
     };
 
     return memoizedFunction;
   }
 
-  export function debounce(callbackFunction: Function, time: number): Function {
+  export function debounce(
+    callbackFunction: (...args: unknown[]) => void,
+    time: number
+  ): (...args: unknown[]) => void {
     const debounce: {
       timeout: NodeJS.Timeout | null;
     } = {
       timeout: null,
     };
 
-    const debouncedFunction = (props: any) => {
+    const debouncedFunction = (...args: unknown[]) => {
       if (debounce.timeout) {
         clearTimeout(debounce.timeout);
       }
 
       debounce.timeout = setTimeout(() => {
-        callbackFunction(props);
+        callbackFunction(...args);
         debounce.timeout = null;
       }, time);
     };
@@ -148,20 +162,23 @@ module _ {
     return debouncedFunction;
   }
 
-  export function throttle(callbackFunction: Function, time: number): Function {
+  export function throttle(
+    callbackFunction: (...args: unknown[]) => void,
+    time: number
+  ): (...args: unknown[]) => void {
     const throttle: {
       timeout: NodeJS.Timeout | null;
     } = {
       timeout: null,
     };
 
-    const throttledFunction = (props: any) => {
+    const throttledFunction = (...args: unknown[]) => {
       if (throttle.timeout) {
         return;
       }
 
       throttle.timeout = setTimeout(() => {
-        callbackFunction(props);
+        callbackFunction(...args);
         throttle.timeout = null;
       }, time);
     };
@@ -171,4 +188,5 @@ module _ {
 
   export function clickOutside() {}
 }
+
 export default _;
