@@ -1,4 +1,47 @@
-function _(selector: string): any {}
+declare global {
+  interface HTMLElement extends CustomElement {}
+}
+
+interface CustomElement {
+  insertHTML: (value: string) => void;
+  hide: () => void;
+  show: () => void;
+  addEvent: <K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
+  ) => void;
+}
+
+function _(selector: string) {
+  const $elem = document.querySelector<HTMLElement>(selector);
+  if ($elem === null) return;
+
+  const insertHTML = (value: string) => {
+    $elem.innerHTML = value;
+  };
+
+  const hide = () => {
+    $elem.style.display = "none";
+  };
+
+  const show = () => {
+    $elem.style.display = "block";
+  };
+
+  const addEvent = <K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
+  ) => {
+    $elem.addEventListener(type, listener);
+  };
+
+  $elem.insertHTML = insertHTML;
+  $elem.show = show;
+  $elem.hide = hide;
+  $elem.addEvent = addEvent;
+
+  return $elem;
+}
 
 module _ {
   // fetch
