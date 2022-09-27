@@ -17,8 +17,13 @@ function _(selector: string) {
     element.style.display = "block";
   }
 
+  function hide() {
+    element.style.display = "none";
+  }
+
   return {
     innerHtml,
     show,
+    hide,
   };
 }
