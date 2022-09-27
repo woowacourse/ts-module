@@ -64,15 +64,30 @@ module _ {
     status: number;
     ok: boolean;
     statusText: string;
-    url: string;
-    headers: Record<string, string>;
+    url?: string;
+    headers?: Record<string, string>;
     json: () => Promise<Data>;
   };
 
   export function fetch<Data>(
     url: Url,
     options?: FetchOptions
-  ): Promise<Response<Data>> {}
+  ): Promise<Response<Data>> {
+    return new Promise((resolve, reject) => {
+      const response: Response<Data> = {
+        status: 200,
+        ok: true,
+        statusText: 'example code',
+        json: () => {
+          return new Promise((resolve, reject) => {
+            resolve('아무튼 데이터임..!' as unknown as Data);
+          });
+        },
+      };
+
+      resolve(response);
+    });
+  }
 
   type Nullable<T> = T extends null ? T : never;
   export function isNull<T>(value: T): value is Nullable<T> {
