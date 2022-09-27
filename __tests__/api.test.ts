@@ -69,6 +69,21 @@ describe('timer mock해서 사용', () => {
 
     expect(mockCallback.mock.calls.length).toBe(1);
   });
+
+  test('throttle 함수를 활용하면 5번이 아닌 1번만 callback 함수가 호출된다', () => {
+    const mockCallback = jest.fn(() => {});
+    const consoleFunc = _.throttle(mockCallback, 1000);
+
+    consoleFunc();
+    consoleFunc();
+    consoleFunc();
+    consoleFunc();
+    consoleFunc();
+
+    jest.runAllTimers();
+
+    expect(mockCallback.mock.calls.length).toBe(1);
+  });
 });
 
 // test('Selector 동작 확인', () => {
