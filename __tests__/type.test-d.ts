@@ -4,6 +4,7 @@
 import { expectType } from "tsd";
 
 import _ from "../lib/index";
+import { DebounceThrottleOption } from "../src";
 
 expectType<
   (
@@ -27,23 +28,30 @@ expectType<() => void>(
   _(".button").hidden
 );
 
-expectType<(arg: string) => boolean>(
-  _.isNull
-);
-expectType<(arg: string) => boolean>(
-  _.isNil
-);
-expectType<(arg: string) => boolean>(
-  _.isNumber
-);
-expectType<(arg: string) => boolean>(
-  _.isFunction
-);
+expectType<
+  (arg: unknown) => arg is null
+>(_.isNull);
+
+expectType<
+  (
+    arg: unknown
+  ) => arg is null | undefined
+>(_.isNil);
+
+expectType<
+  (arg: unknown) => arg is number
+>(_.isNumber);
+
+expectType<
+  (arg: unknown) => arg is Function
+>(_.isFunction);
+
 expectType<
   (
     collection: string[]
   ) => string[] | []
 >(_.shuffle);
+
 expectType<
   (
     object: Record<string, string>,
@@ -70,14 +78,16 @@ expectType<
 expectType<
   (
     func: (args: string) => void,
-    wait: number
+    wait: number,
+    options?: DebounceThrottleOption
   ) => () => void | null
 >(_.debounce);
 
 expectType<
   (
     func: (args: string) => void,
-    wait: number
+    wait: number,
+    options?: DebounceThrottleOption
   ) => () => void | null
 >(_.throttle);
 

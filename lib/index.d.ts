@@ -6,16 +6,16 @@ declare function _(selector: string): {
 };
 declare module _ {
     function fetch<T>(url: string, options: FetchOption): Promise<FetchResponse<T>>;
-    function isNull<T>(arg: T): true | false;
-    function isNil<T>(arg: T): true | false;
-    function isNumber<T>(arg: T): true | false;
-    function isFunction<T>(arg: T): true | false;
-    function shuffle<T>(collection: T[]): T[] | [];
-    function pick<T>(object: PickObject<T>, paths: PickPaths): PickObject<T> | null;
-    function omit<T>(object: Record<string, T>, paths: PickPaths): Record<string, T> | null;
-    function memoize<T1>(func: () => T1, resolver: (args: Record<string, T1>) => string[]): () => T1 | null;
-    function debounce<T>(func: (args: T) => void, wait: number, options?: DebounceThrottleOption): () => void | null;
-    function throttle<T>(func: (args: T) => void, wait: number, options?: DebounceThrottleOption): () => void | null;
+    function isNull(arg: unknown): arg is null;
+    function isNil(arg: unknown): arg is null | undefined;
+    function isNumber(arg: unknown): arg is number;
+    function isFunction(arg: unknown): arg is Function;
+    function shuffle(collection: string[]): string[] | [];
+    function pick(object: PickObject<string>, paths: PickPaths): PickObject<string> | null;
+    function omit(object: Record<string, string>, paths: PickPaths): Record<string, string> | null;
+    function memoize(func: () => string, resolver: (args: Record<string, string>) => string[]): () => string | null;
+    function debounce(func: (args: string) => void, wait: number, options?: DebounceThrottleOption): () => void | null;
+    function throttle(func: (args: string) => void, wait: number, options?: DebounceThrottleOption): () => void | null;
     function clickOutside(target: HTMLElement, func: (e: HTMLElement) => void): void;
 }
 interface FetchOption {
@@ -41,7 +41,7 @@ declare type PickObject<T> = {
     [key: string]: T;
 };
 declare type PickPaths = string | string[];
-interface DebounceThrottleOption {
+export interface DebounceThrottleOption {
     leading?: boolean;
     maxWait?: number;
     trailing?: boolean;
