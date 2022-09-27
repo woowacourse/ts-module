@@ -38,3 +38,5 @@ expectType<(a: number, b: number) => number>(
 );
 
 expectType<() => void>(_.debounce(() => console.log('debounce'), 400));
+
+expectType<() => void>(_.throttle(() => console.log('throttle'), 400));
