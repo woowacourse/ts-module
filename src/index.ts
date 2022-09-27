@@ -57,6 +57,11 @@ module _ {
   export function isNil(value: unknown): value is null | undefined {
     return value === null || value === undefined;
   }
+
+  export function isNumber<T>(value: T): T extends number ? true : false;
+  export function isNumber(value: unknown): value is number {
+    return typeof value === "number";
+  }
 }
 
 export default _;
