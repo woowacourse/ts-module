@@ -94,3 +94,16 @@ test('omit 동작 확인', () => {
 
   expect(_.omit(object, ['a', 'c'])).toEqual(expectObject);
 });
+
+test('memoize 동작 확인', () => {
+  const func = (arg1, arg2) => `${arg1} ${arg2}`;
+  const resolver = (arg1, arg2) => JSON.stringify([arg1, arg2]);
+  const funcM1 = _.memoize(func);
+  const funcM2 = _.memoize(func, resolver);
+
+  expect(funcM1('kam', 'woo')).toEqual('kam woo');
+  expect(funcM1('kam', 'yeong')).toEqual('kam woo');
+
+  expect(funcM2('kam', 'woo')).toEqual('kam woo');
+  expect(funcM2('kam', 'yeong')).toEqual('kam yeong');
+});

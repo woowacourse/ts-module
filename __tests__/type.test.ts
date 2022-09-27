@@ -51,3 +51,9 @@ test('omit type check', () => {
 
   expectType<Record<string, unknown>>(_.omit(object, ['a']));
 });
+
+test('memoize type check', () => {
+  const func = (arg1, arg2) => `${arg1} ${arg2}`;
+
+  expectType<{ (arg1: any, arg2: any): string; cache: Map<any, any> }>(_.memoize(func));
+});
