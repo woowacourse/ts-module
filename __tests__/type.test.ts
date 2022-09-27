@@ -52,9 +52,17 @@ expectType<{ a: 1; b: 2 }>(_.pick({ a: 1, b: 2, c: 3 }, 'a', 'b'));
 
 expectType<{ c: number }>(_.omit({ a: 1, b: 2, c: 3 }, 'a', 'b'));
 
-expectType<() => 1>(_.memoize(() => 1));
+expectType<() => 1>(
+  _.memoize(
+    () => 1,
+    () => '1'
+  )
+);
 expectType<(a: number, b: number) => number>(
-  _.memoize((a: number, b: number) => a + b)
+  _.memoize(
+    (a: number, b: number) => a + b,
+    (a: number, b: number) => `${a}+${b}`
+  )
 );
 
 expectType<() => void>(_.debounce(() => console.log('debounce'), 400));

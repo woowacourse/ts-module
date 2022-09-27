@@ -99,9 +99,29 @@ module _ {
   export function omit<T extends Record<string, unknown>, R extends keyof T>(
     obj: T,
     ...keys: R[]
-  ): { [K in Exclude<keyof T, R>]: T[K] };
+  ): Omit<T, R> {
+    return keys.reduce(
+      (acc, key) => {
+        delete acc[key];
 
-  export function memoize<T extends (...args: any[]) => any>(func: T): T;
+        return acc;
+      },
+      { ...obj }
+    );
+  }
+
+  export function memoize<T extends (...args: any[]) => any>(
+    func: T,
+    makeKey: (...args: any[]) => string
+  ) {
+    const cache: Record<string, any> = {};
+
+    return (...args: any[]): any => {
+      const key = makeKey(args);
+
+      return cache[key] ? cache[key] : (cache[key] = func(...args));
+    };
+  }
 
   export function debounce<T extends (...args: any[]) => any>(
     func: T,
