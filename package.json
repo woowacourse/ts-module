@@ -1,15 +1,28 @@
 {
-  "name": "ts-module",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
+  "name": "onsdash",
+  "version": "0.0.6",
+  "private": false,
+  "description": "Javascript Utils",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "browser": "./browser/specific/main.js",
+  "contributors": [
+    "cks3066"
+  ],
+  "keywords": [
+    "javascript",
+    "utils"
+  ],
+  "author": "cks3066@naver.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cks3066/ts-module.git"
+  },
+  "license": "ISC",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && mkdir dist && tsc",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.0.3",
     "jest": "^29.0.3",
