@@ -1,45 +1,19 @@
-function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
+function _(selector: string) {
+  const element = document.createElement(selector);
+
+  if (element === undefined) {
+    throw Error("Element를 생성하는데 실패하였습니다.");
+  }
+
+  function innerHtml(content?: string): string {
+    if (content) {
+      element.innerHTML = content;
+    }
+
+    return element.innerHTML;
+  }
+
+  return {
+    innerHtml,
+  };
 }
-
-module _ {
-	export function fetch() {
-		return {};
-	}
-
-	export function isNull() {}
-
-	export function isNil() {}
-
-	export function isNumber() {}
-
-	export function isFunction() {}
-
-	export function shuffle() {}
-
-	export function pick() {}
-
-	export function omit() {}
-
-	export function memoize() {}
-
-	export function debounce() {}
-
-	export function throttle() {}
-
-	export function clickOutside() {}
-}
-
-export default _;
