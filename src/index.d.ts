@@ -1,1 +1,0 @@
-/** for type test */

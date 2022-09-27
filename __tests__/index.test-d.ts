@@ -3,7 +3,7 @@
  */
 import { expectType } from "tsd";
 
-import tt from "../index";
+import tt from "../src/index";
 
 expectType<void>(tt(".button").innerHTML("hihi"));
 expectType<void>(tt(".button").show());
