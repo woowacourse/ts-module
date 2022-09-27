@@ -1,15 +1,49 @@
-declare function _(selector: string): HTMLElement | null;
+function _(selector: string): HTMLElement | null {
+  const element = document.querySelector<HTMLElement>(selector);
+  if (element === null) throw new Error("존재하지 않는 element입니다.");
+
+  function setInnerHTML(str?: string) {
+    if (element === null) throw new Error("존재하지 않는 element입니다.");
+    element.innerHTML = str || "";
+  }
+
+  function showElement() {
+    if (element === null) throw new Error("존재하지 않는 element입니다.");
+    element.style.display = "block";
+  }
+
+  function hideElement() {
+    if (element === null) throw new Error("존재하지 않는 element입니다.");
+    element.style.display = "hidden";
+  }
+
+  function addEvent<T extends keyof HTMLElementEventMap>(
+    type: T,
+    listener: (event: HTMLElementEventMap[T]) => void
+  ) {
+    if (element === null) throw new Error("존재하지 않는 element입니다.");
+    element.addEventListener(type, listener);
+  }
+
+  element.setInnerHTML = setInnerHTML;
+  element.showElement = showElement;
+  element.hideElement = hideElement;
+  element.addEvent = addEvent;
+
+  return element;
+}
 declare global {
   interface HTMLElement {
     setInnerHTML(str?: string): void;
     showElement(): void;
     hideElement(): void;
-    addEvent<T extends HTMLElementEventMap, K extends keyof T>(
-      type: K,
-      listener: (event: T[K]) => void
+    addEvent<T extends keyof HTMLElementEventMap>(
+      type: T,
+      listener: (event: HTMLElementEventMap[T]) => void
     ): void;
   }
 }
+
 module _ {
   export function fetch(
     url: string,
