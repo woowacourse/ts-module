@@ -2,6 +2,14 @@
   "compilerOptions": {
     "target": "es5",
     "module": "ES2020",
-    "moduleResolution": "Node16"
-  }
+    "moduleResolution": "Node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true, // d.ts 만들래
+    "emitDeclarationOnly": true,
+    "declarationDir": "@types", // d.ts 어디에 넣을래// js,
+    "outDir": "@types" // js 어디에 넣을래
+  },
+  "include": ["src"],
+  "exclude": ["node_modules/@types", "../node_modules/@types"]
 }
