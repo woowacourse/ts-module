@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:tsd": "npx tsd",
-    "test:jest": "jest",
+    "test": "jest",
     "build": "tsc"
   },
   "keywords": [],
