@@ -16,10 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     const data = await result.json()
-
-    console.log(data)
-
     const testElement = $('#fetch')
-    document.body.removeChild(testElement)
+
+    testElement.hide()
+    console.log(data)
   })
 })
