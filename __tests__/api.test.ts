@@ -42,6 +42,16 @@ test('pick 함수로 원하는 요소만 따로 추출할 수 있다.', () => {
   });
 });
 
+test('omit 함수로 원하는 요소를 제거할 수 있다.', () => {
+  const obj = {
+    name: 'al-bur',
+    age: 29,
+  };
+
+  expect(_.omit(obj, 'age')).toStrictEqual({ name: 'al-bur' });
+  expect(_.omit(obj, ['name', 'age'])).toStrictEqual({});
+});
+
 // test('Selector 동작 확인', () => {
 //   const divElement = document.createElement('div');
 //   divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
