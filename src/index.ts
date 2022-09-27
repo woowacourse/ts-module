@@ -188,7 +188,15 @@ module _ {
     func: (...args: T) => void,
     wait: number
   ): (...args: T) => void {
-    return func;
+    let timerId: NodeJS.Timeout | null;
+
+    return (...args) => {
+      if (timerId) return;
+      timerId = setTimeout(() => {
+        func(...args);
+        timerId = null;
+      }, wait);
+    };
   }
 
   export function clickOutside(
