@@ -13,6 +13,6 @@
     "skipLibCheck": true, // 외부 라이브러리 .d.ts 타입체크 생략
     "isolatedModules": true // 타입체크시 export 가 생략된 모듈 에러 발생
   },
-  "include": ["src/**/*", "__tests__/resources.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
