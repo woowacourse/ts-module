@@ -1,12 +1,10 @@
-import { PickParameterType } from '../utils'
-
 const timeoutIDCache = new Map()
 
 function debounce<TargetFunction extends (...args: any[]) => unknown>(
   targetFunction: TargetFunction,
   delay: number,
 ) {
-  type ParameterType = PickParameterType<TargetFunction>
+  type ParameterType = Parameters<TargetFunction>
 
   const clearPreviousTimeout = () =>
     timeoutIDCache.has(targetFunction) && clearTimeout(timeoutIDCache.get(targetFunction))

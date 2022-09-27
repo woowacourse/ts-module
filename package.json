@@ -1,6 +1,6 @@
 {
   "name": "@compy-ryu/ts-module",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "우아한테크코스 TS Module 미션 제출용입니다.",
   "main": "./dist/index.js",
   "files": [
