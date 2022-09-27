@@ -74,3 +74,11 @@ test('throttle 타입 확인', () => {
   }
   expectType<DebouncedFunc<typeof testFunc>>(_.throttle(testFunc, 300));
 });
+
+test('clickOutside 타입 확인', () => {
+  const div = document.createElement('div');
+  function testFunc(hello: string) {
+    console.log(hello);
+  }
+  expectType<void>(_.clickOutside(div, testFunc));
+});

@@ -295,7 +295,17 @@ module _ {
     });
   }
 
-  export function clickOutside() {}
+  export function clickOutside(target: Node, func: (...args: any[]) => void) {
+    window.addEventListener('click', (e: MouseEvent) => {
+      if (
+        !(e.target instanceof Node) ||
+        (e.target instanceof Node && e.target.isSameNode(target))
+      ) {
+        return;
+      }
+      func(...func.arguments);
+    });
+  }
 }
 
 export default _;
