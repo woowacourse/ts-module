@@ -5,5 +5,9 @@ const divElement = document.createElement('div');
 const spanElement = document.createElement('span');
 const callbackFunc = () => {};
 
-expectType<void>(_.clickOutside(divElement, callbackFunc));
-expectType<void>(_.clickOutside(spanElement, callbackFunc));
+expectType<(event: MouseEvent) => void>(
+  _.clickOutside(divElement, callbackFunc)
+);
+expectType<(event: MouseEvent) => void>(
+  _.clickOutside(spanElement, callbackFunc)
+);
