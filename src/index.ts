@@ -52,6 +52,11 @@ module _ {
   export function isNull(value: unknown): value is null {
     return value === null;
   }
+
+  export function isNil<T>(value: T): T extends null | undefined ? true : false;
+  export function isNil(value: unknown): value is null | undefined {
+    return value === null || value === undefined;
+  }
 }
 
 export default _;
