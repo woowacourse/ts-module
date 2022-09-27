@@ -1,7 +1,10 @@
 interface NewElement extends HTMLElement {
   show(): void;
   hide(): void;
-  // addEvent(): void;
+  addEvent<C extends keyof HTMLElementEventMap>(
+    cmd: C,
+    callback: (this: HTMLElement, event: HTMLElementEventMap[C]) => void
+  ): unknown;
 }
 
 function _(selector: string): NewElement {
@@ -19,9 +22,9 @@ function _(selector: string): NewElement {
     element.style.visibility = 'hidden';
   };
 
-  // function addEvent(cmd: string, callback: (...args: unknown[]) => void) {
-  //   element.addEventListener(cmd, callback);
-  // }
+  element['addEvent'] = function (cmd, callback) {
+    element.addEventListener(cmd, callback);
+  };
 
   return element;
 }

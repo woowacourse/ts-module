@@ -7,16 +7,16 @@ import _ from '../src';
 
 // expectType<Promise<Response>>(_.fetch(''));
 
-// _('.button').addEvent('click', function (event) {
-// 	expectType<MouseEvent>(event);
-// });
-
 test('Selector type check', () => {
   const divElement = document.createElement('div');
   divElement.innerHTML = `hello`;
   document.body.appendChild(divElement);
 
   expectType<string>(typeof _('div').innerHTML);
+
+  _('div').addEvent('click', function (event) {
+    expectType<MouseEvent>(event);
+  });
 });
 
 test('isNull type check', () => {
