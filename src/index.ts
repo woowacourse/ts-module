@@ -52,7 +52,10 @@ declare module _ {
 
   export function memoize<T extends (...args: any[]) => any>(func: T): T;
 
-  // export function debounce() {}
+  export function debounce<T extends (...args: any[]) => any>(
+    func: T,
+    wait: number
+  ): T;
 
   // export function throttle() {}
 
