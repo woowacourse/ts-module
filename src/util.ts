@@ -2,7 +2,7 @@ import { HTTP_METHOD } from "./constants";
 
 export type Nill = null | undefined;
 
-export type DefinitelyFunction<T = any, K = any> = (...args: T[]) => K;
+export type DefinitelyFunction<T = any> = (...args: any) => T;
 
 export type DefinitelyObject<T = any> = Record<string, T>;
 
@@ -40,7 +40,7 @@ export type GetArgumentsTypeByIndex<
 > = Parameters<T>[K];
 
 export type DebouncedFunction<T extends DefinitelyFunction> = (
-  ...args: GetArgumentsTypeByIndex<T, 0>[]
+  ...args: Parameters<T>
 ) => {
   cancel: () => void;
   pending: () => boolean;
