@@ -1,15 +1,19 @@
-// import { isFunction, isNumber } from "lodash";
 function _(selector: string): any {
-  // console.log("selector", selector);
-  const coke = document.querySelector(selector);
-  // console.log(coke);
-  return coke;
+  const el = document.querySelector(selector) as HTMLElement;
+
+  const get = () => el;
+  const innerHTML = () => el.innerHTML;
+  const show = () => (el.style.display = "block");
+  const hidden = () => (el.style.display = "none");
+  const addEvent = (type: string, listener: EventListenerObject) =>
+    el.addEventListener(type, listener);
 
   return {
-    innerHTML() {},
-    show() {},
-    hidden() {},
-    addEvent() {},
+    get,
+    innerHTML,
+    show,
+    hidden,
+    addEvent,
   };
 }
 
@@ -43,6 +47,7 @@ module _ {
   export function isNil(value: any): value is boolean {
     return value === null || value === undefined;
   }
+
   /**
    * parameter의 타입이 number인지 판별한다.
    * @param {*} value
@@ -143,6 +148,11 @@ module _ {
     };
   }
 
+  /**
+   * 디바운스 함수
+   * @param func 함수 실행 체크
+   * @param wait 타이머 시간
+   */
   export function debounce(func: Function, wait: number) {
     let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
@@ -158,6 +168,11 @@ module _ {
     };
   }
 
+  /**
+   * 쓰로틀링 함수
+   * @param func 함수 실행 체크
+   * @param wait 타이머 시간
+   */
   export function throttle(func: Function, wait: number) {
     let timer: ReturnType<typeof setTimeout> | null = null;
 
@@ -171,7 +186,17 @@ module _ {
     };
   }
 
-  export function clickOutside() {}
+  /**
+   * 두 Element 비교
+   * @param outerElement
+   * @param innerElement
+   */
+  export function clickOutside(
+    outerElement: HTMLElement,
+    innerElement: HTMLElement
+  ): boolean {
+    return outerElement.contains(innerElement);
+  }
 }
 
 export default _;

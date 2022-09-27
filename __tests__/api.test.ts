@@ -207,27 +207,81 @@ test("throttle 함수 확인", () => {
 
 test("clickOutside 함수 확인", () => {
   expect(typeof _.clickOutside).toBe("function");
+
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-button'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const compareElement = document.createElement("div");
+
+  expect(_.clickOutside(divElement, compareElement)).toBe(false);
+  divElement.remove();
 });
 
 test("Selector 동작 확인", () => {
   const divElement = document.createElement("div");
   divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
   document.body.appendChild(divElement);
-  // console.log(document.body);
 
-  const buttonElement = _("button.test-btn");
-  // console.log(buttonElement);
-  // expect(buttonElement).toBeTruthy();
+  const buttonElement = _("button.test-btn").get();
 
-  // document.body.removeChild(buttonElement);
+  expect(buttonElement).toBeTruthy();
+  divElement.remove();
 });
 
-// test('`_("").innerHTML()`~~~~', () => {});
+test('`_("").innerHTML()`~~~~', () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
 
-// test('`_("").show()`~~~~', () => {});
+  expect("Continue").toEqual(_("button.test-btn").innerHTML());
+  divElement.remove();
+});
 
-// test('`_("").hidden()`~~~~', () => {});
+test('`_("").show()`~~~~', () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn' style='display: hidden'>Continue</button>`;
+  document.body.appendChild(divElement);
 
-// test('`_("").addEvent()`~~~~', () => {});
+  const buttonElement = _("button.test-btn").get();
+  _("button.test-btn").show();
 
-// https://haeguri.github.io/2020/01/12/jest-mock-timer/
+  const styles = getComputedStyle(buttonElement);
+
+  expect(styles.display).toBe("block");
+  divElement.remove();
+});
+
+test('`_("").hidden()`~~~~', () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const buttonElement = _("button.test-btn").get();
+  _("button.test-btn").hidden();
+
+  const styles = getComputedStyle(buttonElement);
+
+  expect(styles.display).toBe("none");
+  divElement.remove();
+});
+
+test('`_("").addEvent()`~~~~', () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+  let func: jest.Mock;
+  func = jest.fn();
+
+  const onClick = () => {
+    console.log("click");
+    func();
+  };
+
+  const buttonElement = _("button.test-btn").get();
+  _("button.test-btn").addEvent("click", onClick);
+  buttonElement.click();
+
+  expect(func).toHaveBeenCalledTimes(1);
+  divElement.remove();
+});
