@@ -57,7 +57,10 @@ declare module _ {
     wait: number
   ): T;
 
-  // export function throttle() {}
+  export function throttle<T extends (...args: any[]) => any>(
+    func: T,
+    wait: number
+  ): T;
 
   // export function clickOutside() {}
 
