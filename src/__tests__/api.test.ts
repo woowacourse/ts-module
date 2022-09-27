@@ -86,12 +86,35 @@ test("Selector 동작 확인", () => {
   if (buttonElement) {
     divElement.removeChild(buttonElement);
   }
+
+  const test = document.querySelector("button.test-btn");
+
+  expect(test).toBe(null);
 });
 
-test('`wtil("").innerHTML()`~~~~', () => {});
+test('`wtil("div").innerHTML()`~~~~', () => {
+  const divElement = document.createElement("div");
+  document.body.appendChild(divElement);
 
-test('`wtil("").show()`~~~~', () => {});
+  const $div = wtil("div");
+  $div.innerHTML("aaa");
+  expect($div.get(0)?.innerHTML).toBe("aaa");
+});
 
-test('`wtil("").hidden()`~~~~', () => {});
+test('`wtil("div").show()`~~~~', () => {
+  const divElement = document.createElement("div");
+  document.body.appendChild(divElement);
 
-test('`wtil("").addEvent()`~~~~', () => {});
+  const $div = wtil("div");
+  $div.show();
+  expect($div.get(0)?.hidden).toBe(false);
+});
+
+test('`wtil("div").hidden()`~~~~', () => {
+  const divElement = document.createElement("div");
+  document.body.appendChild(divElement);
+
+  const $div = wtil("div");
+  $div.hidden();
+  expect($div.get(0)?.hidden).toBe(true);
+});

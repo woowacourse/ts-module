@@ -13,7 +13,7 @@ class TQuery implements TQueryType {
     this.els = elements;
   }
 
-  loop = (callback: (el: HTMLElement) => void) => () => {
+  loop = (callback: (el: HTMLElement) => void) => {
     if (this.els === null) return;
     this.els.forEach((element: HTMLElement) => {
       callback(element);
@@ -45,6 +45,12 @@ class TQuery implements TQueryType {
     };
   }
 
+  innerHTML(str: string) {
+    this.loop((el) => {
+      el.innerHTML = str;
+    });
+  }
+
   show() {
     return this.loop((el) => (el.hidden = false));
   }
@@ -58,7 +64,7 @@ class TQuery implements TQueryType {
     listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
     options?: boolean | AddEventListenerOptions
   ) {
-    return this.loop((el) => el.addEventListener(type, listener, options))();
+    return this.loop((el) => el.addEventListener(type, listener, options));
   }
 
   get(index: number) {
