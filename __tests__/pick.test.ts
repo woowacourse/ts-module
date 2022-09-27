@@ -1,10 +1,11 @@
 import _ from '../src';
-import { omitTypesValues } from '../src/utils/resources';
+import { allTypes } from '../src/res';
+import getObjectValues from '../src/utils/getObjectValues';
 
 const values_is_object = { a: 1, b: 2, c: 3 },
-  values_is_not_object = omitTypesValues(['Object']),
-  values_is_not_array = omitTypesValues(['Array']),
-  keys = ['a', 'c'];
+  keys = ['a', 'c'],
+  values_is_not_object = getObjectValues(_.omit(allTypes, ['Object'])),
+  values_is_not_array = getObjectValues(_.omit(allTypes, ['Array']));
 
 describe('pick() 함수 테스트', () => {
   test('모듈로 불러온 pick은 함수여야한다.', () => {
@@ -34,10 +35,4 @@ describe('pick() 함수 테스트', () => {
   test('pick은 keys에 해당하는 프로퍼티만 가진 객체를 반환한다.', () => {
     expect(_.pick({ a: 1, b: 2, c: 3 }, ['a', 'c'])).toEqual({ a: 1, c: 3 });
   });
-
-  // test('pick의 반환타입은 인자의 타입과 동일한 타입이다.', () => {
-  //   const returnValue = _.pick(values_is_object, keys);
-
-  //   expectType<typeof values_is_object>(returnValue);
-  // });
 });

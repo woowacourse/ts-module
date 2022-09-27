@@ -1,5 +1,5 @@
 import Dom from './libs/dom';
-import libs from './libs/libs';
+import libs from './libs';
 
 function _(selector: string) {
   return new Dom(selector);
@@ -16,7 +16,6 @@ namespace _ {
   export const memoize = libs.memoize;
   export const debounce = libs.debounce;
   export const throttle = libs.throttle;
-  export const clickOutside = libs.clickOutside;
 }
 
 export default _;

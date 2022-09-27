@@ -1,9 +1,10 @@
 import { expectType } from 'tsd';
 import _ from '../src';
-import { omitTypesValues } from '../src/utils/resources';
+import { allTypes } from '../src/res';
+import getObjectValues from '../src/utils/getObjectValues';
 
 const values_is_array = [1, 2, 3];
-const values_is_not_array = omitTypesValues(['Array']);
+const values_is_not_array = getObjectValues(_.omit(allTypes, ['Array']));
 
 describe('shuffle() 함수 테스트', () => {
   test('모듈로 불러온 shuffle은 함수여야한다.', () => {

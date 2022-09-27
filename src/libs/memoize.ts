@@ -1,4 +1,4 @@
-import { isNull } from './isNull';
+import _ from '..';
 
 /**
  * memoize
@@ -17,7 +17,7 @@ export default function memoize<T extends (...args: any[]) => unknown>(
 
   return (...args: Parameters<T>) => {
     if (
-      !isNull(cache.data) &&
+      !_.isNull(cache.data) &&
       args.length === cache.args.length &&
       args.every((arg, index) => arg === cache.args[index])
     ) {

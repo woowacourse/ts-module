@@ -1,10 +1,11 @@
 import _ from '../src';
 import { expectType } from 'tsd';
-import { getAllTypesValues, omitTypesValues } from '../src/utils/resources';
+import { allTypes } from '../src/res';
+import getObjectValues from '../src/utils/getObjectValues';
 
 const value_is_function = function () {},
-  values_is_not_function = omitTypesValues(['Function']),
-  values_all_type = getAllTypesValues();
+  values_is_not_function = getObjectValues(_.omit(allTypes, ['Function'])),
+  values_all_types = getObjectValues(allTypes);
 
 describe('isFunction() 함수 테스트', () => {
   test('모듈로 불러온 isFunction은 함수여야한다.', () => {
@@ -22,6 +23,6 @@ describe('isFunction() 함수 테스트', () => {
   });
 
   test('isFunction의 반환타입은 boolean이다.', () => {
-    values_all_type.map((value) => expectType<boolean>(_.isFunction(value)));
+    values_all_types.map((value) => expectType<boolean>(_.isFunction(value)));
   });
 });

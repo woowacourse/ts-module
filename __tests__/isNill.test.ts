@@ -1,11 +1,14 @@
 import { expectType } from 'tsd';
 import _ from '../src';
-import { getAllTypesValues, omitTypesValues } from '../src/utils/resources';
+import { allTypes } from '../src/res';
+import getObjectValues from '../src/utils/getObjectValues';
 
 const value_is_null = null,
   value_is_undefined = undefined,
-  values_is_not_null_or_undefined = omitTypesValues(['null', 'undefined']),
-  values_all_type = getAllTypesValues();
+  values_is_not_null_or_undefined = getObjectValues(
+    _.omit(allTypes, ['null', 'undefined'])
+  ),
+  values_all_types = getObjectValues(allTypes);
 
 describe('isNill() 함수 테스트', () => {
   test('모듈로 불러온 isNil은 함수여야한다.', () => {
@@ -27,6 +30,6 @@ describe('isNill() 함수 테스트', () => {
   });
 
   test('isNil의 반환타입은 boolean이다.', () => {
-    values_all_type.map((value) => expectType<boolean>(_.isNil(value)));
+    values_all_types.map((value) => expectType<boolean>(_.isNil(value)));
   });
 });

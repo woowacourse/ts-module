@@ -1,7 +1,5 @@
 import isNull from './isNull';
-import clickOutside from './clickOutside';
 import debounce from './debounce';
-import fetch from './fetch';
 import isFunction from './isFunction';
 import isNil from './isNil';
 import isNumber from './isNumber';
@@ -13,15 +11,13 @@ import throttle from './throttle';
 
 export default {
   isNull,
-  clickOutside,
-  debounce,
-  fetch,
-  isFunction,
   isNil,
   isNumber,
-  memoize,
+  isFunction,
   omit,
   pick,
   shuffle,
+  memoize,
+  debounce,
   throttle,
 };

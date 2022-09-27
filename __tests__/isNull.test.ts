@@ -1,10 +1,11 @@
 import { expectType } from 'tsd';
 import _ from '../src';
-import { getAllTypesValues, omitTypesValues } from '../src/utils/resources';
+import { allTypes } from '../src/res';
+import getObjectValues from '../src/utils/getObjectValues';
 
-const value_is_null = null;
-const values_is_not_null = omitTypesValues(['null']),
-  values_all_type = getAllTypesValues();
+const value_is_null = null,
+  values_is_not_null = getObjectValues(_.omit(allTypes, ['null'])),
+  values_all_types = getObjectValues(allTypes);
 
 describe('isNull() 함수 테스트', () => {
   test('모듈로 불러온 isNull은 함수여야한다.', () => {
@@ -20,6 +21,6 @@ describe('isNull() 함수 테스트', () => {
   });
 
   test('isNull의 반환타입은 boolean이다.', () => {
-    values_all_type.map((value) => expectType<boolean>(_.isNull(value)));
+    values_all_types.map((value) => expectType<boolean>(_.isNull(value)));
   });
 });
