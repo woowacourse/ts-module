@@ -18,12 +18,46 @@ test("isNil 기본 동작 확인", () => {
 });
 
 test("isFunction 기본 동작 확인", () => {
-  expect(wtil.isFunction("hello")).toBe(true);
+  expect(wtil.isFunction("hello")).toBe(false);
   expect(wtil.isFunction(() => {})).toBe(true);
 });
 
-test("모듈에 포함된 함수 확인", () => {
-  expect(typeof wtil.pick).toBe("function");
+test("throttle 기본 동작 확인", () => {
+  jest.useFakeTimers();
+
+  let calledCount = 0;
+  const throttler = wtil.throttle(100);
+  const interval = setInterval(() => {
+    throttler(() => {
+      calledCount += 1;
+    });
+  }, 4);
+  setTimeout(() => {
+    clearInterval(interval);
+  }, 200);
+
+  jest.runAllTimers();
+
+  expect(calledCount).toBe(200 / 100);
+});
+
+test("debounce 기본 동작 확인", () => {
+  jest.useFakeTimers();
+
+  let calledCount = 0;
+  const debouncer = wtil.debounce(100);
+  const interval = setInterval(() => {
+    debouncer(() => {
+      calledCount += 1;
+    });
+  }, 30);
+  setTimeout(() => {
+    clearInterval(interval);
+  }, 200);
+
+  jest.runAllTimers();
+
+  expect(calledCount).toBe(1);
 });
 
 test("모듈에 포함된 함수 확인", () => {
