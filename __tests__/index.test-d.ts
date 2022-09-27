@@ -1,4 +1,4 @@
-import { expectType } from "tsd-lite";
+import { expectType } from "tsd";
 import _ from "../lib/index";
 import {
 	DebouncedFunc,
