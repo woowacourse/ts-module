@@ -180,7 +180,18 @@ namespace _ {
     };
   };
 
-  export function throttle() {}
+  export const throttle = <T extends Function>(func: T, wait = 0) => {
+    let timerId: number | null = null;
+
+    return function (...args: unknown[]) {
+      if (timerId) {
+        timerId = window.setTimeout(() => {
+          func.apply(this, args);
+          timerId = null;
+        }, wait);
+      }
+    };
+  };
 
   export function clickOutside() {}
 }
