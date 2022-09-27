@@ -50,10 +50,10 @@ module _ {
    * @param options
    * @returns
    */
-  export function fetch<Data>(
+  export function fetch<T>(
     url: string,
     options?: FetchOptions
-  ): Promise<Response<Data>> {
+  ): Promise<Response<T>> {
     return fetch(url, options);
   }
 
@@ -227,13 +227,13 @@ type FetchOptions = {
   body?: Record<string, string>;
 };
 
-type Response<Data> = {
+export type Response<T> = {
   status: number;
   ok: boolean;
   redirected: boolean;
   url: string;
   headers: Record<string, string>;
-  json: () => Promise<Data>;
+  data: T;
 };
 
 type PickResult<T, K extends keyof T> = {

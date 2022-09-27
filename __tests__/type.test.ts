@@ -4,6 +4,7 @@
 import { expectType } from "tsd";
 
 import _ from "../dist";
+import { Response } from "../dist";
 
 const button = document.createElement("button");
 button.className = "button";
@@ -19,11 +20,12 @@ expectType<void>(_(".button").hide());
 
 expectType<void>(_(".button").html(`<div class='test-div'>test</div>`));
 
-expectType<Promise<{ name: string }>>(
-  _.fetch<{ name: string }>("aaaaaa", {
-    method: "GET",
-  }).then((res) => res.json())
-);
+type TestData = {
+  id: 1;
+  name: "iAmTest";
+};
+
+expectType<Promise<Response<TestData[]>>>(_.fetch("test.com"));
 
 expectType<boolean>(_.isNull(null));
 
