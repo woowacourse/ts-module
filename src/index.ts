@@ -47,6 +47,11 @@ module _ {
       resolve("server api response data");
     });
   }
+
+  export function isNull<T>(value: T): T extends null ? true : false;
+  export function isNull(value: unknown): value is null {
+    return value === null;
+  }
 }
 
 export default _;
