@@ -11,10 +11,18 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.0.3",
+    "babel-jest": "^29.0.3",
     "jest": "^29.0.3",
     "jest-environment-jsdom": "^29.0.3",
     "ts-jest": "^29.0.2",
     "tsd": "^0.24.1",
     "typescript": "^4.8.3"
-  }
+  },
+  "tsd": {
+    "directory": "./__tests__",
+    "testFiles": [
+      "type.test.ts"
+    ]
+  },
+  "types": "./dist/index.d.ts"
 }
