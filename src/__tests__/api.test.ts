@@ -17,8 +17,9 @@ test("isNil 기본 동작 확인", () => {
   expect(wtil.isNil(undefined)).toBe(true);
 });
 
-test("모듈에 포함된 함수 확인", () => {
-  expect(typeof wtil.fetch).toBe("function");
+test("isFunction 기본 동작 확인", () => {
+  expect(wtil.isFunction("hello")).toBe(true);
+  expect(wtil.isFunction(() => {})).toBe(true);
 });
 
 test("모듈에 포함된 함수 확인", () => {
