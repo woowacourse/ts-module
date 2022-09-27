@@ -97,6 +97,11 @@ test("shuffle 기본 동작 확인", () => {
   expect(wtil.shuffle(arr)).toEqual(expect.arrayContaining(arr));
 });
 
+test("pick 기본 동작 확인", () => {
+  const obj = { 1: 1, 2: 2 };
+  expect(wtil.pick(obj, [1])).toEqual(expect.objectContaining({ 1: 1 }));
+});
+
 test('`wtil("div").innerHTML()`~~~~', () => {
   const divElement = document.createElement("div");
   document.body.appendChild(divElement);
