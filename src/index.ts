@@ -112,9 +112,9 @@ module _ {
     );
   }
 
-  export function memoize<T>(
-    callbackFunction: (...args: unknown[]) => T
-  ): (...args: unknown[]) => T {
+  export function memoize<T, R extends unknown[]>(
+    callbackFunction: (...args: R) => T
+  ): (...args: R) => T {
     const memo: {
       cache: { isMemoized: false; data: null } | { isMemoized: true; data: T };
     } = {
@@ -124,7 +124,7 @@ module _ {
       },
     };
 
-    const memoizedFunction = (...args: unknown[]): T => {
+    const memoizedFunction = (...args: R): T => {
       if (!memo.cache.isMemoized) {
         memo.cache = {
           isMemoized: true,
