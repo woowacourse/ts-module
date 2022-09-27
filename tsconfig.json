@@ -10,6 +10,9 @@
     "skipLibCheck": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "declarationDir": "tsd"
   }
 }

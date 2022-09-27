@@ -1,43 +1,175 @@
+// import { isFunction, isNumber } from "lodash";
 function _(selector: string): any {
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
+  // console.log("selector", selector);
+  const coke = document.querySelector(selector);
+  // console.log(coke);
+  return coke;
+
+  return {
+    innerHTML() {},
+    show() {},
+    hidden() {},
+    addEvent() {},
+  };
 }
 
 module _ {
-  export function fetch() {
-    return {};
+  export function fetch(
+    path: RequestInfo | URL,
+    config?: RequestInit
+  ): Promise<Response> {
+    return global.fetch(path, config).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    });
   }
 
-  export function isNull() {}
+  /**
+   * parameter가 null인지 판별한다.
+   * @param {*} value
+   * @return {boolean} false or true
+   */
+  export function isNull(value: unknown): boolean {
+    return value === null;
+  }
 
-  export function isNil() {}
+  /**
+   * parameter가 null혹은 undefined인지 판별한다.
+   * @param {*} value
+   * @return {boolean} false or true
+   */
+  export function isNil(value: any): value is boolean {
+    return value === null || value === undefined;
+  }
+  /**
+   * parameter의 타입이 number인지 판별한다.
+   * @param {*} value
+   * @return {boolean} false or true
+   */
+  export function isNumber(value: any): value is boolean {
+    return (
+      typeof value === "number" ||
+      Object.prototype.toString.call(value) === "[object Number]"
+    );
+  }
 
-  export function isNumber() {}
+  /**
+   * parameter가 Function인지 판별한다.
+   * @param {*} value
+   * @return {boolean} false or true
+   */
+  export function isFunction(value: any): value is boolean {
+    return (
+      typeof value === "function" ||
+      Object.prototype.toString.call(value) === "[object Function]"
+    );
+  }
 
-  export function isFunction() {}
+  /**
+   * parameter 배열을 무작위로 섞어 반환한다.
+   * @param {Array} Array
+   * @return {Array} Array
+   */
+  export function shuffle<T>([...array]: T[]): T[] {
+    let m = array.length;
 
-  export function shuffle() {}
+    while (m) {
+      const i = Math.floor(Math.random() * m--);
+      [array[m], array[i]] = [array[i], array[m]];
+    }
 
-  export function pick() {}
+    return array;
+  }
 
-  export function omit() {}
+  /**
+   * object에서 keys의 요소만 골라 새로운 객체로 반환한다.
+   * @param {Object} object
+   * @param {...(string| string[])} keys rest parameter는 object의 key값이다.
+   * @return {Object} keys로만 포함된 새로운 객체를 반환한다.
+   */
+  export function pick<T, K extends keyof T>(
+    object: T,
+    ...keys: K[]
+  ): Pick<T, K> {
+    const newObject: any = {};
 
-  export function memoize() {}
+    keys.forEach((key) => {
+      newObject[key] = object[key];
+    });
 
-  export function debounce() {}
+    return newObject;
+  }
 
-  export function throttle() {}
+  /**
+   *
+   * @param {Object} object
+   * @param {...(string| string[])} keys rest parameter는 object의 key값이다.
+   * * @return {Object} keys 제거된 새로운 객체를 반환한다.
+   */
+  export function omit<T extends { [key: string]: any }, K extends keyof T>(
+    object: T,
+    ...keys: K[]
+  ): Omit<T, K> {
+    const newObject: any = {};
+
+    const OriginalKeys = Object.keys(object);
+
+    const newKeys = OriginalKeys.filter(
+      (key) => !(keys as string[]).includes(key)
+    );
+
+    newKeys.forEach((key) => {
+      newObject[key] = object[key];
+    });
+
+    return newObject;
+  }
+
+  /**
+   * cache에 함수의 결과값이 저장되어 있으면 cache에 저장된 값을 반환한다.
+   * @param func 실행시킬 함수
+   * @returns 캐시에 저장된 함수의 결과값
+   */
+  export function memoize(func: Function): Function {
+    const cache: any = {};
+
+    return function (n: string) {
+      if (cache[n]) return cache[n];
+
+      cache[n] = func(n);
+      return cache[n];
+    };
+  }
+
+  export function debounce(func: Function, wait: number) {
+    let timer: ReturnType<typeof setTimeout> | undefined = undefined;
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      timer = setTimeout(() => {
+        func();
+        clearTimeout(timer);
+      }, wait);
+    };
+  }
+
+  export function throttle(func: Function, wait: number) {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    return () => {
+      if (!timer) {
+        timer = setTimeout(() => {
+          func();
+          timer = null;
+        }, wait);
+      }
+    };
+  }
 
   export function clickOutside() {}
 }
