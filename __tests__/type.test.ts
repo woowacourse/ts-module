@@ -32,7 +32,7 @@ expectType<void>(_(".button").hide());
 expectType<void>(_(".button").hide(500, () => {}));
 
 // fetch 매서드의 반환값 테스트
-expectType<Promise<any>>(_.fetch("test.com", "get"));
+expectType<Promise<any>>(_.fetch("test.com", "GET"));
 
 // 타입 확인 함수들이 인자에 따라 true/false를 반환하는 지 테스트
 expectType<true>(_.isNull(null));
@@ -70,9 +70,7 @@ const sampleFunc = (arg1: string, arg2: number) => `${arg1}, ${arg2}`;
 
 expectType<typeof sampleFunc>(_.memoize(sampleFunc));
 expectType<typeof sampleFunc>(_.debounce(sampleFunc, 100));
-expectType<(arg1: string, arg2: number) => string | undefined>(
-  _.throttle(sampleFunc, 100)
-);
+expectType<(arg1: string, arg2: number) => string>(_.throttle(sampleFunc, 100));
 
 // clickOutside 함수 반환 값 테스트
 expectType<void>(

@@ -56,7 +56,7 @@ describe("3. 모듈에 포함된 함수의 동작을 테스트한다.", () => {
   test("fetch 함수로 비동기 통신을 통해 데이터를 받을 수 있다.", async () => {
     const response = await _.fetch(
       "https://jsonplaceholder.typicode.com/posts/1",
-      "get"
+      "GET"
     );
     expect(response).not.toEqual(undefined);
     expect(response).not.toEqual(null);
