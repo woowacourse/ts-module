@@ -34,7 +34,7 @@ expectType<Omit<typeof obj, "a">>(tt.omit(obj, ["a"]));
 
 expectType<() => number>(tt.memoize(() => 1));
 
-const func = (hi: string): string => hi;
+const func = () => console.log("hi");
 expectType<typeof func>(tt.debounce(func, 100));
 expectType<typeof func>(tt.throttle(func, 100));
 
