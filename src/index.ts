@@ -123,10 +123,18 @@ module _ {
     };
   }
 
-  export function debounce<T extends (...args: any[]) => any>(
+  export function debounce<T extends (...args: any[]) => void>(
     func: T,
     wait: number
-  ): T;
+  ): (...args: any[]) => void {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    return (...args: any[]) => {
+      if (timer) clearTimeout(timer);
+
+      timer = setTimeout(() => func(...args), wait);
+    };
+  }
 
   export function throttle<T extends (...args: any[]) => any>(
     func: T,
