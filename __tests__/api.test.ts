@@ -15,3 +15,39 @@ test("모듈에 포함된 함수를 확인한다.", () => {
 test("모듈에 포함된 함수를 확인한다.", () => {
   expect(typeof _.omit).toBe("function");
 });
+
+test("Selector 동작을 확인한다.", () => {
+  const buttonElement = _("button.test-btn");
+
+  expect(buttonElement).toBeTruthy();
+});
+
+test("innerHtml 동작을 확인한다.", () => {
+  const buttonElement = _("button.test-btn");
+
+  expect(buttonElement.innerHtml()).toBe("");
+});
+
+test("show 동작을 확인한다.", () => {
+  const buttonElement = _("button.test-btn");
+  buttonElement.show();
+
+  expect(buttonElement.getElement().style.display).toBe("block");
+});
+
+test("hide 동작을 확인한다.", () => {
+  const buttonElement = _("button.test-btn");
+  buttonElement.hide();
+
+  expect(buttonElement.getElement().style.display).toBe("none");
+});
+
+test("addEvent 동작을 확인한다.", () => {
+  const buttonElement = _("button.test-btn");
+  const listener = jest.fn();
+
+  buttonElement.addEvent("click", listener);
+  buttonElement.getElement().click();
+
+  expect(listener).toBeCalled();
+});
