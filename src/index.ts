@@ -1,3 +1,5 @@
+import { Options } from "./constants";
+
 function _(selector: string) {
   const element = document.createElement(selector);
 
