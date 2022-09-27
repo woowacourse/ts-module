@@ -1,4 +1,11 @@
+type Options = {
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  headers?: unknown;
+  body?: unknown;
+};
+
 declare namespace _ {
+  function fetch(url: string, options?: Options): Promise<unknown>;
   function isNumber(value: unknown): boolean;
   function isFunction(value: unknown): boolean;
   function isNull(value: unknown): boolean;
