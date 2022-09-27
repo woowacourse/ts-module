@@ -165,7 +165,20 @@ namespace _ {
     };
   };
 
-  export function debounce() {}
+  export const debounce = <T extends Function>(func: T, wait = 0) => {
+    let timerId: number | null = null;
+
+    return function (...args: unknown[]) {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+
+      timerId = window.setTimeout(() => {
+        timerId = null;
+        return func.apply(this.args);
+      }, wait);
+    };
+  };
 
   export function throttle() {}
 
