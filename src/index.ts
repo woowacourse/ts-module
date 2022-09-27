@@ -49,9 +49,10 @@ module _ {
     return value === null;
   }
 
-  export function isNil<T extends unknown>(
-    value: T
-  ): T extends null | undefined ? true : false;
+  type Nilable<T> = T extends null | undefined ? T : never;
+  export function isNil<T>(value: T): value is Nilable<T> {
+    return isNull(value) || value === undefined;
+  }
 
   export function isNumber<T extends unknown>(
     value: T

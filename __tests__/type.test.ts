@@ -32,13 +32,13 @@ expectType<Promise<{ name: string }>>(
   }).then((res) => res.json())
 );
 
-expectType<boolean>(_.isNull<null>(null));
+expectType<boolean>(_.isNull(null));
 expectType<boolean>(_.isNull(2));
 expectType<boolean>(_.isNull(0));
 
-expectType<true>(_.isNil<null>(null));
-expectType<true>(_.isNil<undefined>(undefined));
-expectType<false>(_.isNil(0));
+expectType<boolean>(_.isNil(null));
+expectType<boolean>(_.isNil(undefined));
+expectType<boolean>(_.isNil(0));
 
 expectType<true>(_.isNumber(1));
 expectType<false>(_.isNumber('1'));
