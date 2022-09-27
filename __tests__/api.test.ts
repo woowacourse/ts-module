@@ -80,7 +80,16 @@ test('_("").innerHTML() 동작 확인', () => {
   selectedElement.remove();
 });
 
-test('`_("").show()`~~~~', () => {});
+test('_("").show() 동작 확인', () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const selectedElement = _("button.test-btn").element;
+  _("button.test-btn").show();
+
+  expect(selectedElement.style.display).toBe("block");
+});
 
 test('`_("").hidden()`~~~~', () => {});
 
