@@ -34,14 +34,10 @@ type Pick = <T extends Object, U extends Array<keyof T>>(
   paths: U,
 ) => { [key in U[number]]: T[key] };
 
-type UnwrapArray<T> = T extends Array<infer R2> ? R2 : never;
-
 type Omit = <T extends Object, U extends Array<keyof T>>(
   object: T,
   paths: U,
 ) => { [key in Exclude<keyof T, U[number]>]: T[key] };
-
-type ArrayToUnion<T> = T extends Array<infer U> ? U : never;
 
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
@@ -193,7 +189,16 @@ namespace _ {
     };
   };
 
-  export function clickOutside() {}
+  export const clickOutside = <T extends HTMLElement, U extends Function>(
+    element: T,
+    callback: U,
+  ) => {
+    const parentElement = element.parentElement;
+
+    parentElement.addEventListener('click', (event) => {
+      callback(event);
+    });
+  };
 }
 
 export default _;
