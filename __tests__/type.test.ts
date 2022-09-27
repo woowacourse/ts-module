@@ -87,3 +87,10 @@ test("memoize 함수 타입을 테스트한다. ", () => {
     _.memoize(callbackFunction, generateKeyFunction)
   );
 });
+
+test("debounce 함수 타입을 테스트한다. ", () => {
+  const callbackFunction = (a: number, b: number) => {};
+  const delay = 100;
+
+  expectType<typeof callbackFunction>(_.debounce(callbackFunction, delay));
+});
