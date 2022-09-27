@@ -11,54 +11,141 @@ declare global {
   }
 }
 module _ {
-  export declare function fetch<
-    T extends RequestInfo | URL,
-    K extends RequestInit | undefined
-  >(input: T, init?: K): Promise<Response>;
+  export function fetch(
+    url: string,
+    responseType: XMLHttpRequestResponseType = "text"
+  ): Promise<string> {
+    return new Promise((resolve, reject) => {
+      try {
+        const request = new XMLHttpRequest();
 
-  export declare function isNull<T extends unknown>(
-    value: T
-  ): T extends null ? true : false;
+        request.addEventListener("load", () => {
+          if (responseType === "text") {
+            try {
+              resolve(JSON.parse(request.responseText));
+            } catch (_) {
+              resolve(request.responseText);
+            }
+          } else {
+            resolve(request.response);
+          }
+        });
+        request.addEventListener("error", () => {
+          throw new Error(String(request.status));
+        });
+        request.open("GET", url, true);
+        request.responseType = responseType;
+        request.send();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 
-  export declare function isNil<T extends unknown>(
-    value: T
-  ): T extends undefined | null ? true : false;
+  export function isNull<T extends unknown>(value: T): boolean {
+    return value === null;
+  }
 
-  export declare function isNumber<T extends unknown>(
-    value: T
-  ): T extends number ? true : false;
+  export function isNil<T extends unknown>(value: T): boolean {
+    return value === null || value === undefined;
+  }
 
-  export declare function isFunction<T extends unknown>(
-    value: T
-  ): T extends Function ? true : false;
+  export function isNumber<T extends unknown>(value: T): boolean {
+    return typeof value === "number";
+  }
 
-  export declare function shuffle<T extends Array<unknown>>(value: T): T;
+  export function isFunction<T extends unknown>(value: T): boolean {
+    return typeof value === "function";
+  }
 
-  export declare function pick<
+  export function shuffle<T extends Array<unknown>>(value: T): T {
+    return value.sort(() => Math.random() - 0.5);
+  }
+
+  export function pick<
     T extends Record<string | number, unknown>,
     K extends keyof T
-  >(obj: T, array: K[]): Record<string | number, unknown>;
+  >(obj: T, array: K[]): Record<string | number, unknown> {
+    const pickedObj = <T>{};
+    for (const key of array) {
+      pickedObj[key] = obj[key];
+    }
+    return pickedObj;
+  }
 
-  export declare function omit<
+  export function omit<
     T extends Record<string | number, unknown>,
     K extends keyof T
-  >(obj: T, array: K[]): Record<string | number, unknown>;
+  >(obj: T, array: K[]): Record<string | number, unknown> {
+    const omittedObj = <T>{};
+    for (const key of array) {
+      if (!array.includes(key)) {
+        omittedObj[key] = obj[key];
+      }
+    }
+    return omittedObj;
+  }
 
-  export declare function memoize<T extends unknown[]>(
-    func: (...args: T) => unknown
-  ): unknown;
+  export function memoize<T>(
+    func: (...args: any) => T,
+    resolver?: (...args: any) => T
+  ): (...args: any) => T {
+    const memoized = function (this: any, args: any) {
+      const key = resolver ? resolver.apply(this, args) : args[0];
+      const cache = memoized.cache;
 
-  export declare function debounce<T extends unknown[]>(
-    func: (...args: T) => unknown,
+      if (cache.has(key)) {
+        return cache.get(key);
+      }
+      const result = func.apply(this, args);
+      memoized.cache = cache.set(key, result) || cache;
+      return result;
+    };
+    memoized.cache = new Map();
+    return memoized;
+  }
+
+  export function debounce(
+    func: (...args: any) => void,
     delay: number
-  ): Function;
+  ): (...args: any) => void {
+    let timeout: ReturnType<typeof setTimeout>;
+    return function (...args: any) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  }
 
-  export declare function throttle<T extends unknown[]>(
-    func: (...args: T) => unknown,
+  export function throttle(
+    func: (...args: any) => void,
     delay: number
-  ): Function;
+  ): (...args: any) => void {
+    let timeout: ReturnType<typeof setTimeout>;
+    return function (...args: any) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  }
 
-  export declare function clickOutside<T extends HTMLElement>(target: T): void;
+  export function clickOutside<T extends HTMLElement>(
+    target: T,
+    func: (...args: any) => void
+  ): void {
+    window.addEventListener("click", (event, ...args) => {
+      if (!(event.target instanceof HTMLElement)) {
+        return;
+      }
+      if (target.isSameNode(event.target)) {
+        return;
+      }
+
+      func.apply(null, args);
+    });
+  }
 }
 
 export default _;
