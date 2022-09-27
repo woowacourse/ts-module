@@ -42,3 +42,16 @@ test('omit 동작 확인', () => {
     c: 3,
   });
 });
+
+test('memoized 동작 확인', () => {
+  console.log = jest.fn();
+  const testFunc = () => {
+    console.log('hi');
+    return 'hi';
+  };
+  const memoizedFunc = _.memoize(testFunc);
+  memoizedFunc();
+  memoizedFunc();
+  memoizedFunc();
+  expect(console.log).toHaveBeenCalledTimes(1);
+});
