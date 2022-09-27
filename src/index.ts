@@ -121,6 +121,23 @@ module _ {
       return result;
     };
   }
+
+  export function debounce<T extends unknown[]>(
+    callback: (...args: T) => void,
+    delay?: number
+  ) {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    return function (...args: T) {
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      timer = setTimeout(() => {
+        return callback(...args);
+      }, delay);
+    };
+  }
 }
 
 export default _;
