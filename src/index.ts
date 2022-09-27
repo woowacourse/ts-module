@@ -59,9 +59,10 @@ module _ {
     return typeof value === 'number';
   }
 
-  export function isFunction<T extends unknown>(
-    value: T
-  ): T extends Function ? true : false;
+  type Functionable<T> = T extends Function ? T : never;
+  export function isFunction<T>(value: T): value is Functionable<T> {
+    return typeof value === 'function';
+  }
 
   export function shuffle<T extends unknown>(value: T[]): T[];
 

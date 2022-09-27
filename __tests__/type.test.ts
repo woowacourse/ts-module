@@ -43,6 +43,9 @@ expectType<boolean>(_.isNil(0));
 expectType<boolean>(_.isNumber(1));
 expectType<boolean>(_.isNumber('1'));
 
+expectType<boolean>(_.isFunction(() => {}));
+expectType<boolean>(_.isFunction('2'));
+
 expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([1, 3, 2, 4]));
 
 expectType<{ a: 1; b: 2 }>(_.pick({ a: 1, b: 2, c: 3 }, 'a', 'b'));
