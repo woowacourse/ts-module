@@ -1,25 +1,53 @@
 import { CreateArrayWithLengthX, NumericRange } from './utils';
 
 interface Node {
-  addEvent<T extends HTMLElementEventMap, K extends keyof HTMLElementEventMap>(
+  addEvent<T extends GlobalEventHandlersEventMap, K extends keyof T>(
     eventType: K,
     eventListener: (event: T[K]) => void
   ): void;
   innerHTML: ((value: string) => void) | string;
   show: () => void;
-  hidden: (() => void) | boolean;
+  hidden: () => void;
 }
 declare function _(selector: string): Node;
 
-declare module _ {
+module _ {
+  type FetchBodyType =
+    | string
+    | URLSearchParams
+    | FormData
+    | Blob
+    | ArrayBuffer
+    | ArrayBufferView
+    | DataView;
+
+  type Url = `http${'' | 's'}://${string}`;
+
+  type FetchOptions = {
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    body?: FetchBodyType | null;
+    headers?: Record<string, string>;
+    credentials?: 'omit' | 'same-origin' | 'include';
+  };
+
+  type Response<Data> = {
+    status: NumericRange<CreateArrayWithLengthX<200>, 600>;
+    ok: boolean;
+    statusText: string;
+    url: string;
+    headers: Record<string, string>;
+    json: () => Promise<Data>;
+  };
+
   export function fetch<Data>(
     url: Url,
     options?: FetchOptions
-  ): Promise<Response<Data>>;
+  ): Promise<Response<Data>> {}
 
-  export function isNull<T extends unknown>(
-    value: T
-  ): T extends null ? true : false;
+  type Nullable<T> = T extends null ? T : never;
+  export function isNull<T>(value: T): value is Nullable<T> {
+    return value === null;
+  }
 
   export function isNil<T extends unknown>(
     value: T
@@ -58,33 +86,6 @@ declare module _ {
   ): T;
 
   export function clickOutside(dom: Node, func: (...args: any[]) => void): void;
-
-  type FetchBodyType =
-    | string
-    | URLSearchParams
-    | FormData
-    | Blob
-    | ArrayBuffer
-    | ArrayBufferView
-    | DataView;
-
-  type Url = `http${'' | 's'}://${string}`;
-
-  type FetchOptions = {
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    body?: FetchBodyType | null;
-    headers?: Record<string, string>;
-    credentials?: 'omit' | 'same-origin' | 'include';
-  };
-
-  type Response<Data> = {
-    status: NumericRange<CreateArrayWithLengthX<200>, 600>;
-    ok: boolean;
-    statusText: string;
-    url: string;
-    headers: Record<string, string>;
-    json: () => Promise<Data>;
-  };
 }
 
 export default _;
