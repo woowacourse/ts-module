@@ -61,7 +61,10 @@ module _ {
   export function isFunction(input: unknown): input is Function {
     return typeof input === 'function';
   }
-  export function shuffle<T = unknown>(input: Iterable<T> | object): T[] {
+
+  export function shuffle<T>(input: Iterable<T>): T[];
+  export function shuffle(input: object): unknown[];
+  export function shuffle(input: object | Iterable<unknown>): unknown[] {
     let result;
     if (isIterable(input)) {
       result = Array.from(input);

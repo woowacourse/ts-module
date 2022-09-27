@@ -35,7 +35,10 @@ test('isFunction 타입 확인', () => {
 });
 
 test('shuffle 타입확인', () => {
-  expectType<Array<number>>(_.shuffle<number>([1, 2, 3]));
-  expectType<Array<unknown>>(_.shuffle({ a: 1, b: 2 }));
+  const testObj = { a: 1, b: 2 };
+  expectType<Array<number>>(_.shuffle<number>([1, 2]));
+  expectType<Array<number>>(_.shuffle([1, 2]));
+
+  expectType<Array<unknown>>(_.shuffle(testObj));
   expectType<Array<unknown>>(_.shuffle(() => {}));
 });
