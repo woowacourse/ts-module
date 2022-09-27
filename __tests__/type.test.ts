@@ -78,3 +78,12 @@ test("omit 함수 타입을 테스트한다. ", () => {
   expectType<Omit<typeof object, "a">>(_.omit(object, ["a"]));
   expectType<Omit<typeof object, "a" | "b">>(_.omit(object, ["a", "b"]));
 });
+
+test("memoize 함수 타입을 테스트한다. ", () => {
+  const callbackFunction = (a: number, b: number) => {};
+  const generateKeyFunction = (a: number, b: number) => `${a}${b}`;
+
+  expectType<typeof callbackFunction>(
+    _.memoize(callbackFunction, generateKeyFunction)
+  );
+});
