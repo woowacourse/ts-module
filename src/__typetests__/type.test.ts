@@ -7,6 +7,7 @@ import wtil from "..";
 import isFunction from "../isFunction";
 import isNil from "../isNil";
 import isNull from "../isNull";
+import shuffle from "../shuffle";
 
 wtil(".button").addEvent("click", function (event: MouseEvent) {
   expectType<MouseEvent>(event);
@@ -23,4 +24,8 @@ wtil(".button").addEvent("click", function (event: MouseEvent) {
 
 /* function type test */ {
   expectType<boolean>(isFunction(() => {}));
+}
+
+/* shuffle type test */ {
+  expectType<Array<number>>(shuffle<number>([]));
 }
