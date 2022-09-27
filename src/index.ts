@@ -138,6 +138,22 @@ module _ {
       }, delay);
     };
   }
+
+  export function throttle<T extends unknown[]>(
+    callback: (...args: T) => void,
+    delay?: number
+  ) {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    return function (...args: T) {
+      if (!timer) {
+        timer = setTimeout(() => {
+          timer = null;
+          callback(...args);
+        }, delay);
+      }
+    };
+  }
 }
 
 export default _;
