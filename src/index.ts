@@ -62,6 +62,11 @@ module _ {
   export function isNumber(value: unknown): value is number {
     return typeof value === "number";
   }
+
+  export function isFunction<T>(value: T): T extends Function ? true : false;
+  export function isFunction(value: unknown): value is Function {
+    return typeof value === "function";
+  }
 }
 
 export default _;
