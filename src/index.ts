@@ -3,7 +3,7 @@ interface NewElement extends HTMLElement {
   hide(): void;
   addEvent<C extends keyof HTMLElementEventMap>(
     cmd: C,
-    callback: (this: HTMLElement, event: HTMLElementEventMap[C]) => void
+    callback: (event: HTMLElementEventMap[C]) => void
   ): unknown;
 }
 
@@ -30,25 +30,9 @@ function _(selector: string): NewElement {
 }
 
 namespace _ {
-  // export function fetch(input: string | URL, init?: RequestInit): Promise<Response> {
-  //   const xhr = new XMLHttpRequest()
-  //   xhr.open(init.method, input)
-
-  //   xhr.onreadystatechange = function (event) {
-  //     const { target } = event;
-
-  //     if (target.readyState === XMLHttpRequest.DONE) {
-  //         const { status } = target;
-
-  //         if (status === 0 || (status >= 200 && status < 400)) {
-  //           return Promise
-  //         } else {
-  //            throw new Error('failed to request')
-  //         }
-  //     }}
-
-  //  xhr.send();
-  // }
+  export async function fetch(input: string | URL, init?: RequestInit): Promise<Response> {
+    return fetch(input, init);
+  }
 
   export function isNull(value?: unknown): Boolean {
     return value === null;

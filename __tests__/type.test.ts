@@ -19,6 +19,10 @@ test('Selector type check', () => {
   });
 });
 
+test('fetch type check', () => {
+  expectType<(input: string | URL, init?: RequestInit) => Promise<Response>>(_.fetch);
+});
+
 test('isNull type check', () => {
   expectType<Boolean>(_.isNull());
 });

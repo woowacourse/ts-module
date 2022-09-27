@@ -3,8 +3,6 @@
  */
 import _ from '../src';
 
-// const fetchMock = jest.mock('fetch', () => 'kam');
-
 test('모듈은 기본 내보내기', () => {
   expect(_).toBeTruthy();
 });
@@ -50,20 +48,20 @@ test('hide 동작 확인', () => {
   expect(targetElement.style.visibility).toBe('hidden');
 });
 
-test('hide 동작 확인', () => {});
-
-test('addEvent 동작 확인', () => {});
-
 test('모듈에 포함된 함수 확인', () => {
-  // expect(typeof _.fetch).toBe('function');
+  expect(typeof _.fetch).toBe('function');
   expect(typeof _.isNull).toBe('function');
+  expect(typeof _.isNil).toBe('function');
+  expect(typeof _.isNumber).toBe('function');
+  expect(typeof _.isFunction).toBe('function');
+  expect(typeof _.shuffle).toBe('function');
+  expect(typeof _.pick).toBe('function');
+  expect(typeof _.omit).toBe('function');
+  expect(typeof _.memoize).toBe('function');
+  expect(typeof _.debounce).toBe('function');
+  expect(typeof _.throttle).toBe('function');
+  expect(typeof _.clickOutside).toBe('function');
 });
-
-// test('fetch 동작 확인', async () => {
-//   const url = '';
-//   const response = await _.fetch(url);
-//   expect(response).toBe('kam');
-// });
 
 test('isNull 동작 확인', () => {
   expect(_.isNull(1)).toBeFalsy();
