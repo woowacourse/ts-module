@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test:api": "jest --config jest.config.js",
-    "test:type": "tsd"
+    "test:type": "tsd",
+    "test": "npm run test:api & npm run test:type"
   },
   "keywords": [],
   "author": "",
