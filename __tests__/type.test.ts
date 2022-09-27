@@ -9,6 +9,11 @@ _('.button').addEvent('click', function (event) {
   expectType<MouseEvent>(event);
 });
 
+//@ts-expect-error
+_('.button').addEvent('invalid eventType', function (event) {
+  console.log(event);
+});
+
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>('https://example.com', {
     method: 'GET',
