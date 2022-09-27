@@ -10,6 +10,7 @@ type PickType = typeof __.pick;
 type OmitType = typeof __.omit;
 type MemoizeType = typeof __.memoize;
 type DebounceType = typeof __.debounce;
+type ThrottleType = typeof __.throttle;
 
 function _(selector: string): any {
   /**
@@ -100,7 +101,17 @@ module _ {
     };
   };
 
-  export function throttle() {}
+  export const throttle: ThrottleType = (func, delay) => {
+    let timer: number | null = null;
+    return function () {
+      if (!timer) {
+        timer = window.setTimeout(() => {
+          func();
+          timer = null;
+        }, delay);
+      }
+    };
+  };
 
   export function clickOutside() {}
 }
