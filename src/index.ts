@@ -4,6 +4,7 @@ import __ from '../index';
 // 테스트하는 대상이 되는 타입은 실제로 사용이되는 타입이여야 테스트를 하는 의미가 있기 때문이죠🎈
 type isNumberType = typeof __.isNumber;
 type isNullType = typeof __.isNull;
+type isFunctionType = typeof __.isFunction;
 type isNilType = typeof __.isNil;
 type shuffleType = typeof __.shuffle;
 type PickType = typeof __.pick;
@@ -12,21 +13,17 @@ type MemoizeType = typeof __.memoize;
 type DebounceType = typeof __.debounce;
 type ThrottleType = typeof __.throttle;
 type ClickOutsideType = typeof __.clickOutside;
+type _Type = typeof __._;
 
-function _(selector: string): any {
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
+class CustomElement implements _Type {
+  constructor(selector: string) {}
+  innerHTML(value) {}
+
+  show() {}
+
+  hidden() {}
+
+  addEvent() {}
 }
 
 module _ {
@@ -46,7 +43,9 @@ module _ {
     return typeof value === 'number';
   };
 
-  export function isFunction() {}
+  export const isFunction: isFunctionType = (value) => {
+    return typeof value === 'function';
+  };
 
   export const shuffle: shuffleType = (arr) => {
     return [...arr].sort(() => 0.5 - Math.random());

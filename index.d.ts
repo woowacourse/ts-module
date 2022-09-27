@@ -1,5 +1,6 @@
 declare namespace _ {
   function isNumber(value: unknown): boolean;
+  function isFunction(value: unknown): boolean;
   function isNull(value: unknown): boolean;
   function isNil(value: unknown): boolean;
   function shuffle<T>(arr: T[]): T[];
@@ -12,6 +13,17 @@ declare namespace _ {
     element: HTMLElement,
     func: Function
   ): (event: MouseEvent) => void;
+  function _<T extends keyof DocumentEventMap>(
+    selector: string
+  ): {
+    innerHTML(value: string): void;
+    show(): void;
+    hidden(): void;
+    addEvent(
+      event: T,
+      eventHandler: (event: DocumentEventMap[T]) => void
+    ): void;
+  };
 }
 
 export default _;
