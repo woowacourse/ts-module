@@ -75,3 +75,17 @@ test('addEvent 동작 확인', () => {
 
   expect(onClickEventBtn).toBeCalledTimes(1);
 });
+
+test('clickOutside 동작 확인', () => {
+  const notTargetButtonElement = document.createElement('button');
+  document.body.appendChild(notTargetButtonElement);
+
+  const targetButtonElement = document.createElement('button');
+  document.body.appendChild(targetButtonElement);
+
+  const onClickOutsideTargetButton = jest.fn();
+  _.clickOutside(targetButtonElement, onClickOutsideTargetButton);
+  notTargetButtonElement.click();
+
+  expect(onClickOutsideTargetButton).toBeCalledTimes(1);
+});
