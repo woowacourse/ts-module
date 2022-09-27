@@ -1,10 +1,6 @@
 import type { NewElement, Function } from './type';
 
 function _(selector: string): NewElement {
-  if (!selector) {
-    return;
-  }
-
   const element = document.querySelector(selector) as NewElement;
 
   element['show'] = function () {
@@ -83,14 +79,14 @@ namespace _ {
     }
 
     const memoized = function (...args: Parameters<T>): ReturnType<T> {
-      const key = resolver ? resolver.apply(this, args) : args[0];
+      const key = resolver ? resolver.apply(_, args) : args[0];
       const cache = memoized.cache;
 
       if (cache.has(key)) {
         return cache.get(key);
       }
 
-      const result = func.apply(this, args) as ReturnType<typeof func>;
+      const result = func.apply(_, args) as ReturnType<typeof func>;
       memoized.cache = cache.set(key, result) || cache;
       return result;
     };
@@ -105,18 +101,18 @@ namespace _ {
     return function (...args: Parameters<typeof callback>) {
       clearTimeout(timer);
       timer = setTimeout(() => {
-        callback.apply(this, args);
+        callback.apply(_, args);
       }, delay);
     };
   }
 
   export function throttle(callback: Function, delay: number) {
-    let timer: NodeJS.Timeout;
+    let timer: NodeJS.Timeout | null;
     return function (...args: Parameters<typeof callback>) {
       if (!timer) {
         timer = setTimeout(() => {
           timer = null;
-          callback.apply(this, args);
+          callback.apply(_, args);
         }, delay);
       }
     };

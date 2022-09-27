@@ -1,6 +1,8 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "target": "esnext",
+    "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
     "esModuleInterop": true,

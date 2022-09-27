@@ -120,8 +120,8 @@ test('omit 동작 확인', () => {
 });
 
 test('memoize 동작 확인', () => {
-  const func = (arg1, arg2) => `${arg1} ${arg2}`;
-  const resolver = (arg1, arg2) => JSON.stringify([arg1, arg2]);
+  const func = (arg1: unknown, arg2: unknown) => `${arg1} ${arg2}`;
+  const resolver = (arg1: unknown, arg2: unknown) => JSON.stringify([arg1, arg2]);
   const funcM1 = _.memoize(func);
   const funcM2 = _.memoize(func, resolver);
 

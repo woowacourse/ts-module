@@ -5,8 +5,6 @@ import { expectType } from 'tsd';
 
 import _ from '../src';
 
-// expectType<Promise<Response>>(_.fetch(''));
-
 test('Selector type check', () => {
   const divElement = document.createElement('div');
   divElement.innerHTML = `hello`;
@@ -65,7 +63,7 @@ test('omit type check', () => {
 });
 
 test('memoize type check', () => {
-  const func = (arg1, arg2) => `${arg1} ${arg2}`;
+  const func = (arg1: unknown, arg2: unknown) => `${arg1} ${arg2}`;
 
   expectType<{ (arg1: any, arg2: any): string; cache: Map<any, any> }>(_.memoize(func));
 });
