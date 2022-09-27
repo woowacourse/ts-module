@@ -56,3 +56,11 @@ test("isFunction 함수 타입을 테스트한다. ", () => {
   expectType<false>(_.isFunction(1));
   expectType<true>(_.isFunction(() => {}));
 });
+
+test("shuffle 함수 타입을 테스트한다. ", () => {
+  const array_1 = [1, 2, 3, 4, 5];
+  expectType<number[]>(_.shuffle(array_1));
+
+  const array_2 = [1, 2, 3, 4, "5"];
+  expectType<(number | string)[]>(_.shuffle(array_2));
+});
