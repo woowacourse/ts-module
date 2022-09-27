@@ -7,6 +7,11 @@ test("모듈은 기본 내보내기", () => {
   expect(wtil).toBeTruthy();
 });
 
+test("isNull 기본 동작 확인", () => {
+  expect(wtil.isNull(null)).toBe(true);
+  expect(wtil.isNull("a")).toBe(false);
+});
+
 test("모듈에 포함된 함수 확인", () => {
   expect(typeof wtil.fetch).toBe("function");
 });
