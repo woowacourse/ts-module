@@ -1,10 +1,14 @@
 import __ from '../index';
+// NOTE: 타입을 테스트하고 있고, 해당 타입을 활용해서 index.ts의 함수들에 대한 타입을 정의하려고 했습니다.
+// 그 이유는, 테스트를 하는 것은 타입이 원하는 대로 잘 작성되있는 지를 체크하는 것이고,
+// 테스트하는 대상이 되는 타입은 실제로 사용이되는 타입이여야 테스트를 하는 의미가 있기 때문이죠🎈
 type isNumberType = typeof __.isNumber;
 type isNullType = typeof __.isNull;
 type isNilType = typeof __.isNil;
 type shuffleType = typeof __.shuffle;
 type PickType = typeof __.pick;
 type OmitType = typeof __.omit;
+type MemoizeType = typeof __.memoize;
 
 function _(selector: string): any {
   /**
@@ -74,7 +78,16 @@ module _ {
     return omittedObj;
   };
 
-  export function memoize() {}
+  export const memoize: MemoizeType = (func) => {
+    const results = {} as { [key in string]: unknown };
+    return (...args: unknown[]) => {
+      const argsKey = JSON.stringify(args);
+      if (!results[argsKey]) {
+        results[argsKey] = func(...args);
+      }
+      return results[argsKey];
+    };
+  };
 
   export function debounce() {}
 
