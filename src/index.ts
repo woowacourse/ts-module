@@ -68,7 +68,7 @@ module tt {
   }
 
   export function pick<
-    Obj extends Record<string | number | symbol, unknown>,
+    Obj extends Record<string, unknown>,
     Key extends keyof Obj
   >(obj: Obj, keys: Array<Key>): Pick<Obj, Key> {
     const result = keys.reduce<Pick<Obj, Key>>((acc, key) => {
