@@ -11,7 +11,7 @@ test('모듈은 기본 내보내기', () => {
 
 test('Selector 동작 확인', () => {
   const divElement = document.createElement('div');
-  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  divElement.innerHTML = `<button class="test-btn">Continue</button>`;
   document.body.appendChild(divElement);
 
   const buttonElement = _('button.test-btn');
@@ -20,13 +20,19 @@ test('Selector 동작 확인', () => {
   divElement.removeChild(buttonElement);
 });
 
-test('`_("").innerHTML()`~~~~', () => {});
+test('innerHTML 동작 확인', () => {
+  const buttonTemplateLiteral = `<button class="test-btn">Continue</button>`;
+  const divElement = document.createElement('div');
+  divElement.innerHTML = buttonTemplateLiteral;
 
-test('`_("").show()`~~~~', () => {});
+  expect(divElement.innerHTML).toEqual(buttonTemplateLiteral);
+});
 
-test('`_("").hidden()`~~~~', () => {});
+test('show 동작 확인', () => {});
 
-test('`_("").addEvent()`~~~~', () => {});
+test('hide 동작 확인', () => {});
+
+test('addEvent 동작 확인', () => {});
 
 test('모듈에 포함된 함수 확인', () => {
   // expect(typeof _.fetch).toBe('function');
@@ -137,8 +143,13 @@ test('clickOutside 동작 확인', () => {
   divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
   document.body.appendChild(divElement);
 
-  const buttonElement = _('button.test-btn');
+  const buttonElement = document.querySelector('button.test-btn');
   let clickCount = 0;
+
+  if (!buttonElement) {
+    expect(buttonElement).toBeTruthy();
+    return;
+  }
 
   _.clickOutside(buttonElement, (event) => {
     clickCount += 1;

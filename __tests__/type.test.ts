@@ -11,6 +11,14 @@ import _ from '../src';
 // 	expectType<MouseEvent>(event);
 // });
 
+test('Selector type check', () => {
+  const divElement = document.createElement('div');
+  divElement.innerHTML = `hello`;
+  document.body.appendChild(divElement);
+
+  expectType<string>(typeof _('div').innerHTML);
+});
+
 test('isNull type check', () => {
   expectType<Boolean>(_.isNull());
 });

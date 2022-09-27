@@ -1,9 +1,26 @@
-function _(selector: string): Element {
+interface NewElement extends Element {
+  // show() {
+  // }
+}
+
+function _(selector: string): NewElement {
   if (!selector) {
     return;
   }
 
   const element = document.querySelector(selector);
+
+  // function show() {
+  //   element.style.visibility = 'visible';
+  // }
+
+  // function hide() {
+  //   element.style.visibility = 'hidden';
+  // }
+
+  // function addEvent(cmd: string, callback: (...args: unknown[]) => void) {
+  //   element.addEventListener(cmd, callback);
+  // }
 
   return element;
 }
@@ -21,11 +38,10 @@ namespace _ {
 
   //         if (status === 0 || (status >= 200 && status < 400)) {
   //           return Promise
-  //             Promise.resolve()
   //         } else {
-  //             Promise.reject()
+  //            throw new Error('failed to request')
   //         }
-  //     }
+  //     }}
 
   //  xhr.send();
   // }
