@@ -132,17 +132,17 @@ namespace _ {
     };
   }
 
-  // export function throttle(callback: Function, delay: number) {
-  //   let timer: NodeJS.Timeout;
-  //   return function (...args: Parameters<typeof callback>) {
-  //     if (!timer) {
-  //       timer = setTimeout(() => {
-  //         timer = null;
-  //         callback.apply(this, args);
-  //       }, delay);
-  //     }
-  //   };
-  // }
+  export function throttle(callback: Function, delay: number) {
+    let timer: NodeJS.Timeout;
+    return function (...args: Parameters<typeof callback>) {
+      if (!timer) {
+        timer = setTimeout(() => {
+          timer = null;
+          callback.apply(this, args);
+        }, delay);
+      }
+    };
+  }
 
   // export function clickOutside(target: Element, callback: Function) {
   //   return this.each(function () {

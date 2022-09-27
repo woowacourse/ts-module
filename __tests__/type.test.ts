@@ -65,3 +65,11 @@ test('debounce type check', () => {
 
   expectType<(...args: unknown[]) => void>(debouncedFunc);
 });
+
+test('throttle type check', () => {
+  const func = () => {};
+  const time = 1000;
+  const throttledFunc = _.throttle(func, time);
+
+  expectType<(...args: unknown[]) => void>(throttledFunc);
+});
