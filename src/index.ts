@@ -21,9 +21,17 @@ function _(selector: string) {
     element.style.display = "none";
   }
 
+  function addEvent<T extends keyof GlobalEventHandlersEventMap>(
+    type: T,
+    listener: (e: GlobalEventHandlersEventMap[T]) => void
+  ) {
+    element.addEventListener(type, listener);
+  }
+
   return {
     innerHtml,
     show,
     hide,
+    addEvent,
   };
 }
