@@ -67,6 +67,20 @@ module _ {
   export function isFunction(value: unknown): value is Function {
     return typeof value === "function";
   }
+
+  export function shuffle<T>(array: T[]): T[] {
+    const newArray = [...array];
+    const length = newArray.length;
+
+    for (let start = 0; start < length; start++) {
+      const randomPosition = Math.floor((length - start) * Math.random());
+      const randomItem = newArray.splice(randomPosition, 1);
+
+      newArray.push(...randomItem);
+    }
+
+    return newArray;
+  }
 }
 
 export default _;
