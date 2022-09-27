@@ -110,7 +110,7 @@ module _ {
         target = omit(obj, ...item);
         result = target;
       } else if (typeof item === 'string' && Object.keys(obj).includes(item)) {
-        delete obj.item;
+        delete obj[item];
         result = obj;
       }
     });

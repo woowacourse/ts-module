@@ -36,3 +36,9 @@ test('pick 동작 확인', () => {
     b: 2,
   });
 });
+
+test('omit 동작 확인', () => {
+  expect(_.omit({ a: 1, b: 2, c: 3 }, 'a', 'b')).toStrictEqual({
+    c: 3,
+  });
+});
