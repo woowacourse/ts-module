@@ -1,4 +1,4 @@
-import { expectAssignable, expectType } from 'tsd';
+import { expectType } from 'tsd';
 import _ from '../../build';
 
 /** _.fetch */
@@ -34,7 +34,7 @@ expectType<{ b: '2' }>(_.omit({ a: 1, b: '2', c: 3 } as const, 'a', 'c'));
 
   const debouncedFunc = _.debounce(func, 200);
 
-  expectAssignable<TempFunction>(debouncedFunc);
+  expectType<TempFunction>(debouncedFunc);
 }
 
 /** _.throttle */
@@ -44,7 +44,7 @@ expectType<{ b: '2' }>(_.omit({ a: 1, b: '2', c: 3 } as const, 'a', 'c'));
 
   const throttledFunc = _.throttle(func, 200);
 
-  expectAssignable<TempFunction>(throttledFunc);
+  expectType<TempFunction>(throttledFunc);
 }
 
 /** _ */
