@@ -1,5 +1,4 @@
-export type TFunction = (...args: Array<any>) => void;
-const isFunction = (val: unknown): val is TFunction => {
+const isFunction = (val: unknown): val is Function => {
   if (typeof val === "function") {
     return true;
   }
