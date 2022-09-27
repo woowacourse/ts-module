@@ -131,3 +131,20 @@ test('throttle 동작 확인', () => {
   expect(setTimeout).toHaveBeenCalledTimes(1);
   expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), time);
 });
+
+test('clickOutside 동작 확인', () => {
+  const divElement = document.createElement('div');
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const buttonElement = _('button.test-btn');
+  let clickCount = 0;
+
+  _.clickOutside(buttonElement, (event) => {
+    clickCount += 1;
+  });
+
+  _.clickOutside(divElement, (event) => {
+    clickCount += 1;
+  });
+});

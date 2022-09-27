@@ -73,3 +73,7 @@ test('throttle type check', () => {
 
   expectType<(...args: unknown[]) => void>(throttledFunc);
 });
+
+test('clickOutside type check', () => {
+  expectType<(element: Element, callback: (...args: unknown[]) => unknown) => void>(_.clickOutside);
+});

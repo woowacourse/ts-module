@@ -144,16 +144,14 @@ namespace _ {
     };
   }
 
-  // export function clickOutside(target: Element, callback: Function) {
-  //   return this.each(function () {
-  //     document.addEventListener('click', (event) => {
-  //       const element = event.currentTarget as HTMLElement;
-  //       if (!element.closest(self).length) {
-  //         callback.call(self, event);
-  //       }
-  //     });
-  //   });
-  // }
+  export function clickOutside(element: Element, callback: Function) {
+    document.addEventListener('click', function (event) {
+      const target = event.target as Node;
+      if (!element.contains(target)) {
+        callback(event);
+      }
+    });
+  }
 }
 
 export default _;
