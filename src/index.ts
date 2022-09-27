@@ -149,7 +149,21 @@ namespace _ {
     return copiedObject;
   };
 
-  export function memoize() {}
+  export const memoize = <T extends Function, U>(
+    func: T,
+  ): ((...args: unknown[]) => U) => {
+    const cache: Record<string, U> = {};
+
+    return function (...args: unknown[]): U {
+      const key = JSON.stringify(args);
+
+      if (!cache.hasOwnProperty(key)) {
+        cache[key] = func.apply(this, args);
+      }
+
+      return cache[key];
+    };
+  };
 
   export function debounce() {}
 
