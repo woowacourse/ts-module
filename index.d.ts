@@ -6,6 +6,7 @@ declare namespace _ {
   function pick<T, P extends keyof T>(obj: T, target: P | P[]): Pick<T, P>;
   function omit<T, P extends keyof T>(obj: T, target: P | P[]): Omit<T, P>;
   function memoize(func: Function): Function;
+  function debounce(funct: Function, delay: number): Function;
 }
 
 export default _;
