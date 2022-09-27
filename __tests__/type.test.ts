@@ -5,14 +5,22 @@ import { expectType } from 'tsd';
 
 import _ from '../src';
 
-_('.button').addEvent('click', function (event) {
+const $button = _('.button');
+
+$button.addEvent('click', function (event) {
   expectType<MouseEvent>(event);
 });
 
 //@ts-expect-error
-_('.button').addEvent('invalid eventType', function (event) {
+$button.addEvent('invalid eventType', function (event) {
   console.log(event);
 });
+
+expectType<void>($button.show());
+
+if (typeof $button.hidden === 'function') {
+  expectType<void>($button.hidden());
+}
 
 expectType<Promise<{ name: string }>>(
   _.fetch<{ name: string }>('https://example.com', {

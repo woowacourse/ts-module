@@ -5,9 +5,9 @@ interface Node {
     eventType: K,
     eventListener: (event: T[K]) => void
   ): void;
-  innerHTML: (value: string) => void | string;
+  innerHTML: ((value: string) => void) | string;
   show: () => void;
-  hidden: () => void | boolean;
+  hidden: (() => void) | boolean;
 }
 declare function _(selector: string): Node;
 
