@@ -49,3 +49,10 @@ test("isNumber 함수의 타입을 테스트한다. ", () => {
   expectType<false>(_.isNumber(undefined));
   expectType<true>(_.isNumber(1));
 });
+
+test("isFunction 함수 타입을 테스트한다. ", () => {
+  expectType<false>(_.isFunction(null));
+  expectType<false>(_.isFunction(undefined));
+  expectType<false>(_.isFunction(1));
+  expectType<true>(_.isFunction(() => {}));
+});
