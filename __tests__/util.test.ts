@@ -23,3 +23,9 @@ test('isFunction 동작 확인', () => {
   expect(_.isFunction(1)).toBe(false);
   expect(_.isFunction(() => {})).toBe(true);
 });
+
+test('shuffle 동작 확인', () => {
+  global.Math.random = jest.fn(() => 0.1) as jest.Mock;
+  expect(_.shuffle([1, 2, 3])).toStrictEqual([3, 2, 1]);
+  expect(_.shuffle({ a: 1, b: 2, c: 3 })).toStrictEqual([3, 2, 1]);
+});

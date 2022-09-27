@@ -77,7 +77,7 @@ module _ {
     if (result.length === 0) {
       return [];
     }
-
+    result.sort(() => Math.random() - 0.5);
     return result;
   }
 
