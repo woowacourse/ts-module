@@ -1,34 +1,46 @@
-class CustomElement {
-  element;
-  constructor(selector: string) {
-    const selectedElement = document.body.querySelector<HTMLElement>(selector);
-    this.element = selectedElement;
-  }
-
-  innerHTML(HTMLString: string): void {
-    this.element.innerHTML = HTMLString;
-  }
-
-  show() {
-    this.element.style.display = "block";
-  }
-
-  hide() {
-    this.element.style.display = "none";
-  }
-
-  addEvent<T extends keyof HTMLElementEventMap>(
-    type: T,
-    listener: (event: HTMLElementEventMap[T]) => void
-  ) {
-    this.element.addEventListener(type, listener);
-  }
+declare global {
+  interface HTMLElement extends CustomElement {}
 }
 
-function _(selector: string): CustomElement {
-  const customElement = new CustomElement(selector);
+interface CustomElement {
+  innerHtml: (htmlString: string) => void;
+  hide: () => void;
+  show: () => void;
+  addEvent: <K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (this: HTMLElement, event: HTMLElementEventMap[K]) => any
+  ) => void;
+}
 
-  return customElement;
+function _(selector: string) {
+  const element = document.querySelector<HTMLElement>(selector);
+  if (!element) return;
+
+  const innerHtml = (htmlString: string) => {
+    element.innerHTML = htmlString;
+  };
+
+  const show = () => {
+    element.style.display = "block";
+  };
+
+  const hide = () => {
+    element.style.display = "none";
+  };
+
+  const addEvent = <K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (this: HTMLElement, event: HTMLElementEventMap[K]) => any
+  ) => {
+    element.addEventListener(type, listener);
+  };
+
+  element.innerHtml = innerHtml;
+  element.show = show;
+  element.hide = hide;
+  element.addEvent = addEvent;
+
+  return element;
 }
 
 const HTTP_METHOD = {
@@ -44,6 +56,34 @@ const defaultFetchOptions = {
   headers: {},
   body: "",
   credentials: "",
+};
+
+type HeadersObject<T = any> = Record<string, T>;
+
+type PickResult<T extends Record<string, unknown>, R extends (keyof T)[]> = {
+  [K in R[number]]: T[K];
+};
+
+type OmitResult<T extends Record<string, any>, R extends (keyof T)[]> = {
+  [K in keyof Omit<T, R[number]>]: T[K];
+};
+
+type HTTPMethod = keyof typeof HTTP_METHOD;
+
+type FetchOptions = {
+  method?: HTTPMethod;
+  headers?: HeadersObject;
+  body?: string;
+  credentials?: string;
+};
+
+type Response<T> = {
+  status: number;
+  statusText: string;
+  ok: boolean;
+  headers: Headers;
+  url: string;
+  data: T;
 };
 
 module _ {
@@ -131,31 +171,9 @@ module _ {
     return memoized;
   }
 
-  export function debounce<T>(
-    func: T,
-    wait: number,
-    options: Record<"leading" | "trailing", number>
-  ): T {
-    return func;
-  }
+  export function debounce() {}
 
-  // export function throttle<T extends unknown[]>(
-  //   func: T,
-  //   wait: number,
-  //   options?: Record<"leading" | "trailing", number>
-  // ): DebouncedFunction<T> {
-  //   let leading = true;
-  //   let trailing = true;
-
-  //   if (options) {
-  //     leading = "leading" in options ? !!options.leading : leading;
-  //     trailing = "trailing" in options ? !!options.trailing : trailing;
-  //   }
-  //   return debounce(func, wait, {
-  //     leading,
-  //     trailing,
-  //   });
-  // }
+  export function throttle() {}
 
   export function clickOutside(
     eventTarget: HTMLElement,
@@ -163,34 +181,6 @@ module _ {
   ): boolean {
     return !innerElement.contains(eventTarget);
   }
-
-  type DefinitelyObject<T = any> = Record<string, T>;
-
-  type PickResult<T extends Record<string, unknown>, R extends (keyof T)[]> = {
-    [K in R[number]]: T[K];
-  };
-
-  type OmitResult<T extends Record<string, any>, R extends (keyof T)[]> = {
-    [K in keyof Omit<T, R[number]>]: T[K];
-  };
-
-  type HTTPMethod = keyof typeof HTTP_METHOD;
-
-  type FetchOptions = {
-    method?: HTTPMethod;
-    headers?: DefinitelyObject;
-    body?: string;
-    credentials?: string;
-  };
-
-  type Response<T> = {
-    status: number;
-    statusText: string;
-    ok: boolean;
-    headers: Headers;
-    url: string;
-    data: T;
-  };
 }
 
 export default _;
