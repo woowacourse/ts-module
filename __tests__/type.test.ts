@@ -86,3 +86,9 @@ test("throttle 함수에 대한 타입을 체크한다.", () => {
     ) => DebouncedFunction<testFun>
   >(_.throttle<testFun>);
 });
+
+test("clickOutside 함수에 대한 타입을 체크한다.", () => {
+  expectType<(eventTarget: HTMLElement, innerElement: HTMLElement) => boolean>(
+    _.clickOutside
+  );
+});
