@@ -40,3 +40,13 @@ function _(selector: string) {
     addEvent,
   };
 }
+
+module _ {
+  export function fetch(url: string, options?: Options): Promise<unknown> {
+    return new Promise((resolve, reject) => {
+      resolve("server api response data");
+    });
+  }
+}
+
+export default _;
