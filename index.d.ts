@@ -8,6 +8,7 @@ declare namespace _ {
   function memoize(func: Function): Function;
   function debounce(func: Function, delay: number): Function;
   function throttle(func: Function, delay: number): Function;
+  function clickOutside(element: HTMLElement, func: Function): void;
 }
 
 export default _;
