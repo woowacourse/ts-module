@@ -163,13 +163,22 @@ module _ {
    * @returns
    */
   export function memoize<T extends unknown[], R>(
-    func: (...args: T) => R
+    func: (...args: T) => R,
+    resolver?: (...args: T) => R
   ): (...args: T) => R {
-    // const value = func;
-    // const memoized = () => value;
+    const cache = new Map();
+    const memoized = function (...args: T) {
+      const key = resolver ? resolver(...args) : args[0];
 
-    // return memoized;
-    return func;
+      if (cache.has(key)) {
+        return cache.get(key);
+      }
+
+      const result = func(...args);
+      cache.set(key, result);
+      return result;
+    };
+    return memoized;
   }
 
   export function debounce<T extends unknown[]>(
