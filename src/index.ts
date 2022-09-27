@@ -13,7 +13,12 @@ function _(selector: string) {
     return element.innerHTML;
   }
 
+  function show() {
+    element.style.display = "block";
+  }
+
   return {
     innerHtml,
+    show,
   };
 }
