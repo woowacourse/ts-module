@@ -101,6 +101,26 @@ module _ {
       return result;
     }, object);
   }
+
+  export function memoize<T extends unknown[], U extends unknown>(
+    callback: (...args: T) => U,
+    generateKeyFunction: (...args: T) => string
+  ): (...args: T) => U {
+    const cacheStorage = {} as Record<string, U>;
+
+    return function (...args: T) {
+      const key = generateKeyFunction(...args);
+
+      if (cacheStorage[key]) {
+        return cacheStorage[key];
+      }
+
+      const result = callback(...args);
+      cacheStorage[key] = result;
+
+      return result;
+    };
+  }
 }
 
 export default _;
