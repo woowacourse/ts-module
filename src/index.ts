@@ -1,7 +1,7 @@
 import {
   DebounceThrottleOptions,
-  DefinitelyFunction,
-  DefinitelyObject,
+  SoundFunction,
+  SoundObject,
   FetchOptions,
   Nill,
   OmitResult,
@@ -92,7 +92,7 @@ module _ {
   /**
    *  `value`가 `Function` 객체로 분류되는지 체크한다.
    */
-  export function isFunction(value: any): value is DefinitelyFunction {
+  export function isFunction(value: any): value is SoundFunction {
     return typeof value === "function";
   }
 
@@ -119,7 +119,7 @@ module _ {
   /**
    * 선택한 'object' 속성만으로 구성된 객체를 만든다.
    */
-  export function pick<T extends DefinitelyObject, K extends (keyof T)[]>(
+  export function pick<T extends SoundObject, K extends (keyof T)[]>(
     object: T,
     path: K
   ): PickResult<T, K> {
@@ -135,7 +135,7 @@ module _ {
   /**
    * 선택한 'object' 속성이 제외되어 구성된 객체를 만든다.
    */
-  export function omit<T extends DefinitelyObject, K extends (keyof T)[]>(
+  export function omit<T extends SoundObject, K extends (keyof T)[]>(
     object: T,
     path: K
   ): OmitResult<T, K> {
@@ -150,9 +150,9 @@ module _ {
    * 'func'의 결과를 메모하는 함수를 만든다.
    */
   export function memoize(
-    func: DefinitelyFunction,
-    resolver: DefinitelyFunction
-  ): DefinitelyFunction {
+    func: SoundFunction,
+    resolver: SoundFunction
+  ): SoundFunction {
     const memoized = function (this: any, args: any) {
       const key = resolver ? resolver.apply(this, args) : args[0];
       const cache = memoized.cache;
@@ -171,7 +171,7 @@ module _ {
   /**
    * 'func' 호출을 'wait' 이후까지 지연시키는 디바운스 함수를 만든다.
    */
-  export function debounce<T extends DefinitelyFunction>(
+  export function debounce<T extends SoundFunction>(
     func: T,
     wait: number,
     options?: DebounceThrottleOptions
@@ -203,7 +203,7 @@ module _ {
       );
     }
 
-    function startTimer(pendingFunc: DefinitelyFunction, wait: number) {
+    function startTimer(pendingFunc: SoundFunction, wait: number) {
       return setTimeout(pendingFunc, wait);
     }
 
@@ -260,7 +260,7 @@ module _ {
   /**
    * "wait" 밀리초마다 최대 한 번(또는 브라우저 프레임당 한 번) 'func'를 호출하는 쓰로틀 함수를 만든다.
    */
-  export function throttle<T extends DefinitelyFunction>(
+  export function throttle<T extends SoundFunction>(
     func: T,
     wait: number,
     options?: DebounceThrottleOptions

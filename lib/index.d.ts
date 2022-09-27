@@ -1,4 +1,4 @@
-import { DebounceThrottleOptions, DefinitelyFunction, DefinitelyObject, FetchOptions, Nill, OmitResult, PickResult, FetchResponse } from "./util";
+import { DebounceThrottleOptions, SoundFunction, SoundObject, FetchOptions, Nill, OmitResult, PickResult, FetchResponse, DebouncedFunction } from "./util";
 declare class CustomElement {
     element: HTMLElement | null;
     constructor(selector: string);
@@ -28,7 +28,7 @@ declare module _ {
     /**
      *  `value`가 `Function` 객체로 분류되는지 체크한다.
      */
-    function isFunction(value: any): value is DefinitelyFunction;
+    function isFunction(value: any): value is SoundFunction;
     /**
      * 무작위로 섞인 값들의 배열을 생성한다.
      */
@@ -36,23 +36,23 @@ declare module _ {
     /**
      * 선택한 'object' 속성만으로 구성된 객체를 만든다.
      */
-    function pick<T extends DefinitelyObject, K extends (keyof T)[]>(object: T, path: K): PickResult<T, K>;
+    function pick<T extends SoundObject, K extends (keyof T)[]>(object: T, path: K): PickResult<T, K>;
     /**
      * 선택한 'object' 속성이 제외되어 구성된 객체를 만든다.
      */
-    function omit<T extends DefinitelyObject, K extends (keyof T)[]>(object: T, path: K): OmitResult<T, K>;
+    function omit<T extends SoundObject, K extends (keyof T)[]>(object: T, path: K): OmitResult<T, K>;
     /**
      * 'func'의 결과를 메모하는 함수를 만든다.
      */
-    function memoize(func: DefinitelyFunction, resolver: DefinitelyFunction): DefinitelyFunction;
+    function memoize(func: SoundFunction, resolver: SoundFunction): SoundFunction;
     /**
      * 'func' 호출을 'wait' 이후까지 지연시키는 디바운스 함수를 만든다.
      */
-    function debounce<T extends DefinitelyFunction>(func: T, wait: number, options?: DebounceThrottleOptions): T;
+    function debounce<T extends SoundFunction>(func: T, wait: number, options?: DebounceThrottleOptions): DebouncedFunction<T>;
     /**
      * "wait" 밀리초마다 최대 한 번(또는 브라우저 프레임당 한 번) 'func'를 호출하는 쓰로틀 함수를 만든다.
      */
-    function throttle<T extends DefinitelyFunction>(func: T, wait: number, options?: DebounceThrottleOptions): T;
+    function throttle<T extends SoundFunction>(func: T, wait: number, options?: DebounceThrottleOptions): DebouncedFunction<T>;
     /**
      * 클릭된 영역(eventTarget)이 innerElement 에 포함 되어있는지 확인한다.
      */

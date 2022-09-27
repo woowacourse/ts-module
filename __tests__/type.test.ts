@@ -3,7 +3,7 @@ import { expectType } from "tsd";
 import {
   DebouncedFunction,
   DebounceThrottleOptions,
-  DefinitelyFunction,
+  SoundFunction,
   FetchOptions,
   FetchResponse,
 } from "../src/util";
@@ -63,7 +63,7 @@ test("omit 함수에 대한 타입을 체크한다.", () => {
 
 test("debounce 함수에 대한 타입을 체크한다.", () => {
   // given
-  type testFun = DefinitelyFunction<number>;
+  type testFun = SoundFunction<number>;
 
   expectType<
     (
@@ -76,7 +76,7 @@ test("debounce 함수에 대한 타입을 체크한다.", () => {
 
 test("throttle 함수에 대한 타입을 체크한다.", () => {
   // given
-  type testFun = DefinitelyFunction<number>;
+  type testFun = SoundFunction<number>;
 
   expectType<
     (
