@@ -26,14 +26,50 @@ test("Selector 동작 확인", () => {
 
   const buttonElement = _("button.test-btn");
   expect(buttonElement).toBeTruthy();
-
-  document.body.removeChild(buttonElement);
 });
 
-test('`_("").innerHTML()`~~~~', () => {});
+test("setInnerHTML() 동작 확인", () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
 
-test('`_("").show()`~~~~', () => {});
+  const buttonElement = _("button.test-btn");
+  buttonElement?.setInnerHTML("HI");
 
-test('`_("").hidden()`~~~~', () => {});
+  expect(buttonElement?.innerHTML).toBe("HI");
+});
 
-test('`_("").addEvent()`~~~~', () => {});
+test("showElement() 동작 확인", () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const buttonElement = _("button.test-btn");
+
+  expect(buttonElement?.innerHTML).toBe("HI");
+});
+
+test("hideElement() 동작 확인", () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const buttonElement = _("button.test-btn");
+
+  expect(buttonElement?.innerHTML).toBe("HI");
+});
+
+test("addEvent() 동작 확인", () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const buttonElement = _("button.test-btn");
+
+  const mockEventCallback = jest.fn();
+
+  buttonElement?.addEvent("click", mockEventCallback);
+  buttonElement?.click();
+
+  expect(mockEventCallback).toBeCalled();
+});
