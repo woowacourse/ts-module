@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "test": "jest -verbose",
+    "test:tsd": "npx tsd",
     "build": "tsc",
     "publish": "npm publish --access=public",
     "patch": "npm version patch"
@@ -28,5 +29,9 @@
     "ts-jest": "^29.0.2",
     "tsd": "^0.24.1",
     "typescript": "^4.8.3"
+  },
+  "types": "dist/index.d.ts",
+  "tsd": {
+    "directory": "/__tests__"
   }
 }
