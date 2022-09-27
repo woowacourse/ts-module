@@ -71,3 +71,10 @@ test("pick 함수 타입을 테스트한다. ", () => {
   expectType<Pick<typeof object, "a">>(_.pick(object, ["a"]));
   expectType<Pick<typeof object, "a" | "b">>(_.pick(object, ["a", "b"]));
 });
+
+test("omit 함수 타입을 테스트한다. ", () => {
+  const object = { a: 1, b: 2 };
+
+  expectType<Omit<typeof object, "a">>(_.omit(object, ["a"]));
+  expectType<Omit<typeof object, "a" | "b">>(_.omit(object, ["a", "b"]));
+});
