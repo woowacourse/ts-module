@@ -1,6 +1,7 @@
 import { expectType } from 'tsd';
 
 import _ from '../src';
+import { DebouncedFunc } from '../src/uitl';
 
 test('addEvent 타입확인', () => {
   _('.button').addEvent('click', function (event) {
@@ -50,7 +51,7 @@ test('pick 타입 확인', () => {
 
 test('omit 타입 확인', () => {
   const a = { a: 1, b: 2, c: 3 };
-  expectType<Partial<typeof a>>(_.pick(a, 'b', 'c'));
+  expectType<Partial<typeof a>>(_.omit(a, 'b', 'c'));
 });
 
 test('memoize 타입 확인', () => {
@@ -58,4 +59,11 @@ test('memoize 타입 확인', () => {
   expectType<(input: string) => string & { cache: Map<unknown, unknown> }>(
     _.memoize(result)
   );
+});
+
+test('debounce 타입 확인', () => {
+  function testFunc(hello: string) {
+    return 'test';
+  }
+  expectType<DebouncedFunc<typeof testFunc>>(_.debounce(testFunc, 300));
 });

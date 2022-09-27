@@ -9,3 +9,15 @@ export function isIterable<T = unknown>(
 ): a is Iterable<T> {
   return typeof (a as any)?.[Symbol.iterator] === 'function';
 }
+
+export interface DebounceSettings {
+  leading?: boolean | undefined;
+  maxWait?: number | undefined;
+  trailing?: boolean | undefined;
+}
+
+export interface DebouncedFunc<T extends (...args: any[]) => any> {
+  (...args: Parameters<T>): ReturnType<T> | undefined;
+  cancel(): void;
+  flush(): ReturnType<T> | undefined;
+}
