@@ -4,16 +4,33 @@ class SelectedElement {
   element;
 
   constructor(selector: string) {
-    const selectedElement = document.querySelector(selector);
+    const selectedElement = document.querySelector(selector) as HTMLElement;
 
     if (_.isNull(selectedElement)) {
       throw new Error("There is no such element");
     }
     this.element = selectedElement;
   }
+
+  innerHTML(html: string): void {
+    this.element.innerHTML = html;
+  }
+
+  show(): void {
+    this.element.style.display = "block";
+  }
+
+  hidden(): void {
+    this.element.style.display = "none";
+  }
+
+  addEvent(event: Event) {}
 }
 
 function _(selector: string) {
+  const selectedElement = new SelectedElement(selector);
+
+  return selectedElement;
   /**
    * innerHTML() {
    * }
