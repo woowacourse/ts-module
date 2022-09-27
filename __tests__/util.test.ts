@@ -1,5 +1,6 @@
 import _ from '../src';
 
+jest.useFakeTimers();
 test('isNull 동작 확인', () => {
   expect(_.isNull(null)).toBe(true);
   expect(_.isNull(undefined)).toBe(false);
@@ -53,5 +54,21 @@ test('memoized 동작 확인', () => {
   memoizedFunc();
   memoizedFunc();
   memoizedFunc();
+  expect(console.log).toHaveBeenCalledTimes(1);
+});
+
+test('debounce 동작 확인', () => {
+  console.log = jest.fn();
+
+  const testFunc = () => {
+    console.log('hi');
+  };
+
+  const debounceFunc = _.debounce(testFunc, 2000);
+  for (let i = 0; i < 100; i++) {
+    debounceFunc();
+  }
+  expect(console.log).toHaveBeenCalledTimes(0);
+  jest.advanceTimersByTime(2000);
   expect(console.log).toHaveBeenCalledTimes(1);
 });
