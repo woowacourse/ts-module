@@ -36,3 +36,5 @@ expectType<() => 1>(_.memoize(() => 1));
 expectType<(a: number, b: number) => number>(
   _.memoize((a: number, b: number) => a + b)
 );
+
+expectType<() => void>(_.debounce(() => console.log('debounce'), 400));
