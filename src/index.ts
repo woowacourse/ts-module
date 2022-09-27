@@ -154,6 +154,16 @@ module _ {
       }
     };
   }
+
+  export function clickOutside(
+    targetElement: HTMLElement,
+    callback: (e: MouseEvent) => void
+  ) {
+    window.addEventListener("click", function (e: MouseEvent) {
+      if (e.target === targetElement) return;
+      callback(e);
+    });
+  }
 }
 
 export default _;
