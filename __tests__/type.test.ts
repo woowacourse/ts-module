@@ -31,3 +31,9 @@ test("fetch 함수 타입을 테스트한다. ", () => {
 
   expectType<Promise<unknown>>(_.fetch("https://ternoko.site", options));
 });
+
+test("isNull 함수 타입을 테스트한다. ", () => {
+  expectType<true>(_.isNull(null));
+  expectType<false>(_.isNull(undefined));
+  expectType<false>(_.isNull(1));
+});
