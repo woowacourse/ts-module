@@ -24,7 +24,7 @@ test("Selector 동작 확인", () => {
   divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
   document.body.appendChild(divElement);
 
-  const buttonElement = _("button.test-btn").element!;
+  const buttonElement = _("button.test-btn").element;
   expect(buttonElement).toBeTruthy();
   divElement.removeChild(buttonElement);
 });
@@ -37,7 +37,7 @@ test("innerHTML 동작 확인", () => {
   const myElement = _("#target-div");
   myElement.innerHTML(`<button class='test-btn'>Continue</button>`);
 
-  const buttonElement = _("button.test-btn").element!;
+  const buttonElement = _("button.test-btn").element;
 
   expect(buttonElement).toBeTruthy();
   myElement.element!.removeChild(buttonElement);
@@ -49,10 +49,10 @@ test("show 동작 확인", () => {
   document.body.appendChild(divElement);
 
   const myElement = _("#target-div");
-  myElement.element!.style.display = "none";
+  myElement.element.style.display = "none";
   myElement.show();
 
-  expect(myElement.element!.style.display).toBe("block");
+  expect(myElement.element.style.display).toBe("block");
 });
 
 test("hide 동작 확인", () => {
@@ -63,5 +63,5 @@ test("hide 동작 확인", () => {
   const myElement = _("#target-div");
   myElement.hide();
 
-  expect(myElement.element!.style.display).toBe("none");
+  expect(myElement.element.style.display).toBe("none");
 });

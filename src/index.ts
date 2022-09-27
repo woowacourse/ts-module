@@ -12,9 +12,13 @@ import {
 import { defaultFetchOptions } from "./constants";
 
 class CustomElement {
-  element;
+  element = null as unknown as HTMLElement;
   constructor(selector: string) {
-    this.element = document.body.querySelector<HTMLElement>(selector);
+    const selectedElement = document.body.querySelector<HTMLElement>(selector);
+    if (_.isNull(selectedElement)) {
+      throw "Invalid Element";
+    }
+    this.element = selectedElement;
   }
 
   innerHTML(HTMLString: string): void {
