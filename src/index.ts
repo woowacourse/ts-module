@@ -136,10 +136,21 @@ module _ {
     };
   }
 
-  export function throttle<T extends (...args: any[]) => any>(
+  export function throttle<T extends (...args: any[]) => void>(
     func: T,
     wait: number
-  ): T;
+  ): (...args: any[]) => void {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    return (...args: any[]) => {
+      if (!timer) {
+        timer = setTimeout(() => {
+          timer = null;
+          func(...args);
+        }, wait);
+      }
+    };
+  }
 
   export function clickOutside(dom: Node, func: (...args: any[]) => void): void;
 }
