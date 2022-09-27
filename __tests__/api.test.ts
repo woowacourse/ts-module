@@ -143,16 +143,30 @@ test("omit 함수 확인", () => {
 test("memoize 함수 확인", () => {
   expect(typeof _.memoize).toBe("function");
 
-  const func = (num: number) => {
+  const key1 = 1;
+  const key2 = 2;
+  let func: jest.Mock;
+  func = jest.fn();
+
+  const getNumber = (num: number) => {
     for (let i = 0; i < 100000000; i++) {
       num++;
     }
-
+    func();
     return num;
   };
-  const result = _.memoize(func);
-  result(1);
-  result(1);
+  const result = _.memoize(getNumber);
+
+  result(key1);
+  result(key1);
+  result(key1);
+  result(key1);
+
+  result(key2);
+  result(key2);
+  result(key2);
+
+  expect(func).toHaveBeenCalledTimes(2);
 });
 
 test("debounce 함수 확인", () => {

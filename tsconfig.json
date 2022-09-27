@@ -12,7 +12,8 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "declaration": true,
-    "emitDeclarationOnly": false,
-    "declarationDir": "tsd"
-  }
+    "declarationDir": "build",
+    "outDir": "build"
+  },
+  "include": ["src", "tsd"]
 }

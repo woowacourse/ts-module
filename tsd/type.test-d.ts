@@ -9,13 +9,7 @@ import _ from "../src";
 //   expectType<MouseEvent>(event);
 // });
 
-// expectType<boolean>(_.isNull(null));
-
-// expectType<boolean>(_.isNull(undefined));
+expectType<boolean>(_.isNull(undefined));
 // expectType<boolean>(_.isNull("string"));
 
 // /** @type {import('ts-jest').JestConfigWithTsJest} */
-
-test("isNull 함수 확인", () => {
-  expect(typeof _.isNull).toBe("function");
-});
