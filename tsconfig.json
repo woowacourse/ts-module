@@ -11,7 +11,8 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "incremental": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "outDir": "lib"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
