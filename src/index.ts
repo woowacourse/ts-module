@@ -117,7 +117,25 @@ module _ {
     return result;
   }
 
-  export function memoize() {}
+  export function memoize<T extends (...args: any) => any>(
+    func: T,
+    resolver?: (...args: Parameters<T>) => any
+  ) {
+    function memoized(this: unknown, ...args: Parameters<T>) {
+      const key = resolver ? resolver.apply(this, args) : args[0];
+      const cache = memoized.cache;
+
+      if (cache.has(key)) {
+        return cache.get(key);
+      }
+      const result = func.apply(this, args);
+      memoized.cache = cache.set(key, result) || cache;
+      return result;
+    }
+
+    memoized.cache = new Map();
+    return memoized;
+  }
 
   export function debounce() {}
 

@@ -52,3 +52,10 @@ test('omit 타입 확인', () => {
   const a = { a: 1, b: 2, c: 3 };
   expectType<Partial<typeof a>>(_.pick(a, 'b', 'c'));
 });
+
+test('memoize 타입 확인', () => {
+  const result = (input: string) => input;
+  expectType<(input: string) => string & { cache: Map<unknown, unknown> }>(
+    _.memoize(result)
+  );
+});
