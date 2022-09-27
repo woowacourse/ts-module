@@ -40,6 +40,16 @@ test('show 동작 확인', () => {
   expect(targetElement.style.visibility).toBe('visible');
 });
 
+test('hide 동작 확인', () => {
+  const divElement = document.createElement('div');
+  document.body.appendChild(divElement);
+
+  const targetElement = _('div');
+  targetElement.hide();
+
+  expect(targetElement.style.visibility).toBe('hidden');
+});
+
 test('hide 동작 확인', () => {});
 
 test('addEvent 동작 확인', () => {});

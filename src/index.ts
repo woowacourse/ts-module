@@ -1,5 +1,7 @@
 interface NewElement extends HTMLElement {
   show(): void;
+  hide(): void;
+  // addEvent(): void;
 }
 
 function _(selector: string): NewElement {
@@ -13,9 +15,9 @@ function _(selector: string): NewElement {
     element.style.visibility = 'visible';
   };
 
-  // function hide() {
-  //   element.style.visibility = 'hidden';
-  // }
+  element['hide'] = function () {
+    element.style.visibility = 'hidden';
+  };
 
   // function addEvent(cmd: string, callback: (...args: unknown[]) => void) {
   //   element.addEventListener(cmd, callback);
