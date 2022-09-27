@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import wtil from "../src";
+import wtil from "../";
 
 test("모듈은 기본 내보내기", () => {
   expect(wtil).toBeTruthy();
@@ -26,8 +26,10 @@ test("Selector 동작 확인", () => {
 
   const $button = wtil("button.test-btn");
   expect($button).toBeTruthy();
-
-  document.body.removeChild($button[0]);
+  const buttonElement = $button.get(0);
+  if (buttonElement) {
+    divElement.removeChild(buttonElement);
+  }
 });
 
 test('`wtil("").innerHTML()`~~~~', () => {});

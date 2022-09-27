@@ -3,7 +3,7 @@
  */
 import { expectType } from "tsd";
 
-import wtil from "../../src";
+import wtil from "..";
 
 wtil(".button").addEvent("click", function (event: MouseEvent) {
   expectType<MouseEvent>(event);

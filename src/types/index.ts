@@ -3,7 +3,7 @@ type EventListenerType<K extends keyof HTMLElementEventMap> = (
   ev: HTMLElementEventMap[K]
 ) => any;
 
-export interface ITQuery extends Iterable<HTMLElement> {
+export type TQueryType = {
   els: NodeListOf<HTMLElement> | null;
   readonly length: number;
   loop: (callback: (el: HTMLElement) => void) => void;
@@ -14,4 +14,4 @@ export interface ITQuery extends Iterable<HTMLElement> {
     listener: EventListenerType<K>,
     options?: boolean | AddEventListenerOptions
   ) => void;
-}
+};
