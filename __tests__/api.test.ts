@@ -141,3 +141,21 @@ test("memoize 함수 확인", () => {
 
   expect(firstCallResult === secondCallResult).toBeTruthy();
 });
+
+test("isFunction 함수 확인 (정상 동작)", () => {
+  const condition = () => {
+    return 10;
+  };
+
+  const result = _.isFunction(condition);
+
+  expect(result).toBeTruthy();
+});
+
+test("isFunction 함수 확인 (비정상 동작)", () => {
+  const condition = 10;
+
+  const result = _.isFunction(condition);
+
+  expect(result).toBeFalsy();
+});
