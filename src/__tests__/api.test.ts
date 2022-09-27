@@ -60,8 +60,19 @@ test("debounce 기본 동작 확인", () => {
   expect(calledCount).toBe(1);
 });
 
-test("모듈에 포함된 함수 확인", () => {
-  expect(typeof wtil.omit).toBe("function");
+test("memoize 기본 동작 확인", () => {
+  let calledCount = 0;
+  const val1 = wtil.memoize(() => {
+    calledCount += 1;
+    return "aaa";
+  }, [1, "a"]);
+  const val2 = wtil.memoize(() => {
+    calledCount += 1;
+    return "bbb";
+  }, [1, "a"]);
+
+  expect(val2).toEqual(val1);
+  expect(calledCount).toEqual(1);
 });
 
 test("Selector 동작 확인", () => {
