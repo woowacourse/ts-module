@@ -14,8 +14,8 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "declarationDir": "__tests__/tsd"
+    "declarationDir": "build",
+    "outDir": "build"
   },
-  "include": ["src", "tsd/index.d.ts"]
+  "include": ["src", "build/index.d.ts"]
 }
