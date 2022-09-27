@@ -1,6 +1,5 @@
-interface NewElement extends Element {
-  // show() {
-  // }
+interface NewElement extends HTMLElement {
+  show(): void;
 }
 
 function _(selector: string): NewElement {
@@ -8,11 +7,11 @@ function _(selector: string): NewElement {
     return;
   }
 
-  const element = document.querySelector(selector);
+  const element = document.querySelector(selector) as NewElement;
 
-  // function show() {
-  //   element.style.visibility = 'visible';
-  // }
+  element['show'] = function () {
+    element.style.visibility = 'visible';
+  };
 
   // function hide() {
   //   element.style.visibility = 'hidden';

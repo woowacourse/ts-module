@@ -23,12 +23,22 @@ test('Selector 동작 확인', () => {
 test('innerHTML 동작 확인', () => {
   const buttonTemplateLiteral = `<button class="test-btn">Continue</button>`;
   const divElement = document.createElement('div');
+  divElement.className = 'wrapper';
   divElement.innerHTML = buttonTemplateLiteral;
+  document.body.appendChild(divElement);
 
-  expect(divElement.innerHTML).toEqual(buttonTemplateLiteral);
+  expect(_('div.wrapper').innerHTML).toBe(buttonTemplateLiteral);
 });
 
-test('show 동작 확인', () => {});
+test('show 동작 확인', () => {
+  const divElement = document.createElement('div');
+  document.body.appendChild(divElement);
+
+  const targetElement = _('div');
+  targetElement.show();
+
+  expect(targetElement.style.visibility).toBe('visible');
+});
 
 test('hide 동작 확인', () => {});
 
