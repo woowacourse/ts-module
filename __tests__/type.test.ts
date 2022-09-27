@@ -43,3 +43,9 @@ test("isNil 함수 타입을 테스트한다. ", () => {
   expectType<true>(_.isNil(undefined));
   expectType<false>(_.isNil(1));
 });
+
+test("isNumber 함수의 타입을 테스트한다. ", () => {
+  expectType<false>(_.isNumber(null));
+  expectType<false>(_.isNumber(undefined));
+  expectType<true>(_.isNumber(1));
+});
