@@ -42,3 +42,8 @@ test('shuffle 타입확인', () => {
   expectType<Array<unknown>>(_.shuffle(testObj));
   expectType<Array<unknown>>(_.shuffle(() => {}));
 });
+
+test('pick 타입 확인', () => {
+  const a = { a: 1, b: 2, c: 3 };
+  expectType<Partial<typeof a>>(_.pick(a, 'b', 'c'));
+});
