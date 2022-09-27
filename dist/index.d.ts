@@ -18,6 +18,9 @@ declare type Shuffle = <T extends Array<unknown> | Object>(collection: T) => Arr
 declare type ShuffleReturn<T> = T extends {
     [key: string | number | symbol]: infer R1;
 } ? R1 : T extends Array<infer R2> ? R2 : never;
+declare type Pick = <T extends Object, U extends Array<keyof T>>(object: T, paths: U) => {
+    [key in U[number]]: T[key];
+};
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
  *
@@ -56,7 +59,7 @@ declare namespace _ {
      */
     const isFunction: TypeValidator;
     const shuffle: Shuffle;
-    function pick(): void;
+    const pick: Pick;
     function omit(): void;
     function memoize(): void;
     function debounce(): void;

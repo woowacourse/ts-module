@@ -29,6 +29,13 @@ type ShuffleReturn<T> = T extends { [key: string | number | symbol]: infer R1 }
   ? R2
   : never;
 
+type Pick = <T extends Object, U extends Array<keyof T>>(
+  object: T,
+  paths: U,
+) => { [key in U[number]]: T[key] };
+
+type UnwrapArray<T> = T extends Array<infer R2> ? R2 : never;
+
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
  *
@@ -106,7 +113,11 @@ namespace _ {
     return Object.values(collection).sort(() => (Math.random() > 0.5 ? 1 : -1));
   };
 
-  export function pick() {}
+  export const pick: Pick = (object, paths) => {
+    const copiedObject = { ...object };
+
+    return copiedObject;
+  };
 
   export function omit() {}
 
@@ -122,3 +133,5 @@ namespace _ {
 export default _;
 
 const test = { 1: 1, 2: 3 };
+
+const test2: Partial<typeof test> = { 1: 1 };

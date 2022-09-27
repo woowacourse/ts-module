@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 /**
  * 전달한 selector에 해당되는 요소를 찾고, 해당 요소에서 사용할 수 있는 커스텀 메서드를 반환한다.
@@ -69,8 +80,10 @@ function _(selector) {
         }
         return Object.values(collection).sort(function () { return (Math.random() > 0.5 ? 1 : -1); });
     };
-    function pick() { }
-    _.pick = pick;
+    _.pick = function (object, paths) {
+        var copiedObject = __assign({}, object);
+        return copiedObject;
+    };
     function omit() { }
     _.omit = omit;
     function memoize() { }
@@ -84,3 +97,4 @@ function _(selector) {
 })(_ || (_ = {}));
 exports["default"] = _;
 var test = { 1: 1, 2: 3 };
+var test2 = { 1: 1 };
