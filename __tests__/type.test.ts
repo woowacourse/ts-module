@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { expectType } from 'tsd';
 
 import _ from '../src';
@@ -35,4 +32,10 @@ test('isNumber 타입 확인', () => {
 
 test('isFunction 타입 확인', () => {
   expectType<boolean>(_.isFunction('hello'));
+});
+
+test('shuffle 타입확인', () => {
+  expectType<Array<number>>(_.shuffle<number>([1, 2, 3]));
+  expectType<Array<unknown>>(_.shuffle({ a: 1, b: 2 }));
+  expectType<Array<unknown>>(_.shuffle(() => {}));
 });

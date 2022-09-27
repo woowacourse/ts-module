@@ -1,3 +1,5 @@
+import { isIterable } from './uitl';
+
 declare global {
   interface HTMLElement extends CustomElement {}
 }
@@ -59,8 +61,22 @@ module _ {
   export function isFunction(input: unknown): input is Function {
     return typeof input === 'function';
   }
+  export function shuffle<T = unknown>(input: Iterable<T> | object): T[] {
+    let result;
+    if (isIterable(input)) {
+      result = Array.from(input);
+    } else if (typeof input === 'object') {
+      result = Object.values(input);
+    } else {
+      return [];
+    }
 
-  export function shuffle() {}
+    if (result.length === 0) {
+      return [];
+    }
+
+    return result;
+  }
 
   export function pick() {}
 
