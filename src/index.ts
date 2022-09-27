@@ -71,9 +71,9 @@ function _(selector: string): CustomElement | null {
 }
 
 namespace _ {
-  export function fetch() {
-    return {};
-  }
+  export const fetch = (url: string, options: RequestInit) => {
+    return window.fetch(url, options);
+  };
 
   /**
    * 전달한 value가 null인지 확인하는 함수
