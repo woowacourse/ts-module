@@ -54,9 +54,10 @@ module _ {
     return isNull(value) || value === undefined;
   }
 
-  export function isNumber<T extends unknown>(
-    value: T
-  ): T extends number ? true : false;
+  type Numberable<T> = T extends number ? T : never;
+  export function isNumber<T>(value: T): value is Numberable<T> {
+    return typeof value === 'number';
+  }
 
   export function isFunction<T extends unknown>(
     value: T

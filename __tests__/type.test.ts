@@ -40,8 +40,8 @@ expectType<boolean>(_.isNil(null));
 expectType<boolean>(_.isNil(undefined));
 expectType<boolean>(_.isNil(0));
 
-expectType<true>(_.isNumber(1));
-expectType<false>(_.isNumber('1'));
+expectType<boolean>(_.isNumber(1));
+expectType<boolean>(_.isNumber('1'));
 
 expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([1, 3, 2, 4]));
 
