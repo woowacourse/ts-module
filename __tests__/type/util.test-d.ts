@@ -27,7 +27,7 @@ expectType<Array<number>>(
 );
 
 // pick 타입 테스트
-const object = {
+const pickTest = {
   a: 1,
   b: 2,
   c: 5,
@@ -35,9 +35,25 @@ const object = {
   e: 3,
 };
 
-const expectedResult = {
+const pickExpectedResult = {
   a: 1,
   d: 4,
 };
 
-expectType<typeof expectedResult>(_.pick(object, ['a', 'd']));
+expectType<typeof pickExpectedResult>(_.pick(pickTest, ['a', 'd']));
+
+// omit 타입 테스트
+const omitTest = {
+  a: 1,
+  b: 2,
+  c: 5,
+  d: 4,
+  e: 3,
+};
+
+const omitExpectedResult = {
+  a: 1,
+  d: 4,
+};
+
+expectType<typeof omitExpectedResult>(_.omit(omitTest, ['b', 'c', 'e']));

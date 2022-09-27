@@ -320,8 +320,10 @@ describe('pick 구현 테스트', () => {
       true,
     );
   });
+});
 
-  test('paths를 전달하지 않으면 전달한 object가 그대로 반환된다.', () => {
+describe.only('omit 구헌 테스트', () => {
+  test('paths를 전달하면 paths의 요소에 해당되는 object의 키와 값을 제외하고 나머지 키와 값이 반환된다.', () => {
     const object = {
       a: 1,
       b: 2,
@@ -329,11 +331,15 @@ describe('pick 구현 테스트', () => {
       d: 4,
       e: 3,
     };
+    const paths = ['a', 'c'];
+    const excludedKeys = ['b', 'd', 'e'];
 
-    const result = _.pick(object);
+    const result = _.omit(object, paths);
 
-    expect(Object.entries(result).every(([key, value]) => value === object[key])).toEqual(
-      true,
-    );
+    expect(
+      Object.entries(result).every(
+        ([key, value]) => value === object[key] && excludedKeys.includes(key),
+      ),
+    ).toEqual(true);
   });
 });
