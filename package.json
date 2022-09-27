@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "type": "tsc --noEmit",
-    "tsd": "tsd __tests__/__typetests__",
+    "tsd": "tsd src/__typetests__",
     "test": "jest --config ./scripts/jest/jest.config.js"
   },
   "keywords": [],
