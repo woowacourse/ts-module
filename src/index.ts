@@ -176,7 +176,12 @@ module _ {
     func: (...args: T) => void,
     wait: number
   ): (...args: T) => void {
-    return func;
+    let timerId: NodeJS.Timeout | null;
+
+    return (...args) => {
+      if (timerId) clearTimeout(timerId);
+      timerId = setTimeout(func, wait, ...args);
+    };
   }
 
   export function throttle<T extends unknown[]>(
