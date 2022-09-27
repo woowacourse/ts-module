@@ -36,11 +36,11 @@ test("insertHTML 함수가 동작한다.", () => {
   document.body.appendChild($divElement);
 
   const $targetElement = _("div.target-elem");
-  $targetElement.insertHTML('<button class="test-btn">button</button>');
+  $targetElement?.insertHTML('<button class="test-btn">button</button>');
   const $buttonElement = _("button.test-btn");
   expect($buttonElement).toBeTruthy();
 
-  document.body.removeChild($targetElement);
+  document.body.removeChild($divElement);
 });
 
 test("show 함수가 동작한다.", () => {
@@ -50,22 +50,22 @@ test("show 함수가 동작한다.", () => {
   document.body.appendChild($divElement);
 
   const $targetElement = _("div.target-elem");
-  // $targetElement.show(); // TODO
-  expect($targetElement.style.display).toBe("block");
+  $targetElement?.show(); // TODO
+  expect($targetElement?.style.display).toBe("block");
 
-  document.body.removeChild($targetElement);
+  document.body.removeChild($divElement);
 });
 
-test("hidden 함수가 동작한다.", () => {
+test("hide 함수가 동작한다.", () => {
   const $divElement = document.createElement("div");
   $divElement.setAttribute("class", "target-elem");
   document.body.appendChild($divElement);
 
   const $targetElement = _("div.target-elem");
-  // $targetElement.hidden(); // TODO
-  expect($targetElement.style.display).toBe("none");
+  $targetElement?.hide(); // TODO
+  expect($targetElement?.style.display).toBe("none");
 
-  document.body.removeChild($targetElement);
+  document.body.removeChild($divElement);
 });
 
 test("addEvent 함수가 동작한다.", () => {
@@ -75,15 +75,15 @@ test("addEvent 함수가 동작한다.", () => {
 
   const $targetElement = _("div.target-elem");
   // TODO
-  $targetElement.addEvent("click", () => {
+  $targetElement?.addEvent("click", () => {
     const $newElement = document.createElement("div");
     $newElement.setAttribute("class", "new-element");
     document.body.appendChild($newElement);
   });
-  $targetElement.click();
+  $targetElement?.click();
   const $newElement = _("div.new-element");
   expect($newElement).toBeTruthy();
 
-  document.body.removeChild($targetElement);
-  document.body.removeChild($newElement);
+  document.body.removeChild($divElement);
+  $newElement && document.body.removeChild($newElement);
 });
