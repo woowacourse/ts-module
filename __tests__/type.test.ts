@@ -4,7 +4,7 @@
 
 import { expectType } from 'tsd'
 
-import * as _ from '../src'
+import _ from '../src'
 
 test('isNull 타입 테스트', () => {
   const result = _.isNull(null)
@@ -60,7 +60,14 @@ test('throttle 타입 테스트', () => {
   expectType<(text: string) => void>(testThrottled)
 })
 
-/* _(".button").addEvent("click", function (event) {
-  expectType<MouseEvent>(event);
-});
- */
+test('fetch 타입 테스트', () => {
+  const result = _.fetch('http://localhost:9000')
+
+  expectType<Promise<unknown>>(result)
+})
+
+test('Selector 타입 테스트', () => {
+  _('.button')?.addEvent('click', function (event) {
+    expectType<MouseEvent>(event)
+  })
+})
