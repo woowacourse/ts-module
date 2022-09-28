@@ -61,7 +61,7 @@ module _ {
 		input: RequestInfo | URL,
 		init?: RequestInit,
 	): Promise<Response> {
-		return fetch(input, init);
+		return window.fetch(input, init);
 	}
 
 	export function isNull(value: unknown): value is null {
