@@ -20,15 +20,16 @@ declare namespace _ {
     element: HTMLElement,
     func: Function
   ): (event: MouseEvent) => void;
-  function _<T extends keyof DocumentEventMap>(
+  function customElement<T extends keyof HTMLElementEventMap>(
     selector: string
   ): {
+    get(): HTMLElement | null;
     innerHTML(value: string): void;
     show(): void;
     hidden(): void;
     addEvent(
       event: T,
-      eventHandler: (event: DocumentEventMap[T]) => void
+      eventHandler: (event: HTMLElementEventMap[T]) => void
     ): void;
   };
 }

@@ -14,18 +14,32 @@ type MemoizeType = typeof __.memoize;
 type DebounceType = typeof __.debounce;
 type ThrottleType = typeof __.throttle;
 type ClickOutsideType = typeof __.clickOutside;
-type _Type = typeof __._;
+export type CustomElementType = typeof __.customElement;
 
-class CustomElement implements _Type {
-  constructor(selector: string) {}
-  innerHTML(value) {}
+//
+export const customElement: CustomElementType = (selector) => {
+  const element = document.querySelector<HTMLElement>(selector);
 
-  show() {}
+  if (!element) throw new Error('dom을 찾을 수 없습니다');
 
-  hidden() {}
-
-  addEvent() {}
-}
+  return {
+    get() {
+      return element;
+    },
+    innerHTML(value) {
+      element.innerHTML = value;
+    },
+    show() {
+      element.style.display = 'none';
+    },
+    hidden() {
+      element.style.display = 'block';
+    },
+    addEvent(event, eventHandler) {
+      element.addEventListener(event, eventHandler);
+    },
+  };
+};
 
 module _ {
   export const fetch: FecthType = (url, options) =>
