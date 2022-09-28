@@ -87,8 +87,17 @@ module _ {
     return newObj;
   }
 
-  export function memoize(func: Function, resolver?: Function): Function {
-    const memoized = function (this: any, args: any) {
+  export function memoize<T extends Array<unknown>, K>(
+    func: (...args: T) => K,
+    resolver?: (...args: T) => unknown
+  ): (...args: T) => K {
+    if (
+      typeof func !== "function" ||
+      (resolver != null && typeof resolver !== "function")
+    ) {
+      throw new TypeError("Expected a function");
+    }
+    const memoized = function (...args) {
       const key = resolver ? resolver.apply(this, args) : args[0];
       const cache = memoized.cache;
 
@@ -99,10 +108,11 @@ module _ {
       memoized.cache = cache.set(key, result) || cache;
       return result;
     };
-    memoized.cache = new Map();
-
+    memoized.cache = new (memoize.Cache || Map)();
     return memoized;
   }
+
+  memoize.Cache = Map;
 
   export function debounce<T extends (...args: any) => any>(
     func: T,
