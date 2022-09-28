@@ -1,13 +1,6 @@
-import {
-  DebouncedFunc,
-  DebounceSettings,
-  isIterable,
-  ThrottleSettings,
-} from './uitl';
+/// <reference path="./types/index.d.ts" />
 
-declare global {
-  interface HTMLElement extends CustomElement {}
-}
+import { isIterable } from './util';
 
 class CustomElement {
   target;
@@ -141,7 +134,7 @@ module _ {
     memoized.cache = new Map();
     return memoized;
   }
-
+  module.children;
   export function debounce<T extends (...args: any) => any>(
     func: T,
     wait?: number,

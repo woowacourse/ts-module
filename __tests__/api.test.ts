@@ -28,7 +28,7 @@ test('Selector 동작 확인', () => {
 
   expect(buttonElement).toBeTruthy();
 
-  //   document.body.removeChild(buttonElement!);
+  // document.body.removeChild(buttonElement!);
 });
 
 test('`_("").innerHTML() 동작확인', () => {
@@ -80,5 +80,3 @@ test('`_("").addEvent() 동작확인', () => {
   targetElement.dispatchEvent(event);
   expect(console.log).toHaveBeenCalledWith('clicked');
 });
-
-test('fetch 테스트', () => {});

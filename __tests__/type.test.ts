@@ -1,7 +1,6 @@
 import { expectType } from 'tsd';
 
 import _ from '../src';
-import { DebouncedFunc } from '../src/uitl';
 
 test('addEvent 타입확인', () => {
   _('.button').addEvent('click', function (event) {
