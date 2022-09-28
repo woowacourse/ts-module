@@ -14,194 +14,234 @@ describe('모듈 테스트', () => {
 	test('모듈은 기본 내보내기', () => {
 		expect(_).toBeTruthy();
 	});
+});
 
-	test('모듈에 포함된 함수 확인', () => {
-		expect(typeof _.fetch).toBe('function');
+describe('DOM 유틸 테스트', () => {
+	const divElement = document.createElement('div');
+	divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+	document.body.appendChild(divElement);
+	const buttonElement = _<HTMLButtonElement>(
+		'button.test-btn',
+	) as HTMLButtonElement;
+
+	test('Selector', () => {
+		expect(buttonElement).toBeTruthy();
 	});
 
-	test('모듈에 포함된 함수 확인', () => {
-		expect(typeof _.pick).toBe('function');
+	test('setInnerHTML', () => {
+		expect(typeof buttonElement?.setInnerHTML).toBe('function');
+		expect(buttonElement?.innerHTML).toEqual('Continue');
+		buttonElement?.setInnerHTML('test');
+		expect(buttonElement?.innerHTML).toEqual('test');
 	});
 
-	test('모듈에 포함된 함수 확인', () => {
-		expect(typeof _.omit).toBe('function');
+	test('show', () => {
+		expect(typeof buttonElement?.show).toBe('function');
+		buttonElement.style.visibility = 'hidden';
+		expect(buttonElement.style.visibility).toEqual('hidden');
+		buttonElement?.show();
+		expect(buttonElement.style.visibility).toEqual('visible');
+	});
+
+	test('hide', () => {
+		expect(typeof buttonElement?.hide).toBe('function');
+		buttonElement.style.visibility = 'visible';
+		expect(buttonElement.style.visibility).toEqual('visible');
+		buttonElement.hide();
+		expect(buttonElement.style.visibility).toEqual('hidden');
+	});
+
+	test('addEvent', () => {
+		expect(typeof buttonElement?.addEvent).toBe('function');
+
+		let copiedTextContent: string | null = null;
+
+		buttonElement.textContent = 'clicked';
+		buttonElement.addEvent('click', (e) => {
+			if (!e) return;
+
+			copiedTextContent = (e.currentTarget as HTMLButtonElement).textContent;
+		});
+		buttonElement.click();
+		expect(copiedTextContent).toEqual('clicked');
 	});
 });
 
-describe('함수 테스트', () => {
-	describe('DOM', () => {
-		const divElement = document.createElement('div');
-		divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
-		document.body.appendChild(divElement);
-
-		test('Selector', () => {
-			const buttonElement = _('button.test-btn');
-			expect(buttonElement).toBeTruthy();
-
-			if (buttonElement) {
-				divElement.removeChild(buttonElement);
-			}
-		});
-
-		test('`_("").innerHTML()`~~~~', () => {});
-
-		test('`_("").show()`~~~~', () => {});
-
-		test('`_("").hidden()`~~~~', () => {});
-
-		test('`_("").addEvent()`~~~~', () => {});
+describe('유틸 테스트', () => {
+	afterEach(() => {
+		jest.clearAllTimers();
 	});
 
-	describe('Utils', () => {
-		test('isNil', () => {
-			expect(_.isNil(null)).toBe(true);
-			expect(_.isNil(void 0)).toBe(true);
-			expect(_.isNil(NaN)).toBe(false);
+	test('fetch', () => {
+		expect(typeof _.fetch).toBe('function');
+	});
+
+	test('isNil', () => {
+		expect(typeof _.isNil).toBe('function');
+		expect(_.isNil(null)).toBe(true);
+		expect(_.isNil(void 0)).toBe(true);
+		expect(_.isNil(NaN)).toBe(false);
+	});
+
+	test('isNull', () => {
+		expect(typeof _.isNull).toBe('function');
+		expect(_.isNull(null)).toBe(true);
+		expect(_.isNull(void 0)).toBe(false);
+		expect(_.isNull(NaN)).toBe(false);
+	});
+
+	test('isNumber', () => {
+		expect(typeof _.isNumber).toBe('function');
+		expect(_.isNumber(1)).toBe(true);
+		expect(_.isNumber(NaN)).toBe(true);
+		expect(_.isNumber(Infinity)).toBe(true);
+		expect(_.isNumber('1')).toBe(false);
+	});
+
+	test('isFunction', () => {
+		expect(typeof _.isFunction).toBe('function');
+
+		const func = () => {};
+		const currying = () => () => {};
+
+		expect(_.isFunction(func)).toBe(true);
+		expect(_.isFunction(func())).toBe(false);
+		expect(_.isFunction(currying)).toBe(true);
+		expect(_.isFunction(currying())).toBe(true);
+	});
+
+	test('shuffle', () => {
+		expect(typeof _.shuffle).toBe('function');
+
+		const array = [1, 2, 3, 4];
+		const shuffled = _.shuffle(array);
+
+		expect(shuffled).toHaveLength(4);
+		expect(shuffled.sort()).toEqual(array.sort());
+	});
+
+	test('pick', () => {
+		expect(typeof _.pick).toBe('function');
+
+		const object = {
+			a: 'a',
+			b: {
+				bb: 'bb',
+			},
+			c: undefined,
+		};
+		const picked = _.pick(object, ['b', 'b', 'c']);
+
+		expect(picked).toEqual({
+			b: {
+				bb: 'bb',
+			},
+			c: undefined,
 		});
+	});
 
-		test('isNull', () => {
-			expect(_.isNull(null)).toBe(true);
-			expect(_.isNull(void 0)).toBe(false);
-			expect(_.isNull(NaN)).toBe(false);
-		});
+	test('omit', () => {
+		expect(typeof _.omit).toBe('function');
 
-		test('isNumber', () => {
-			expect(_.isNumber(1)).toBe(true);
-			expect(_.isNumber(NaN)).toBe(true);
-			expect(_.isNumber(Infinity)).toBe(true);
-			expect(_.isNumber('1')).toBe(false);
-		});
+		const object = {
+			a: 'a',
+			b: {
+				bb: 'bb',
+			},
+			c: undefined,
+		};
+		const omitted = _.omit(object, ['b', 'b', 'c']);
 
-		test('isFunction', () => {
-			const func = () => {};
-			const currying = () => () => {};
+		expect(omitted).toEqual({ a: 'a' });
+	});
 
-			expect(_.isFunction(func)).toBe(true);
-			expect(_.isFunction(func())).toBe(false);
-			expect(_.isFunction(currying)).toBe(true);
-			expect(_.isFunction(currying())).toBe(true);
-		});
+	test('memoize', () => {
+		expect(typeof _.memoize).toBe('function');
 
-		test('shuffle', () => {
-			const array = [1, 2, 3, 4];
-			const shuffled = _.shuffle(array);
+		const sum = (a: number, b: number) => a + b;
+		const memoized = _.memoize(sum);
+		const memoizedWithResolver = _.memoize(sum, (...args) => args.join('.'));
 
-			expect(shuffled).toHaveLength(4);
-			expect(shuffled.sort()).toEqual(array.sort());
-		});
+		expect(memoized(1, 2)).toEqual(3);
+		expect(memoized(1, 99)).toEqual(3);
+		expect(memoizedWithResolver(1, 2)).toEqual(3);
+		expect(memoizedWithResolver(1, 99)).toEqual(100);
+	});
 
-		test('pick', () => {
-			const object = {
-				a: 'a',
-				b: {
-					bb: 'bb',
-				},
-				c: undefined,
-			};
-			const picked = _.pick(object, ['b', 'b', 'c']);
+	test('debounce', () => {
+		jest.useFakeTimers();
+		expect(typeof _.debounce).toBe('function');
 
-			expect(picked).toEqual({
-				b: {
-					bb: 'bb',
-				},
-				c: undefined,
-			});
-		});
+		let count = 0;
+		const debounced = _.debounce(() => {
+			count += 1;
+		}, 100);
 
-		test('omit', () => {
-			const object = {
-				a: 'a',
-				b: {
-					bb: 'bb',
-				},
-				c: undefined,
-			};
-			const omitted = _.omit(object, ['b', 'b', 'c']);
+		debounced();
+		debounced();
+		debounced();
 
-			expect(omitted).toEqual({ a: 'a' });
-		});
+		jest.advanceTimersByTime(99);
 
-		test('memoize', (done) => {
-			const sum = (a: number, b: number) => a + b;
+		expect(count).toEqual(0);
 
-			const memoized = _.memoize(sum);
+		jest.advanceTimersByTime(1);
 
-			expect(memoized(1, 2)).toEqual(3);
-		});
+		expect(count).toEqual(1);
+	});
 
-		test('debounce', (done) => {
-			let count = 0;
-			const debounced = _.debounce(() => {
-				count += 1;
-			}, 100);
+	test('throttle', () => {
+		jest.useFakeTimers();
+		expect(typeof _.debounce).toBe('function');
 
-			debounced();
-			debounced();
-			debounced();
+		let count = 0;
+		const throttled = _.throttle(() => {
+			count += 1;
+		}, 100);
 
-			sleep(90).then(() => {
-				expect(count).toEqual(0);
-			});
+		throttled();
+		throttled();
+		throttled();
 
-			sleep(100).then(() => {
-				expect(count).toEqual(1);
-				done();
-			});
-		});
+		jest.advanceTimersByTime(0);
 
-		test('throttle', (done) => {
-			let count = 0;
-			const throttled = _.throttle(() => {
-				count += 1;
-			}, 100);
+		expect(count).toEqual(1);
 
+		sleep(100).then(() => {
 			throttled();
 			throttled();
 			throttled();
-
-			expect(count).toEqual(1);
-
-			sleep(90).then(() => {
-				throttled();
-				throttled();
-				throttled();
-
-				expect(count).toEqual(1);
-			});
-
-			sleep(100).then(() => {
-				throttled();
-				throttled();
-				throttled();
-
-				expect(count).toEqual(2);
-				done();
-			});
 		});
 
-		test('clickOutside', () => {
-			let isOutsideClicked = false;
-			const divElement = document.createElement('div');
-			divElement.innerHTML = `<div id='target'>target</div><div id='outside'>outside</div>`;
-			document.body.appendChild(divElement);
+		jest.advanceTimersByTime(100);
 
-			const targetElement = _('#target');
-			const outsideElement = _('#outside');
+		expect(count).toEqual(1);
+	});
 
-			expect(targetElement).toBeTruthy();
-			expect(outsideElement).toBeTruthy();
+	test('clickOutside', () => {
+		expect(typeof _.clickOutside).toBe('function');
 
-			_.clickOutside('#target', () => {
-				isOutsideClicked = true;
-			});
+		let isOutsideClicked = false;
+		const divElement = document.createElement('div');
+		divElement.innerHTML = `<div id='target'>target</div><div id='outside'>outside</div>`;
+		document.body.appendChild(divElement);
 
-			(targetElement as HTMLElement).click();
+		const targetElement = document.querySelector<HTMLDivElement>('#target');
+		const outsideElement = document.querySelector<HTMLDivElement>('#outside');
 
-			expect(isOutsideClicked).toBe(false);
+		expect(targetElement).toBeTruthy();
+		expect(outsideElement).toBeTruthy();
 
-			(outsideElement as HTMLElement).click();
-
-			expect(isOutsideClicked).toBe(true);
+		_.clickOutside<HTMLDivElement>('#target', () => {
+			isOutsideClicked = true;
 		});
+
+		(targetElement as HTMLElement).click();
+
+		expect(isOutsideClicked).toBe(false);
+
+		(outsideElement as HTMLElement).click();
+
+		expect(isOutsideClicked).toBe(true);
 	});
 });
