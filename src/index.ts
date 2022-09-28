@@ -79,14 +79,14 @@ namespace _ {
     }
 
     const memoized = function (...args: Parameters<T>): ReturnType<T> {
-      const key = resolver ? resolver.apply(_, args) : args[0];
+      const key = resolver ? resolver(...args) : args[0];
       const cache = memoized.cache;
 
       if (cache.has(key)) {
         return cache.get(key);
       }
 
-      const result = func.apply(_, args) as ReturnType<typeof func>;
+      const result = func(...args) as ReturnType<typeof func>;
       memoized.cache = cache.set(key, result) || cache;
       return result;
     };
@@ -101,7 +101,7 @@ namespace _ {
     return function (...args: Parameters<typeof callback>) {
       clearTimeout(timer);
       timer = setTimeout(() => {
-        callback.apply(_, args);
+        callback(...args);
       }, delay);
     };
   }
@@ -112,7 +112,7 @@ namespace _ {
       if (!timer) {
         timer = setTimeout(() => {
           timer = null;
-          callback.apply(_, args);
+          callback(...args);
         }, delay);
       }
     };
