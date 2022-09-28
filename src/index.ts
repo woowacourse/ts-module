@@ -49,23 +49,23 @@ module _ {
       });
   }
 
-  export function isNull(value: unknown): boolean {
+  export function isNull(value: unknown): value is null {
     return value === null;
   }
 
-  export function isNil(value: unknown): boolean {
+  export function isNil(value: unknown): value is undefined | null {
     return typeof value === "undefined" || value === null;
   }
 
-  export function isNumber(value: unknown): boolean {
+  export function isNumber(value: unknown): value is number {
     return typeof value === "number";
   }
 
-  export function isFunction(value: unknown): boolean {
+  export function isFunction(value: unknown): value is Function {
     return typeof value === "function";
   }
 
-  export function shuffle<T>(array: T[]) {
+  export function shuffle<T>(array: T[]): T[] {
     return array.sort(() => Math.random() - 0.5);
   }
 
@@ -142,10 +142,6 @@ module _ {
   }
 
   export function memoize<T>(func: () => T): () => T {
-    if (typeof func !== "function") {
-      throw Error("첫 번째 인자는 function을 넣어주어야 합니다.");
-    }
-
     const cache: { memoizedData: T | null } = {
       memoizedData: null,
     };
@@ -156,28 +152,35 @@ module _ {
       }
 
       cache.memoizedData = func();
+
       return cache.memoizedData;
     };
   }
 
-  export function debounce(callback: () => void, delay: number): () => void {
-    let timerId: NodeJS.Timeout;
+  export function debounce<T, P extends any[]>(
+    callback: (...args: P) => T,
+    delay: number
+  ) {
+    let timerId: ReturnType<typeof setTimeout>;
 
-    return function () {
+    return function (...args: P) {
       if (timerId) clearTimeout(timerId);
 
-      timerId = setTimeout(callback, delay);
+      timerId = setTimeout(() => callback(...args), delay);
     };
   }
 
-  export function throttle(callback: () => void, delay: number): () => void {
-    let timerId: NodeJS.Timeout | null;
+  export function throttle<T, P extends any[]>(
+    callback: (...args: P) => T,
+    delay: number
+  ) {
+    let timerId: ReturnType<typeof setTimeout> | null;
 
-    return function () {
+    return function (...args: P) {
       if (timerId) return;
 
       timerId = setTimeout(() => {
-        callback();
+        callback(...args);
         timerId = null;
       }, delay);
     };
