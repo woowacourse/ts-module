@@ -41,7 +41,6 @@ expectType<Record<string | number, unknown>>(
 expectType<Record<string | number, unknown>>(
   _.pick({ a: 1, b: 2, c: "3", d: "f" }, ["a", "c"])
 );
-fetch;
 
 expectType<Record<string | number, unknown>>(
   _.omit({ a: 1, b: 2, c: "g" }, ["a"])
