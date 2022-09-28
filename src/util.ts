@@ -4,7 +4,10 @@ export type Nill = null | undefined;
 
 export type SoundFunction<T = any> = (...args: any) => T;
 
-export type SoundObject<T = any> = Record<string, T>;
+export type SoundObject<
+  T = any,
+  K extends string | number | symbol = string
+> = Record<K, T>;
 
 export type PickResult<T extends SoundObject, K extends (keyof T)[]> = {
   [P in K[number]]: T[P];
