@@ -77,7 +77,7 @@ test('memoize 함수 확인', () => {
     age: number;
   }
 
-  const func = jest.fn() as Function;
+  const func = jest.fn();
 
   _.memoize<ReturnValue>(func, 50)();
   _.memoize<ReturnValue>(func, 50)();
@@ -93,7 +93,7 @@ test('memoize 함수 확인', () => {
 });
 
 test('debounce 함수 확인', () => {
-  const func = jest.fn() as Function;
+  const func = jest.fn();
   for (let i = 0; i < 1000; i++) {
     _.debounce.action({ func });
     jest.advanceTimersByTime(50);

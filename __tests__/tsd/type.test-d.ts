@@ -22,7 +22,7 @@ test('isFunction 타입 테스트', () => {
 });
 
 test('shuffle 타입 테스트', () => {
-  expectType<any[]>(_.shuffle([1, 2, 3]));
+  expectType<number[]>(_.shuffle<number>([1, 2, 3]));
 });
 
 test('pick 타입 테스트', () => {
@@ -34,7 +34,7 @@ test('omit 타입 테스트', () => {
 });
 
 test('memoize 타입 테스트', <T>() => {
-  expectType<T[]>(_.memoize<T>(() => {})());
+  expectType<T[]>(_.memoize<T>((args: any[]) => [])());
 });
 
 test('debounce 타입 테스트', () => {
