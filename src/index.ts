@@ -135,7 +135,7 @@ module tt {
   }
 
   export function clickOutside(
-    target: EventTarget,
+    target: HTMLElement,
     handler: (e: HTMLElementEventMap["click"]) => void
   ): void {
     window.addEventListener("click", (e) => {
