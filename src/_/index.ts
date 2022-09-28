@@ -1,4 +1,4 @@
-import Dom from '../libs/dom';
+import Dom from '../utils/dom';
 import libs from '../libs';
 
 function _(selector: string) {

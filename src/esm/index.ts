@@ -1,4 +1,5 @@
 export { default as _ } from '../_';
+export { default as $ } from '../libs/$';
 export { default as isNull } from '../libs/isNull';
 export { default as debounce } from '../libs/debounce';
 export { default as isFunction } from '../libs/isFunction';
