@@ -1,7 +1,6 @@
 {
   "include": ["./src/index.ts"],
   "compilerOptions": {
-    "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./",
