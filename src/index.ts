@@ -1,49 +1,55 @@
+import { QueriedHTMLElement } from './utilityTypes';
+
+type DefaultFunction = (...args: any[]) => any;
+
 interface ElementExtension {
-	setInnerHTML: (html: string) => void;
-	show: () => void;
-	hide: () => void;
-	addEvent: <T extends keyof HTMLElementEventMap>(
-		type: T,
-		listener: (event: HTMLElementEventMap[T]) => void,
+	setInnerHTML(html: string): void;
+	show(): void;
+	hide(): void;
+	addEvent<K extends keyof HTMLElementEventMap>(
+		type: K,
+		listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
 		options?: boolean | AddEventListenerOptions,
-	) => void;
+	): void;
 }
 
 declare global {
 	interface Element extends ElementExtension {}
 }
 
-type DefaultFunction = (...args: any[]) => any;
+function _<
+	E extends Element,
+	Query extends string = string,
+	SelectedElement extends Element = E extends QueriedHTMLElement<Query>
+		? E
+		: QueriedHTMLElement<Query>,
+>(selector: Query): SelectedElement | null {
+	const element = document.querySelector<SelectedElement>(selector);
 
-function _(selector: string) {
-	const element = document.querySelector(selector);
+	if (element && element instanceof HTMLElement) {
+		const setInnerHTML = (html: string) => {
+			element.innerHTML = html;
+		};
 
-	if (element instanceof HTMLElement) {
-		function setInnerHTML(html: string) {
-			if (element) element.innerHTML = html;
-		}
+		const show = () => {
+			element.style.visibility = 'visible';
+		};
 
-		function show() {
-			if (element instanceof HTMLElement) element.style.visibility = 'visible';
-		}
+		const hide = () => {
+			element.style.visibility = 'hidden';
+		};
 
-		function hidden() {
-			if (element instanceof HTMLElement) element.style.visibility = 'hidden';
-		}
-
-		function addEvent<T extends keyof HTMLElementEventMap>(
-			type: T,
-			listener: (event: HTMLElementEventMap[T]) => void,
+		const addEvent = <K extends keyof HTMLElementEventMap>(
+			type: K,
+			listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
 			options?: boolean | AddEventListenerOptions,
-		): void {
-			if (element instanceof HTMLElement) {
-				element.addEventListener(type, listener, options);
-			}
-		}
+		): void => {
+			element.addEventListener(type, listener, options);
+		};
 
 		element.setInnerHTML = setInnerHTML;
 		element.show = show;
-		element.hide = hidden;
+		element.hide = hide;
 		element.addEvent = addEvent;
 	}
 
@@ -70,8 +76,24 @@ module _ {
 		return typeof value === 'number' || value instanceof Number;
 	}
 
-	export function isFunction(value: unknown): value is DefaultFunction {
+	export function isFunction(value: unknown): value is Function {
 		return typeof value === 'function';
+	}
+
+	export function random(min: number, max: number) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	export function swap(array: Array<unknown>, a: number, b: number) {
+		[a, b].forEach((index) => {
+			if (index < 0 || index >= array.length) {
+				throw new Error(
+					`Given index ${index} is out of range 0 - ${array.length}`,
+				);
+			}
+		});
+
+		[array[a], array[b]] = [array[b], array[a]];
 	}
 
 	export function shuffle<T>(array: T[]): T[] {
@@ -79,18 +101,15 @@ module _ {
 			throw new Error('Given collection is not an array.');
 		}
 
-		const clonedArray = [...array];
-		const shuffledArray: T[] = [];
-		let length = clonedArray.length;
+		const shuffled = [...array];
 
-		while (length > 1) {
-			shuffledArray.push(
-				clonedArray.splice(Math.floor(Math.random() * length))[0],
-			);
-			length -= 1;
+		for (let i = 0; i < shuffled.length; i++) {
+			const j = random(i, shuffled.length);
+
+			swap(shuffled, i, j);
 		}
 
-		return shuffledArray;
+		return shuffled;
 	}
 
 	export function pick<T extends { [key: string]: any }, K extends keyof T>(
@@ -123,15 +142,20 @@ module _ {
 
 	export function memoize<P extends any[], R>(
 		func: (...args: P) => R,
+		resolver?: (
+			...args: P
+		) => number | string | boolean | null | undefined | symbol | bigint,
 	): (...args: P) => R {
 		const cache = new Map();
 
 		function memoizedFunc(...args: P): R {
-			if (!cache.has(args)) {
-				cache.set(args, func(...args));
+			const key = resolver ? resolver(...args) : args[0];
+
+			if (!cache.has(key)) {
+				cache.set(key, func(...args));
 			}
 
-			return cache.get(args);
+			return cache.get(key);
 		}
 
 		return memoizedFunc;
@@ -189,22 +213,16 @@ module _ {
 		};
 	}
 
-	export function clickOutside(
+	export function clickOutside<E extends Element = Element>(
 		selector: string,
 		callback: (e: MouseEvent) => void,
 	) {
-		const outside = document.querySelector('html');
-		const target = document.querySelector(selector);
+		const target = _<E>(selector);
 
-		if (outside instanceof HTMLElement) {
-			outside.onclick = callback;
-		}
-
-		if (target instanceof HTMLElement) {
-			target.onclick = (e: MouseEvent) => {
-				e.stopPropagation();
-			};
-		}
+		document.addEventListener('click', callback);
+		target?.addEvent('click', (e) => {
+			e.stopPropagation();
+		});
 	}
 }
 
