@@ -1,6 +1,13 @@
 function _(selector: string): any {
-  function innerHTML(template?: string) {
+  function getElement() {
     const el = document.getElementById(selector) as HTMLElement;
+
+    return el;
+  }
+
+  function innerHTML(template?: string) {
+    const el = getElement();
+
     if (template) {
       el.innerHTML = template;
       return;
@@ -10,17 +17,20 @@ function _(selector: string): any {
   }
 
   function show() {
-    const el = document.getElementById(selector) as HTMLElement;
+    const el = getElement();
+
     el.style.display = '';
   }
 
   function hidden() {
-    const el = document.getElementById(selector) as HTMLElement;
+    const el = getElement();
+
     el.style.display = 'none';
   }
 
   function addEvent(type: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject) {
-    const el = document.getElementById(selector) as HTMLElement;
+    const el = getElement();
+
     el.addEventListener(type, listener);
   }
 
@@ -51,8 +61,8 @@ module _ {
     return false;
   }
 
-  type Nillable<Type> = Type extends null | undefined ? Type : never;
-  export function isNil<Type>(args: Type): args is Nillable<Type> {
+  type Nilable<Type> = Type extends null | undefined ? Type : never;
+  export function isNil<Type>(args: Type): args is Nilable<Type> {
     if (args === null || args === undefined) {
       return true;
     }
@@ -64,11 +74,13 @@ module _ {
     return typeof args === 'number';
   }
 
+  isNumber('zzzz');
+
   export function isFunction(args: unknown): args is Function {
     return typeof args === 'function';
   }
 
-  export function shuffle(args: any[]): any[] {
+  export function shuffle<T>(args: T[]): T[] {
     let arr = [];
     let n: number = args.length;
     let i: number;
@@ -80,25 +92,20 @@ module _ {
     return arr;
   }
 
-  interface ObjType {
-    [props: string]: any;
-  }
-
-  export function pick(arr: Array<string>, obj: ObjType): Array<Pick<typeof obj, typeof arr[number]>> {
+  export function pick(arr: Array<string>, obj: Record<string, any>): Array<Pick<typeof obj, typeof arr[number]>> {
     return Object.entries(obj)
       .filter(([k, _]) => arr.includes(k))
       .map(([k, v]) => ({ [k]: v }));
   }
 
-  export function omit(arr: Array<string>, obj: ObjType): Array<Omit<typeof obj, typeof arr[number]>> {
+  export function omit(arr: Array<string>, obj: Record<string, any>): Array<Omit<typeof obj, typeof arr[number]>> {
     return Object.entries(obj)
       .filter(([k, _]) => !arr.includes(k))
       .map(([k, v]) => ({ [k]: v }));
   }
 
-  const cache = { time: 0, data: [] as any[] };
-
-  export function memoize<T>(func: Function, timer: number = 50000): Function {
+  const cache: CacheType = { time: 0, data: [] };
+  export function memoize<T>(func: (args: any[]) => T[], timer: number = 50000): Function {
     if (!isFunction(func)) {
       throw new TypeError('Expected a function');
     }
@@ -118,26 +125,31 @@ module _ {
     return memo;
   }
 
+  interface CacheType {
+    time: number;
+    data: any[];
+  }
+
   export const debounce: DebounceType = {
-    flag: '',
+    flag: 0,
     action({ func, args }) {
       if (this.flag) {
         clearTimeout(this.flag);
       }
-      this.flag = setTimeout(async () => {
-        await func(args && { ...args });
+      this.flag = setTimeout(() => {
+        args ? func({ ...args }) : func();
       }, 300);
     },
   };
 
-  interface DebounceActionArgsType {
-    func: Function;
-    args?: { [props: string]: any };
+  interface DebounceActionArgsType<P, R> {
+    func: (args?: P) => R;
+    args?: P;
   }
 
   interface DebounceType {
-    flag: '' | ReturnType<typeof setTimeout>;
-    action: ({ func, args }: DebounceActionArgsType) => void;
+    flag: number | ReturnType<typeof setTimeout>;
+    action: <P, R>({ func, args }: DebounceActionArgsType<P, R>) => void;
   }
 
   let flag = true;
