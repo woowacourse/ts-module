@@ -20,14 +20,18 @@ expectType<boolean>(_.isFunction("ahn"));
 
 expectType<(1 | 2 | 3 | 4)[]>(_.shuffle([1, 2, 3, 4]));
 
-test("isNill 함수에 대한 타입을 체크한다.", () => {
-  expectType<(value: any) => boolean>(_.isNil);
-});
+expectType<{ a: number }>(_.pick({ a: 1, b: "c" }, ["a"]));
 
-test("isFunction 함수에 대한 타입을 체크한다.", () => {
-  expectType<(value: any) => boolean>(_.isFunction);
-});
+expectType<{ b: string }>(_.omit({ a: 1, b: "c" }, ["a"]));
 
-test("shuffle 함수에 대한 타입을 체크한다.", () => {
-  expectType<(array: number[]) => number[]>(_.shuffle<number>);
-});
+expectType<(a: number, b: number) => void>(
+  _.debounce((a: number, b: number) => {
+    console.log(a, b);
+  }, 100)
+);
+
+expectType<(a: number, b: number) => void>(
+  _.throttle((a: number, b: number) => {
+    console.log(a, b);
+  }, 100)
+);
