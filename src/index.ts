@@ -21,7 +21,7 @@ function _(selector: string): NewElement {
 }
 
 namespace _ {
-  export async function fetch(input: string | URL, init?: RequestInit): Promise<Response> {
+  export function fetch(input: string | URL, init?: RequestInit): Promise<Response> {
     return fetch(input, init);
   }
 
@@ -42,10 +42,6 @@ namespace _ {
   }
 
   export function shuffle(array: number[]): number[] {
-    if (array.length === 0) {
-      return [];
-    }
-
     const result = array.map((el) => el);
 
     result.forEach((_, index) => {
@@ -57,18 +53,10 @@ namespace _ {
   }
 
   export function pick<T extends Record<string, unknown>>(object: T, paths: (keyof T)[]) {
-    if (isNil(object)) {
-      return {};
-    }
-
     return Object.fromEntries(Object.entries(object).filter((el) => paths.includes(el[0])));
   }
 
   export function omit<T extends Record<string, unknown>>(object: T, paths: (keyof T)[]) {
-    if (isNil(object)) {
-      return {};
-    }
-
     return Object.fromEntries(Object.entries(object).filter((el) => !paths.includes(el[0])));
   }
 
@@ -85,7 +73,6 @@ namespace _ {
       const cache = memoized.cache;
 
       if (cache.has(key)) {
-        console.log('hit');
         return cache.get(key);
       }
 

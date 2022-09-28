@@ -1,5 +1,6 @@
 function _(selector) {
     const element = document.querySelector(selector);
+    element['innerHTML'] = element.innerHTML;
     element['show'] = function () {
         element.style.visibility = 'visible';
     };
@@ -12,7 +13,7 @@ function _(selector) {
     return element;
 }
 (function (_1) {
-    async function fetch(input, init) {
+    function fetch(input, init) {
         return fetch(input, init);
     }
     _1.fetch = fetch;
@@ -33,34 +34,22 @@ function _(selector) {
     }
     _1.isFunction = isFunction;
     function shuffle(array) {
-        if (array.length === 0) {
-            return [];
-        }
         const result = array.map((el) => el);
-        array.forEach((_, index, array) => {
+        result.forEach((_, index) => {
             const random = index + Math.floor(Math.random() * (array.length - index));
-            const value = result[random];
-            result[random] = result[index];
-            result[index] = value;
+            [result[random], result[index]] = [result[index], result[random]];
         });
         return result;
     }
     _1.shuffle = shuffle;
     function pick(object, paths) {
-        if (isNil(object)) {
-            return {};
-        }
         return Object.fromEntries(Object.entries(object).filter((el) => paths.includes(el[0])));
     }
     _1.pick = pick;
     function omit(object, paths) {
-        if (isNil(object)) {
-            return {};
-        }
         return Object.fromEntries(Object.entries(object).filter((el) => !paths.includes(el[0])));
     }
     _1.omit = omit;
-    memoize.Cache = Map;
     function memoize(func, resolver) {
         if (typeof func !== 'function' || (!isNil(resolver) && typeof resolver !== 'function')) {
             throw new TypeError('Expected a function');
@@ -75,7 +64,7 @@ function _(selector) {
             memoized.cache = cache.set(key, result) || cache;
             return result;
         };
-        memoized.cache = new (memoize.Cache || Map)();
+        memoized.cache = new Map();
         return memoized;
     }
     _1.memoize = memoize;

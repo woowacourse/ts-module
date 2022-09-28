@@ -13,15 +13,12 @@ declare namespace _ {
     function omit<T extends Record<string, unknown>>(object: T, paths: (keyof T)[]): {
         [k: string]: unknown;
     };
-    function memoize<T extends Function>(func: T, resolver?: Function): {
+    function memoize<T extends Function>(func: T, resolver?: (...args: Parameters<T>) => unknown): {
         (...args: Parameters<T>): ReturnType<T>;
         cache: Map<any, any>;
     };
-    namespace memoize {
-        var Cache: MapConstructor;
-    }
-    function debounce(callback: Function, delay: number): (...args: Parameters<typeof callback>) => void;
-    function throttle(callback: Function, delay: number): (...args: Parameters<typeof callback>) => void;
+    function debounce<T extends Function>(callback: T, delay: number): (...args: Parameters<T>) => void;
+    function throttle<T extends Function>(callback: T, delay: number): (...args: Parameters<T>) => void;
     function clickOutside(element: Element, callback: Function): void;
 }
 export default _;
