@@ -24,7 +24,7 @@ window.fetch = (input: URL | RequestInfo): Promise<Response> => {
       json() {
         return Promise.resolve({
           juunzziAge: 26,
-        } as ResponseGetJuunzziAge);
+        });
       },
     } as Response);
   }
