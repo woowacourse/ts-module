@@ -52,7 +52,7 @@ module _ {
   }
 
   export function shuffle(collection: Array<any>) {
-    let shuffledCollection = collection;
+    let shuffledCollection = JSON.parse(JSON.stringify(collection));
 
     for (let index = shuffledCollection.length - 1; index > 0; index--) {
       const randomPosition = Math.floor(Math.random() * (index + 1));
@@ -60,6 +60,8 @@ module _ {
       shuffledCollection[index] = shuffledCollection[randomPosition];
       shuffledCollection[randomPosition] = temporary;
     }
+
+    return shuffledCollection;
   }
 
   export function pick(
@@ -81,7 +83,7 @@ module _ {
     target: Record<string, any>,
     property: Array<string>
   ): Record<string, any> {
-    const newObject = target;
+    const newObject = JSON.parse(JSON.stringify(target));
     property.forEach((key) => {
       Object.defineProperty(newObject, key, {
         enumerable: false,

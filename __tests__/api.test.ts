@@ -64,6 +64,7 @@ test("모듈에 포함된 omit 함수 확인", () => {
 
   // when & then
   expect(typeof _.omit).toBe("function");
+  console.log(_.omit(targetObject, ["a", "b"]), targetObject);
   expect(_.omit(targetObject, ["a", "b"])).toStrictEqual({ c: 3 });
 });
 
