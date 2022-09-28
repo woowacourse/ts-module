@@ -136,8 +136,15 @@ module tt {
 
   export function clickOutside(
     target: EventTarget,
-    handler: (event: GlobalEventHandlersEventMap["click"]) => void
-  ): void {}
+    handler: (e: HTMLElementEventMap["click"]) => void
+  ): void {
+    window.addEventListener("click", (e) => {
+      const composedPath = e.composedPath();
+      const isTargetClicked = composedPath.some((el) => el === target);
+      if (isTargetClicked) return;
+      handler(e);
+    });
+  }
 }
 
 export default tt;
