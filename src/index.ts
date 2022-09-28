@@ -14,7 +14,7 @@ interface CustomElement {
 
 function _(selector: string) {
   const element = document.querySelector<HTMLElement>(selector);
-  if (!element) return;
+  if (element === null) throw new Error("Error");
 
   const innerHtml = (htmlString: string) => {
     element.innerHTML = htmlString;
