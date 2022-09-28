@@ -7,7 +7,6 @@
  *
  * @returns {Object}
  */
-
 export default function omit<
   T extends Record<string, unknown>,
   K extends keyof T

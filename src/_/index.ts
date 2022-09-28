@@ -1,5 +1,5 @@
-import Dom from './libs/dom';
-import libs from './libs';
+import Dom from '../libs/dom';
+import libs from '../libs';
 
 function _(selector: string) {
   return new Dom(selector);

@@ -1,5 +1,5 @@
+import _ from '../src/_';
 import { expectType } from 'tsd';
-import _ from '../src';
 import { allTypes } from '../src/res';
 import getObjectValues from '../src/utils/getObjectValues';
 

@@ -7,7 +7,6 @@
  *
  * @returns {boolean}
  */
-
 export default function isNull<T>(value: T | unknown): value is null {
   return value === null;
 }

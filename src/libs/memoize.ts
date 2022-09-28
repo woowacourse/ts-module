@@ -1,4 +1,4 @@
-import _ from '..';
+import _ from '../_';
 
 /**
  * memoize

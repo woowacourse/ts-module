@@ -2,3 +2,5 @@ node_modules/
 src/
 tsconfig.json
 README.md
+.github
+__test__

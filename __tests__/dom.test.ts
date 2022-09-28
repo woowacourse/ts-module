@@ -3,7 +3,7 @@
  */
 import { expectType } from 'tsd';
 
-import _ from '../src';
+import _ from '../src/_';
 
 test('Selector 동작 확인', () => {
   const divElement = document.createElement('div');

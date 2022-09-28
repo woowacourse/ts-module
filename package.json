@@ -1,10 +1,10 @@
 {
   "name": "onsdash",
-  "version": "0.0.6",
+  "version": "1.6.5",
   "private": false,
   "description": "Javascript Utils",
-  "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/esm",
   "browser": "./browser/specific/main.js",
   "contributors": [
     "cks3066"
