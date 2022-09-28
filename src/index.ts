@@ -171,10 +171,33 @@ module _ {
     return memoized;
   }
 
-  export function debounce() {}
+  export function debounce(func: Function, wait: number = 0) {
+    let timer: NodeJS.Timeout;
 
-  export function throttle() {}
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        func();
+        clearTimeout(timer);
+      }, wait);
+    };
+  }
 
+  export function throttle(func: Function, wait: number = 0) {
+    let isWaiting = true;
+
+    return () => {
+      if (isWaiting) {
+        isWaiting = false;
+        setTimeout(() => {
+          func();
+          isWaiting = true;
+        }, wait);
+      }
+    };
+  }
   export function clickOutside(
     eventTarget: HTMLElement,
     innerElement: HTMLElement
