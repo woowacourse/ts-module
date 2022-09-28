@@ -45,7 +45,7 @@ function _(selector: string): {
 }
 
 module _ {
-  export async function fetch<T>(
+  export async function fetch<T extends Record<keyof T, unknown>>(
     input: URL | RequestInfo,
     init?: RequestInit | undefined
   ): Promise<T> {
@@ -55,9 +55,9 @@ module _ {
       throw new Error("에러");
     }
 
-    const json: unknown = await response.json();
+    const json: T = await response.json();
 
-    return json as T;
+    return json;
   }
 
   export function isNull(arg: unknown): arg is null {
