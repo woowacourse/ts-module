@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --env=jsdom"
   },
   "keywords": [],
   "author": "",
