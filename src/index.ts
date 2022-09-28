@@ -3,6 +3,8 @@ import type { NewElement, Function } from './type';
 function _(selector: string): NewElement {
   const element = document.querySelector(selector) as NewElement;
 
+  element['innerHTML'] = element.innerHTML;
+
   element['show'] = function () {
     element.style.visibility = 'visible';
   };
@@ -46,11 +48,9 @@ namespace _ {
 
     const result = array.map((el) => el);
 
-    array.forEach((_, index, array) => {
+    result.forEach((_, index) => {
       const random = index + Math.floor(Math.random() * (array.length - index));
-      const value = result[random];
-      result[random] = result[index];
-      result[index] = value;
+      [result[random], result[index]] = [result[index], result[random]];
     });
 
     return result;
@@ -72,8 +72,10 @@ namespace _ {
     return Object.fromEntries(Object.entries(object).filter((el) => !paths.includes(el[0])));
   }
 
-  memoize.Cache = Map;
-  export function memoize<T extends Function>(func: T, resolver?: Function) {
+  export function memoize<T extends Function>(
+    func: T,
+    resolver?: (...args: Parameters<T>) => unknown
+  ) {
     if (typeof func !== 'function' || (!isNil(resolver) && typeof resolver !== 'function')) {
       throw new TypeError('Expected a function');
     }
@@ -83,22 +85,23 @@ namespace _ {
       const cache = memoized.cache;
 
       if (cache.has(key)) {
+        console.log('hit');
         return cache.get(key);
       }
 
-      const result = func(...args) as ReturnType<typeof func>;
+      const result = func(...args) as ReturnType<T>;
       memoized.cache = cache.set(key, result) || cache;
       return result;
     };
 
-    memoized.cache = new (memoize.Cache || Map)();
+    memoized.cache = new Map();
 
     return memoized;
   }
 
-  export function debounce(callback: Function, delay: number) {
+  export function debounce<T extends Function>(callback: T, delay: number) {
     let timer: NodeJS.Timeout;
-    return function (...args: Parameters<typeof callback>) {
+    return function (...args: Parameters<T>) {
       clearTimeout(timer);
       timer = setTimeout(() => {
         callback(...args);
@@ -106,9 +109,9 @@ namespace _ {
     };
   }
 
-  export function throttle(callback: Function, delay: number) {
+  export function throttle<T extends Function>(callback: T, delay: number) {
     let timer: NodeJS.Timeout | null;
-    return function (...args: Parameters<typeof callback>) {
+    return function (...args: Parameters<T>) {
       if (!timer) {
         timer = setTimeout(() => {
           timer = null;

@@ -1,4 +1,5 @@
 export interface NewElement extends HTMLElement {
+  innerHTML: string;
   show(): void;
   hide(): void;
   addEvent<C extends keyof HTMLElementEventMap>(
