@@ -18,25 +18,28 @@ describe('모듈 테스트', () => {
 
 describe('DOM 유틸 테스트', () => {
 	const divElement = document.createElement('div');
-	divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+	divElement.innerHTML = `<div><button class='test-btn'>Continue</button></div>`;
 	document.body.appendChild(divElement);
-	const buttonElement = _<HTMLButtonElement>(
-		'button.test-btn',
-	) as HTMLButtonElement;
+	const buttonElement = _('div > button.test-btn');
 
 	test('Selector', () => {
 		expect(buttonElement).toBeTruthy();
+		expect(buttonElement).toBeInstanceOf(HTMLButtonElement);
 	});
 
 	test('setInnerHTML', () => {
-		expect(typeof buttonElement?.setInnerHTML).toBe('function');
+		if (!buttonElement) fail();
+
+		expect(typeof buttonElement.setInnerHTML).toBe('function');
 		expect(buttonElement?.innerHTML).toEqual('Continue');
 		buttonElement?.setInnerHTML('test');
 		expect(buttonElement?.innerHTML).toEqual('test');
 	});
 
 	test('show', () => {
-		expect(typeof buttonElement?.show).toBe('function');
+		if (!buttonElement) fail();
+
+		expect(typeof buttonElement.show).toBe('function');
 		buttonElement.style.visibility = 'hidden';
 		expect(buttonElement.style.visibility).toEqual('hidden');
 		buttonElement?.show();
@@ -44,7 +47,9 @@ describe('DOM 유틸 테스트', () => {
 	});
 
 	test('hide', () => {
-		expect(typeof buttonElement?.hide).toBe('function');
+		if (!buttonElement) fail();
+
+		expect(typeof buttonElement.hide).toBe('function');
 		buttonElement.style.visibility = 'visible';
 		expect(buttonElement.style.visibility).toEqual('visible');
 		buttonElement.hide();
@@ -52,7 +57,9 @@ describe('DOM 유틸 테스트', () => {
 	});
 
 	test('addEvent', () => {
-		expect(typeof buttonElement?.addEvent).toBe('function');
+		if (!buttonElement) fail();
+
+		expect(typeof buttonElement.addEvent).toBe('function');
 
 		let copiedTextContent: string | null = null;
 
@@ -236,11 +243,11 @@ describe('유틸 테스트', () => {
 			isOutsideClicked = true;
 		});
 
-		(targetElement as HTMLElement).click();
+		targetElement?.click();
 
 		expect(isOutsideClicked).toBe(false);
 
-		(outsideElement as HTMLElement).click();
+		outsideElement?.click();
 
 		expect(isOutsideClicked).toBe(true);
 	});
