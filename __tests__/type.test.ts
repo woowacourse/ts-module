@@ -6,14 +6,23 @@ import { FetchOptions, FetchResponse } from "types";
 
 import _ from "../src";
 
-// _(".button").addEvent("click", function (event) {
-//   expectType<MouseEvent>(event);
-// });
+describe("function _ type test", () => {
+  test('_("").addEvent type test', () => {
+    const button = document.createElement("button");
+    button.setAttribute("class", "button");
+    document.body.appendChild(button);
+
+    _(".button").addEvent("click", function (this, event) {
+      expectType<MouseEvent>(event);
+    });
+
+    button.remove();
+  });
+});
 
 describe("module _ type test", () => {
   test("fetch test", () => {
     type TestData = {
-      id: number;
       name: string;
       age: number;
     };
@@ -26,28 +35,28 @@ describe("module _ type test", () => {
     >(_.fetch<TestData[]>);
   });
 
-  test("isNull Test", () => {
+  test("isNull test", () => {
     expectType<boolean>(_.isNull(null));
     expectType<boolean>(_.isNull("hello"));
   });
 
-  test("isNil Test", () => {
+  test("isNil test", () => {
     expectType<boolean>(_.isNil(null));
     expectType<boolean>(_.isNil(undefined));
     expectType<boolean>(_.isNil("hello"));
   });
 
-  test("isNumber Test", () => {
+  test("isNumber test", () => {
     expectType<boolean>(_.isNumber(2));
     expectType<boolean>(_.isNumber("hello"));
   });
 
-  test("isFunction Test", () => {
+  test("isFunction test", () => {
     expectType<boolean>(_.isFunction(() => console.log("hi")));
     expectType<boolean>(_.isFunction("hello"));
   });
 
-  test("shuffle Test", () => {
+  test("shuffle test", () => {
     const a = [1, "string", false];
 
     type AType = typeof a;
@@ -55,7 +64,7 @@ describe("module _ type test", () => {
     expectType<AType>(_.shuffle(a));
   });
 
-  test("pick Test", () => {
+  test("pick test", () => {
     const a = {
       name: "dom",
       age: 30,
@@ -71,7 +80,7 @@ describe("module _ type test", () => {
     expectType<ResultType>(_.pick(a, "name"));
   });
 
-  test("omit Test", () => {
+  test("omit test", () => {
     const a = {
       name: "dom",
       age: 30,
@@ -88,7 +97,7 @@ describe("module _ type test", () => {
     expectType<ResultType>(_.omit(a, "name"));
   });
 
-  test("memoize Test", () => {
+  test("memoize test", () => {
     const func = (a: number) => console.log("hi");
     const resolver = (a: number) => false;
 
@@ -98,7 +107,7 @@ describe("module _ type test", () => {
     expectType<FuncType>(_.memoize(func, resolver));
   });
 
-  test("debounce Test", () => {
+  test("debounce test", () => {
     const func = (a: number) => 500;
     const wait = 2000;
     const options = {
@@ -112,7 +121,7 @@ describe("module _ type test", () => {
     );
   });
 
-  test("throttle Test", () => {
+  test("throttle test", () => {
     const func = (a: number) => 500;
     const wait = 2000;
     const options = {
@@ -126,7 +135,7 @@ describe("module _ type test", () => {
     );
   });
 
-  test("clickOutside Test", () => {
+  test("clickOutside test", () => {
     expectType<
       (eventTarget: HTMLElement, innerElement: HTMLElement) => boolean
     >(_.clickOutside);
