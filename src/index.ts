@@ -1,4 +1,4 @@
-function _(selector: string): HTMLElement | null {
+function _(selector: string): HTMLElement {
   const element = document.querySelector<HTMLElement>(selector);
   if (element === null) throw new Error("존재하지 않는 element입니다.");
 
