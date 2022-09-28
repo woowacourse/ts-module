@@ -34,11 +34,6 @@ export type FetchResponse<T> = {
   data: T;
 };
 
-export type GetArgumentsTypeByIndex<
-  T extends SoundFunction,
-  K extends number
-> = Parameters<T>[K];
-
 export type DebouncedFunction<T extends SoundFunction> = (
   ...args: Parameters<T>
 ) => {
