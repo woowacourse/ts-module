@@ -112,9 +112,10 @@ module _ {
     K extends keyof T
   >(obj: T, array: K[]): Record<string | number, unknown> {
     const omittedObj = <T>{};
-    for (const key of array) {
-      if (!array.includes(key)) {
-        omittedObj[key] = obj[key];
+    for (const key of Object.keys(obj)) {
+      const objectKey = key as K;
+      if (!array.includes(objectKey)) {
+        omittedObj[objectKey] = obj[objectKey];
       }
     }
     return omittedObj;
