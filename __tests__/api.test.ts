@@ -89,8 +89,21 @@ test('_("").show() 동작 확인', () => {
   _("button.test-btn").show();
 
   expect(selectedElement.style.display).toBe("block");
+
+  selectedElement.remove();
 });
 
-test('`_("").hidden()`~~~~', () => {});
+test('_("").hidden() 동작 확인', () => {
+  const divElement = document.createElement("div");
+  divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
+  document.body.appendChild(divElement);
+
+  const selectedElement = _("button.test-btn").element;
+  _("button.test-btn").hidden();
+
+  expect(selectedElement.style.display).toBe("none");
+
+  selectedElement.remove();
+});
 
 test('`_("").addEvent()`~~~~', () => {});
