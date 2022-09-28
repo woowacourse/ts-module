@@ -24,7 +24,12 @@ class SelectedElement {
     this.element.style.display = "none";
   }
 
-  addEvent(event: Event) {}
+  addEvent<K extends keyof HTMLElementEventMap>(
+    type: K,
+    callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
+  ) {
+    this.element.addEventListener(type, callback);
+  }
 }
 
 function _(selector: string) {
@@ -46,7 +51,7 @@ function _(selector: string) {
    */
 }
 
-namespace _ {
+module _ {
   export function fetch<T = any>(
     url: string,
     options?: FetchOptions
