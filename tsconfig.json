@@ -7,6 +7,5 @@
     "skipLibCheck": true,
     "emitDeclarationOnly": true
   },
-  "include": ["src/index.ts", "src/type.d.ts"],
   "exclude": ["node_modules"]
 }

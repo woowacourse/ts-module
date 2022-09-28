@@ -5,16 +5,6 @@ import { expectType } from 'tsd';
 
 import _ from '../src';
 
-interface SelectedElement extends HTMLElement {
-  _innerHTML: () => string;
-  show: () => void;
-  _hidden: () => void;
-  addEvent: <T extends keyof HTMLElementEventMap>(
-    event: T,
-    eventHandler: (event: HTMLElementEventMap[T]) => void
-  ) => void;
-}
-
 /**
  * FUNCTION TEST
  */
