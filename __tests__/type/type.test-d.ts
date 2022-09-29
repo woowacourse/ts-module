@@ -1,4 +1,4 @@
-import { expectType } from 'tsd';
+import { expectNotType, expectType } from 'tsd';
 
 import _ from '../../src';
 
