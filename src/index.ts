@@ -182,13 +182,15 @@ module _ {
     };
   }
 
-  export function throttle<T extends (...args: any[]) => void>(
+  type ThrrotleFuncParams = unknown[];
+  type VoidFunction = (...args: ThrrotleFuncParams) => void;
+  export function throttle<T extends VoidFunction>(
     func: T,
     wait: number
-  ): (...args: any[]) => void {
+  ): VoidFunction {
     let timer: ReturnType<typeof setTimeout> | null = null;
 
-    return (...args: any[]) => {
+    return (...args: ThrrotleFuncParams) => {
       if (!timer) {
         timer = setTimeout(() => {
           timer = null;
