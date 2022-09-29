@@ -118,7 +118,10 @@ module _ {
 
   export function memoize<T, R>(
     func: Function<T, R>,
-    resolver?: Function<T, string>
+    resolver?: Function<
+      T,
+      string | number | boolean | null | undefined | symbol | bigint
+    >
   ): Function<T, R> {
     const memoized = function (args: any) {
       const key = resolver ? resolver(args) : args[0];
