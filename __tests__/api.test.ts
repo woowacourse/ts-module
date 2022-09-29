@@ -12,7 +12,7 @@ test("isNull test", () => {
   expect(_.isNull(null)).toBe(true);
 });
 
-test("isNill test", () => {
+test("isNil test", () => {
   expect(_.isNil("sss")).toBe(false);
   expect(_.isNil(null)).toBe(true);
 });
