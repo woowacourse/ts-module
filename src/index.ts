@@ -84,7 +84,7 @@ module _ {
 
   export function pick<T extends Record<string, unknown>, U extends keyof T>(
     object: T,
-    ...props: Array<U>
+    ...props: U[]
   ): Pick<T, U> {
     return props.reduce<Pick<T, U>>(
       (prev, currentKey) => ({
@@ -97,7 +97,7 @@ module _ {
 
   export function omit<T extends Record<string, unknown>, U extends keyof T>(
     object: T,
-    ...props: Array<U>
+    ...props: U[]
   ): Omit<T, U> {
     return keys<typeof object, U>(object).reduce<Omit<T, U>>(
       (prev, currentKey) => {
