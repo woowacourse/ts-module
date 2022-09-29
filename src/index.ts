@@ -155,42 +155,44 @@ module _ {
     );
   }
 
-  type Func = (...args: any[]) => any;
-  export function memoize<T extends Func>(
+  type FuncParams = any[];
+  type MemoizeReturnType = any;
+  type MemoizeFuncType = (...args: FuncParams) => MemoizeReturnType;
+  type VoidFunction = (...args: FuncParams) => void;
+
+  export function memoize<T extends MemoizeFuncType>(
     func: T,
-    makeKey: (...args: any[]) => string
-  ): Func {
+    makeKey: (...args: FuncParams) => string
+  ): MemoizeFuncType {
     const cache: Record<string, any> = {};
 
-    return (...args: any[]): any => {
+    return (...args: FuncParams): MemoizeReturnType => {
       const key = makeKey(args);
 
       return cache[key] ? cache[key] : (cache[key] = func(...args));
     };
   }
 
-  export function debounce<T extends (...args: any[]) => void>(
+  export function debounce<T extends VoidFunction>(
     func: T,
     wait: number
-  ): (...args: any[]) => void {
+  ): VoidFunction {
     let timer: ReturnType<typeof setTimeout> | null = null;
 
-    return (...args: any[]) => {
+    return (...args: FuncParams) => {
       if (timer) clearTimeout(timer);
 
       timer = setTimeout(() => func(...args), wait);
     };
   }
 
-  type ThrrotleFuncParams = unknown[];
-  type VoidFunction = (...args: ThrrotleFuncParams) => void;
   export function throttle<T extends VoidFunction>(
     func: T,
     wait: number
   ): VoidFunction {
     let timer: ReturnType<typeof setTimeout> | null = null;
 
-    return (...args: ThrrotleFuncParams) => {
+    return (...args: FuncParams) => {
       if (!timer) {
         timer = setTimeout(() => {
           timer = null;
