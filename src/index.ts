@@ -50,19 +50,19 @@ module _ {
     return fetch(url);
   }
 
-  export function isNull(value: unknown) {
+  export function isNull(value: unknown): value is null {
     return value == null;
   }
 
-  export function isNil(value: unknown) {
+  export function isNil(value: unknown): value is null | undefined {
     return value == null || value === undefined;
   }
 
-  export function isNumber(value: unknown) {
+  export function isNumber(value: unknown): value is number {
     return typeof value === "number";
   }
 
-  export function isFunction(value: unknown) {
+  export function isFunction(value: unknown): value is Function {
     return typeof value === "function";
   }
 
