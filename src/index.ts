@@ -151,7 +151,7 @@ module _ {
     Object.entries(object).forEach(
       (item) => {
         if (
-          typeof paths != "string" &&
+          typeof paths !== "string" &&
           paths.includes(
             String(item[0])
           )
@@ -186,7 +186,7 @@ module _ {
     Object.entries(object).forEach(
       (item) => {
         if (
-          typeof paths != "string" &&
+          typeof paths !== "string" &&
           !paths.includes(
             String(item[0])
           )
