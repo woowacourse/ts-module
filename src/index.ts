@@ -53,7 +53,7 @@ namespace _ {
     return typeof value === 'function';
   }
 
-  export function shuffle(array: unknown[]) {
+  export function shuffle<T>(array: T[]): T[] {
     const originArray = array;
     const newArray: typeof array = [];
 
@@ -66,7 +66,11 @@ namespace _ {
         originArray[lastIdx],
       ];
 
-      newArray.push(originArray.pop());
+      const value = originArray.pop();
+
+      if (value === undefined) break;
+
+      newArray.push(value);
     }
 
     return newArray;
