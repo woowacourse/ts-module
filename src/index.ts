@@ -45,7 +45,7 @@ function _(selector: string) {
 
 module _ {
   // fetch
-  export function fetch(
+  export function fetchData(
     input: RequestInfo | URL,
     init?: RequestInit
   ): Promise<Response> {

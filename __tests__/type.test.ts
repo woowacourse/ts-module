@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
  */
-import { expectType } from "tsd";
+import { expectType, expectNotType } from "tsd";
 
 import _ from "../src";
 
 // fetch
 expectType<Promise<Response>>(
-  _.fetch("https://winnie.com", { method: "GET" }).then((data) => data.json())
+  _.fetchData("https://winnie.com", { method: "GET" })
 );
 
 // isNull
@@ -34,9 +34,9 @@ expectType<number[]>(_.shuffle([1, 2, 3, 4]));
 expectType<string[]>(_.shuffle(["a", "b", "c", "d"]));
 
 // pick
-expectType<{ a: number; b: string }>(
-  _.pick({ a: 1, b: "2", c: 3 }, ["a", "b"])
-);
+const obj = { a: 1, b: "2", c: 3 };
+expectType<Pick<typeof obj, "a" | "b">>(_.pick(obj, ["a", "b"]));
+expectNotType<Pick<typeof obj, "b">>(_.pick(obj, ["a", "b"]));
 
 // omit
 expectType<{ b: string; c: number }>(_.omit({ a: 1, b: "2", c: 3 }, ["a"])); // TODO b, c 하나 빼도 됨
