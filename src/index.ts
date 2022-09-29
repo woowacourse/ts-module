@@ -174,7 +174,10 @@ module _ {
    * @param {Function} func The function to have its output memoized.
    * @returns {Function} Returns the new memoized function.
    */
-  export function memoize(func: Function, resolver: Function) {
+  export function memoize<T extends unknown, K>(
+    func: (...args: Array<T>) => K,
+    resolver: (...args: Array<T>) => K
+  ): (...args: Array<T>) => K {
     const memoized = function (this: any, args: any) {
       const key = resolver ? resolver.apply(this, args) : args[0];
       const cache = memoized.cache;
