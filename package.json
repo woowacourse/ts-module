@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
     "test": "yarn run test:jest && yarn run test:tsd",
     "test:jest": "jest",
-    "test:tsd": "yarn run build && npx tsd"
+    "test:tsd": "yarn run build && tsd"
   },
   "keywords": [],
   "author": "",
