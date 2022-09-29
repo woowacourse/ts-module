@@ -86,14 +86,14 @@ module _ {
     return result;
   }
 
-  export function pick<
-    T extends Record<string, unknown>,
-    K extends string[] | string[][]
-  >(obj: T, ...target: K): Partial<T> {
-    const result: Partial<T> = {};
+  export function pick<T extends object, K extends keyof T>(
+    obj: T,
+    ...target: Array<K | K[]>
+  ): Pick<T, K> {
+    const result = {};
     target.forEach((item) => {
       let target;
-      if (typeof item !== 'string') {
+      if (typeof item !== 'string' && isIterable(item)) {
         target = pick(obj, ...item);
         Object.assign(result, target);
       } else if (typeof item === 'string' && Object.keys(obj).includes(item)) {
@@ -101,7 +101,7 @@ module _ {
         Object.assign(result, target);
       }
     });
-    return result;
+    return result as Pick<T, K>;
   }
 
   export function omit<
