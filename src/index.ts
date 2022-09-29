@@ -155,10 +155,11 @@ module _ {
     );
   }
 
-  export function memoize<T extends (...args: any[]) => any>(
+  type Func = (...args: any[]) => any;
+  export function memoize<T extends Func>(
     func: T,
     makeKey: (...args: any[]) => string
-  ): (...args: any[]) => any {
+  ): Func {
     const cache: Record<string, any> = {};
 
     return (...args: any[]): any => {
