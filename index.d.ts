@@ -23,7 +23,7 @@ declare namespace _ {
   function customElement<T extends keyof HTMLElementEventMap>(
     selector: string
   ): {
-    get(): HTMLElement | null;
+    get(): HTMLElement;
     innerHTML(value: string): void;
     show(): void;
     hidden(): void;
