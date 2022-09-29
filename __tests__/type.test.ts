@@ -22,9 +22,13 @@ expectType<boolean>(_.isNull(0));
 expectType<boolean>(_.isNil(undefined));
 expectType<boolean>(_.isNil(NaN));
 
-expectType<number[]>(_.shuffle<number>([1, 2, 3, 4]));
-expectType<string[]>(_.shuffle<string>(["a", "b", "c"]));
-expectType<object>(_.shuffle([]));
+const numberArray = [1, 2, 3, 4];
+const stringArray = ["a", "b", "c"];
+const complexArray = ["a", 1, "b", 2, "c", 3];
+
+expectType<typeof numberArray>(_.shuffle<number>(numberArray));
+expectType<typeof stringArray>(_.shuffle<string>(stringArray));
+expectType<typeof complexArray>(_.shuffle(complexArray));
 
 expectType<{ a: number }>(_.pick({ a: 1, b: "c" }, ["a"]));
 
