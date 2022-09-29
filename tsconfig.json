@@ -6,10 +6,9 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "isolatedModules": true,
     "noEmit": true,
-    "resolveJsonModule": true,
     "baseUrl": "./src"
   },
   "include": ["src", "__tests__"]
