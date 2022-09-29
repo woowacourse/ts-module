@@ -35,8 +35,6 @@ interface CustomElement extends HTMLElement {
   hide: () => void;
 }
 
-type TypeValidator = (value: unknown) => boolean;
-
 type Shuffle = <T extends Array<unknown> | Object>(
   collection: T,
 ) => Array<ShuffleReturn<T>>;
@@ -100,7 +98,9 @@ namespace _ {
    * @param value - Value는 null인지 확인하려는 값이다.
    * @returns Value가 null이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
    */
-  export const isNull: TypeValidator = (value) => value === null;
+  export const isNull = (value: unknown): value is null => {
+    return value === null;
+  };
 
   /**
    * 전달한 value가 null 또는 undefined 타입인지 확인하는 함수
@@ -108,7 +108,7 @@ namespace _ {
    * @param value - Value는 null 또는 undefined 타입인지 확인하려는 값이다.
    * @returns Value가 null 또는 undefined 타입이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
    */
-  export const isNil: TypeValidator = (value) =>
+  export const isNil = (value: unknown): value is undefined | null =>
     typeof value === 'undefined' || value === null;
 
   /**
@@ -117,7 +117,7 @@ namespace _ {
    * @param value - Value는 number 타입인지 확인하려는 값이다.
    * @returns Value가 number 타입이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
    */
-  export const isNumber: TypeValidator = (value) => typeof value === 'number';
+  export const isNumber = (value: unknown): value is number => typeof value === 'number';
 
   /**
    * 전달한 value가 함수인지 확인하는 함수
@@ -125,7 +125,8 @@ namespace _ {
    * @param value - Value는 함수인지 확인하려는 값이다.
    * @returns Value가 함수이면 true를 반환한다. 그렇지 않으면 false를 반환한다.
    */
-  export const isFunction: TypeValidator = (value) => value instanceof Function;
+  export const isFunction = (value: unknown): value is Function =>
+    value instanceof Function;
 
   /**
    * 전달한 collection을 값 또는 요소를 무작위로 섞은 후 결과를 반환한다.
