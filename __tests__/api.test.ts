@@ -83,6 +83,7 @@ describe("function _ 동작 확인 테스트", () => {
   });
 
   test('_("").show() 동작 확인', () => {
+    _("button.test-btn").element.style.display = "none";
     _("button.test-btn").show();
 
     expect(selectedElement.style.display).toBe("block");
