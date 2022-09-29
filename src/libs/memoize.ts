@@ -7,10 +7,10 @@ import _ from '../_';
  *
  * @returns {*}
  */
-export default function memoize<T extends (...args: any[]) => unknown>(
+export default function memoize<T extends (...args: unknown[]) => unknown>(
   callback: T
 ) {
-  const cache: { data: unknown | null; args: any[] } = {
+  const cache: { data: unknown | null; args: unknown[] } = {
     data: null,
     args: [],
   };
