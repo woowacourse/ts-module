@@ -1,7 +1,7 @@
 export type DebounceOptions = {
-  leading?: boolean | undefined;
-  maxWait?: number | undefined;
-  trailing?: boolean | undefined;
+  leading?: boolean;
+  maxWait?: number;
+  trailing?: boolean;
 };
 
 export type DebouncedFunc<T extends (...args: any[]) => any> = {
