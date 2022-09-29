@@ -5,6 +5,7 @@
     "target": "es2016",
     "module": "esnext",
     "outDir": "dist",
+    "moduleResolution": "Node",
     "declaration": true,
     "isolatedModules": false,
     "esModuleInterop": true,
