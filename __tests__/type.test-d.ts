@@ -27,3 +27,9 @@ expectType<boolean>(_.isNil(undefined));
 expectType<boolean>(_.isNumber(508));
 
 expectType<boolean>(_.isFunction(() => {}));
+
+expectType<number[]>(_.shuffle<number>([1, 2, 3]));
+expectType<string[]>(_.shuffle<string>(['ㄱ', 'ㄴ', 'ㄷ']));
+expectType<object[]>(
+  _.shuffle<object>([{ 1: 'ㄱ' }, { 2: 'ㄴ' }, { 3: 'ㄷ' }])
+);
