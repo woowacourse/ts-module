@@ -76,6 +76,40 @@ test('addEvent 동작 확인', () => {
   expect(onClickEventBtn).toBeCalledTimes(1);
 });
 
+describe('timer 관련 함수 확인', () => {
+  jest.useFakeTimers();
+
+  afterEach(() => {
+    jest.clearAllTimers();
+  });
+
+  test('debounce 함수 확인', () => {
+    let callback = jest.fn();
+    let debouncedFunc = _.debounce(callback);
+
+    for (let i = 0; i < 50; i += 1) {
+      debouncedFunc();
+    }
+
+    jest.runAllTimers();
+
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+
+  test('throttle 함수 확인', () => {
+    let callback = jest.fn();
+    let throttledFunc = _.throttle(callback);
+
+    for (let i = 0; i < 50; i += 1) {
+      throttledFunc();
+    }
+
+    jest.runAllTimers();
+
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+});
+
 test('clickOutside 동작 확인', () => {
   const notTargetButtonElement = document.createElement('button');
   document.body.appendChild(notTargetButtonElement);
