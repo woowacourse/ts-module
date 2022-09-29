@@ -1,0 +1,11 @@
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+.github
+node_modules
+
+dist
+
+
