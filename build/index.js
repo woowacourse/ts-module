@@ -79,7 +79,7 @@ function _(selector) {
     }
     _1.debounce = debounce;
     function throttle(callback, delay) {
-        let timer;
+        let timer = null;
         return function (...args) {
             if (!timer) {
                 timer = setTimeout(() => {
