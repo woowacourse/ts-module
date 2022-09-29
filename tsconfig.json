@@ -1,0 +1,19 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationDir": "./lib",
+    "emitDeclarationOnly": true,
+    "typeRoots": ["@types/jest"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
