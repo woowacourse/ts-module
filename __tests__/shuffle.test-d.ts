@@ -1,5 +1,5 @@
 import { expectType } from 'tsd';
-import _ from './../index';
+import _ from '../index';
 
 expectType<number[]>(_.shuffle([1, 2, 3]));
 expectType<string[]>(_.shuffle(['1', '2', '3']));

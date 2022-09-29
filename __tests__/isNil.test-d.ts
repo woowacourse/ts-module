@@ -1,5 +1,5 @@
 import { expectType } from 'tsd';
-import _ from './../index';
+import _ from '../index';
 
 expectType<boolean>(_.isNil(2));
 expectType<boolean>(_.isNil('2'));
