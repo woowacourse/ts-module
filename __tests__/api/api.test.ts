@@ -270,20 +270,26 @@ describe('isFunction 구현 테스트', () => {
 });
 
 describe('shuffle 구현 테스트', () => {
+  beforeAll(() => {
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+  });
+
   test('숫자 타입 배열을 collection으로 전달하면, 무작위 순서로 요소가 섞인 배열이 반환된다.', () => {
     const collection = [5, 3, 2, 1, 4];
+    const expectedResult = [4, 1, 2, 3, 5];
 
     const result = _.shuffle(collection);
 
-    expect(result.every((element) => collection.includes(element))).toEqual(true);
+    expect(result).toEqual(expectedResult);
   });
 
   test('숫자 또는 문자열 타입 배열을 collection으로 전달하면, 무작위 순서로 요소가 섞인 배열이 반환된다.', () => {
     const collection = [5, 3, '2', 1, 4];
+    const expectedResult = [4, 1, '2', 3, 5];
 
     const result = _.shuffle(collection);
 
-    expect(result.every((element) => collection.includes(element))).toEqual(true);
+    expect(result).toEqual(expectedResult);
   });
 
   test('객체를 collection으로 전달하면, 무작위 순서로 객체의 각 값이 섞인 배열이 반환된다.', () => {
@@ -294,11 +300,15 @@ describe('shuffle 구현 테스트', () => {
       d: 1,
       e: 4,
     };
-    const collectionValues = Object.values(collection);
+    const expectedResult = [4, 1, 2, 3, 5];
 
     const result = _.shuffle(collection);
 
-    expect(result.every((element) => collectionValues.includes(element))).toEqual(true);
+    expect(result).toEqual(expectedResult);
+  });
+
+  afterAll(() => {
+    jest.spyOn(global.Math, 'random').mockRestore();
   });
 });
 
