@@ -104,14 +104,14 @@ module _ {
     return result as Pick<T, K>;
   }
 
-  export function omit<
-    T extends Record<string, unknown>,
-    K extends string[] | string[][]
-  >(obj: T, ...target: K): Partial<T> {
-    let result: Partial<T> = {};
+  export function omit<T extends object, K extends keyof T>(
+    obj: T,
+    ...target: Array<K | K[]>
+  ): Exclude<T, K> {
+    let result = {};
     target.forEach((item) => {
       let target;
-      if (typeof item !== 'string') {
+      if (typeof item !== 'string' && isIterable(item)) {
         target = omit(obj, ...item);
         result = target;
       } else if (typeof item === 'string' && Object.keys(obj).includes(item)) {
@@ -119,7 +119,7 @@ module _ {
         result = obj;
       }
     });
-    return result;
+    return result as Exclude<T, K>;
   }
 
   export function memoize<T extends (...args: any) => any>(

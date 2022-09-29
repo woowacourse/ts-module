@@ -50,7 +50,7 @@ test('pick 타입 확인', () => {
 
 test('omit 타입 확인', () => {
   const a = { a: 1, b: 2, c: 3 };
-  expectType<Partial<typeof a>>(_.omit(a, 'b', 'c'));
+  expectType<{ a: number }>(_.omit(a, 'b', 'c'));
 });
 
 test('memoize 타입 확인', () => {
