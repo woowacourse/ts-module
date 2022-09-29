@@ -1,6 +1,6 @@
 type Key = string | number;
 
-let cache: Record<Key, any> | any = {};
+let cache: any = {};
 
 const search = (path: Array<Key>): any => {
   let temp = cache;
