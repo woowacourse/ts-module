@@ -49,14 +49,14 @@ expectType<() => void>(
 );
 
 // debounce
-expectType<Function>(
+expectType<() => unknown>(
   _.debounce(function () {
     console.log("winnie");
   }, 500)
 );
 
 // throttle
-expectType<Function>(
+expectType<() => unknown>(
   _.throttle(function () {
     console.log("winnie");
   }, 500)
