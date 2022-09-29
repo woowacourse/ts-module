@@ -72,9 +72,7 @@ module _ {
     return typeof arg === "number";
   }
 
-  export function isFunction(
-    arg: unknown
-  ): arg is (...args: unknown[]) => void {
+  export function isFunction(arg: unknown): arg is Function {
     return typeof arg === "function";
   }
 
