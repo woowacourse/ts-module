@@ -108,7 +108,10 @@ module _ {
     );
   }
 
-  export function omit<T extends {}, K extends keyof T>(object: T, ...keys: K[]): Omit<T, K> {
+  export function omit<T extends Record<string, unknown>, K extends keyof T>(
+    object: T,
+    ...keys: K[]
+  ): Omit<T, K> {
     const result = { ...object };
 
     keys.forEach(key => {
