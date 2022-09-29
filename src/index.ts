@@ -30,14 +30,14 @@ function _(selector: string) {
     element.addEventListener(event, handler);
   };
 
-  function innerHtml(content?: string): string | void {
+  const innerHtml = (content?: string): string | void => {
     if (element === null) throw new Error('요소 없음');
     if (!content) {
       return element.innerHTML;
     }
     element.innerHTML = content;
     return;
-  }
+  };
 
   element.hide = hide;
   element.show = show;
