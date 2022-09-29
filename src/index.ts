@@ -107,13 +107,18 @@ module _ {
    * @param {...(string|string[])} [paths] The property paths to pick.
    * @returns {object} Returns the new object.
    */
-  export function pick<T extends object, K extends keyof T>(
-    object: T,
-    paths: K | K[]
-  );
+
   export function pick<T extends object, K extends keyof T>(
     object: T,
     paths: K
+  ): Pick<T, K>;
+  export function pick<T extends object, K extends keyof T>(
+    object: T,
+    paths: K[]
+  ): { [P in K]: T[P] };
+  export function pick<T extends object, K extends keyof T>(
+    object: T,
+    paths: K | K[]
   ) {
     const result = {};
 
@@ -139,11 +144,15 @@ module _ {
    */
   export function omit<T extends object, K extends keyof T>(
     object: T,
-    paths: K | K[]
-  );
+    paths: K
+  ): Omit<T, K>;
   export function omit<T extends object, K extends keyof T>(
     object: T,
-    paths: K
+    paths: K[]
+  ): { [P in Exclude<keyof T, K>]: T[P] };
+  export function omit<T extends object, K extends keyof T>(
+    object: T,
+    paths: K | K[]
   ) {
     const result = Object.assign(object);
 
