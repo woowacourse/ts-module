@@ -73,9 +73,12 @@ module _ {
     }
   }
 
-  export function pick<T extends Record<string, string | number>, G extends string[]>(input: T, target: G): {} {
+  export function pick<T extends Record<string, string | number>, G extends (keyof T)[]>(
+    input: T,
+    target: G,
+  ): { [K in G[number]]: T[K] } {
     const pickTarget = () => {
-      const newObj: Record<string, any> = {};
+      const newObj = <T>{};
       target.forEach((key) => {
         newObj[key] = input[key];
       });
@@ -83,14 +86,18 @@ module _ {
       return newObj;
     };
 
-    return input === null ? {} : pickTarget();
+    return pickTarget();
   }
 
-  export function omit<T extends Record<string, string | number>, G extends string[]>(input: T, target: G) {
+  export function omit<T extends Record<string, string | number>, G extends (keyof T)[]>(
+    input: T,
+    target: G,
+  ): { [K in keyof Omit<T, G[number]>]: T[K] } {
     const omitTarget = () => {
-      const newObj: Record<string, string | number> = {};
-      const inputKeys = Object.keys(input);
+      const newObj = <T>{};
+      const inputKeys: (keyof T)[] = Object.keys(input);
       const filteredKeys = inputKeys.filter((key) => !target.includes(key));
+
       filteredKeys.forEach((key) => {
         newObj[key] = input[key];
       });
@@ -98,7 +105,7 @@ module _ {
       return newObj;
     };
 
-    return input === null ? {} : omitTarget();
+    return omitTarget();
   }
 
   export function fetch(url: string, method: string, payload?: unknown): Promise<any> {

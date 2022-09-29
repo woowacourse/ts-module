@@ -10,10 +10,10 @@ expectType<boolean>(_.isNumber(123));
 expectType<boolean>(_.isFunction(() => {}));
 
 expectType<number[] | undefined>(_.shuffle([1, 2, 3, 4]));
-expectType<{}>(_.pick({ a: 1, b: 2 }, ['a', 'b']));
+expectType<{ a: number }>(_.pick({ a: 1, b: 2 }, ['a']));
 expectType<{}>(_.omit({ a: 1, b: 2 }, ['a', 'b']));
 
-const tempFunc = (arg1, arg2) => {};
+const tempFunc = () => {};
 expectType<typeof tempFunc>(_.memoize(tempFunc));
 expectType<typeof tempFunc>(_.debounce(tempFunc, 100));
 expectType<typeof tempFunc>(_.throttle(tempFunc, 100));
