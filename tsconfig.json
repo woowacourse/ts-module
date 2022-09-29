@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "target": "ES6", // TS 파일을 어떤 버전의 JS로 트랜스파일 해줄지 
+    "module": "ES6", // JS 파일간 import 문법 
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "emitDeclarationOnly": true
+  },
+  "include": ["src", "src/index.d.ts"],
+  "exclude": ["node_modules"]
+}
