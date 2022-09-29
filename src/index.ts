@@ -236,16 +236,18 @@ namespace _ {
    * @param wait - Wait은 throttling 처리할 시간이다.(ms)
    * @return 익명 함수를 반환한다. 해당 함수를 실행하면 func로 전달한 함수가 throttling이 적용돼서 실행된다.
    */
-  export const throttle = <T extends Function>(func: T, wait = 0) => {
+  export const throttle = <T extends Function>(func: T, wait: number) => {
     let timerId: number | null = null;
 
     return function (...args: unknown[]) {
-      if (timerId) {
-        timerId = window.setTimeout(() => {
-          func.apply(this, args);
-          timerId = null;
-        }, wait);
+      if (timerId !== null) {
+        return;
       }
+
+      timerId = window.setTimeout(() => {
+        func.apply(this, args);
+        timerId = null;
+      }, wait);
     };
   };
 

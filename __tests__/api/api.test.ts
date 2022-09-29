@@ -342,3 +342,32 @@ describe('omit 구헌 테스트', () => {
     ).toEqual(true);
   });
 });
+
+describe('throttling 구현 테스트', () => {
+  jest.useFakeTimers();
+
+  test('throttling 시간을 1초로 설정하고, 0.2초 때 1이 추가되는 함수를, 0.4초 때 2가 추가되는 함수를, 2초 때 3이 추가되는 함수를 실행하면, 결과 배열에 1과 3만 추가돼야 한다.', () => {
+    const testArray: number[] = [];
+    const expectedResult = [1, 3];
+
+    const pushToArray = _.throttle((value: number) => {
+      testArray.push(value);
+    }, 1000);
+
+    setTimeout(() => {
+      pushToArray(1);
+    }, 200);
+
+    setTimeout(() => {
+      pushToArray(2);
+    }, 400);
+
+    setTimeout(() => {
+      pushToArray(3);
+    }, 2000);
+
+    jest.runAllTimers();
+
+    expect(testArray).toEqual(expectedResult);
+  });
+});
