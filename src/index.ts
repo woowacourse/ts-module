@@ -31,11 +31,11 @@ module _ {
   /**
    * 서버에 네트워크 요청을 보내고 새로운 데이터를 받아올 수 있습니다.
    *
-   * @param {string} url 리소스의 경로를 넣습니다.
+   * @param {string | URL} url 리소스의 경로를 넣습니다.
    *
    * @returns {Promise<Response>} 요청에 대한 응답을 반환합니다.
    */
-  export function fetch(url: string): Promise<Response> {
+  export function fetch(url: string | URL): Promise<Response> {
     return window.fetch(url);
   }
 
