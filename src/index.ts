@@ -98,14 +98,14 @@ module _ {
    * 첫번째 인자로 들어온 객체에서 두번째로 들어온 프로퍼티만 가지는 객체를 반환합니다.
    *
    * @param {T extends object} object 대상 객체를 넣습니다.
-   * @param {Array<keyof T> | keyof T} target 반환할 객체가 가질 프로퍼티 이름을 넣습니다.
+   * @param {K extends keyof T} target 반환할 객체가 가질 프로퍼티 이름을 넣습니다.
    *
-   * @returns {Partial<T>} 필요한 프로퍼티만을 갖는 객체를 반환합니다.
+   * @returns {Pick<T, K>} 필요한 프로퍼티만을 갖는 객체를 반환합니다.
    */
-  export function pick<T extends object, K extends Array<keyof T> | keyof T>(
+  export function pick<T extends object, K extends keyof T>(
     object: T,
-    target: K
-  ): Partial<T> {
+    target: K | K[]
+  ): Pick<T, K> {
     const pickedObject = object;
 
     if (!Array.isArray(target)) {
@@ -135,14 +135,14 @@ module _ {
    * 첫번째 인자로 들어온 객체에서 두번째로 들어온 프로퍼티를 제외한 객체를 반환합니다.
    *
    * @param {T extends object} object 대상 객체를 넣습니다.
-   * @param {Array<keyof T> | keyof T} target 반환할 객체에서 제외시킬 프로퍼티 이름을 넣습니다.
+   * @param {K extends keyof T} target 반환할 객체에서 제외시킬 프로퍼티 이름을 넣습니다.
    *
-   * @returns {Partial<T>} 필요한 프로퍼티만을 갖는 객체를 반환합니다.
+   * @returns {Omit<T, K>} 필요한 프로퍼티만을 갖는 객체를 반환합니다.
    */
-  export function omit<T extends object>(
+  export function omit<T extends object, K extends keyof T>(
     object: T,
-    target: Array<keyof T> | keyof T
-  ): Partial<T> {
+    target: K | K[]
+  ): Omit<T, K> {
     const omittedObject = object;
 
     if (typeof target === 'object') {
@@ -189,6 +189,7 @@ module _ {
       return result;
     };
     memoized.cache = new (memoize.Cache || Map)();
+
     return memoized;
   }
 
