@@ -70,7 +70,7 @@ module _ {
    * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
    */
   export function isNil(value: unknown): boolean {
-    return value === null || value === undefined;
+    return isNull(value) || value === undefined;
   }
 
   /**
