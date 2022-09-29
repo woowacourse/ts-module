@@ -41,12 +41,12 @@ namespace _ {
     return typeof value === 'function';
   }
 
-  export function shuffle(array: number[]): number[] {
-    const result = array.map((el) => el);
+  export function shuffle<T>(array: T[]): T[] {
+    const result = array.map((el) => JSON.parse(JSON.stringify(el)) as T);
 
     result.forEach((_, index) => {
-      const random = index + Math.floor(Math.random() * (array.length - index));
-      [result[random], result[index]] = [result[index], result[random]];
+      const randomIndex = index + Math.floor(Math.random() * (array.length - index));
+      [result[randomIndex], result[index]] = [result[index], result[randomIndex]];
     });
 
     return result;
