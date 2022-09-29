@@ -45,7 +45,9 @@ test('memoized 타입 테스트', () => {
     return a
   })
 
-  expectType<(a: string) => string>(testFunction)
+  type Func = (a: string) => string
+
+  expectType<Func>(testFunction)
 })
 
 test('debounce 타입 테스트', () => {
