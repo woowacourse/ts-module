@@ -1,12 +1,9 @@
 const cacheData = new Map()
 
-function memoize<CacheFunction extends (...rest: any[]) => unknown>(
-  cacheFunction: CacheFunction,
+function memoize<FunctionParameters extends Array<unknown>, FunctionReturn>(
+  cacheFunction: (...args: FunctionParameters) => FunctionReturn,
   key: string = '',
 ) {
-  type FunctionParameters = Parameters<CacheFunction>
-  type FunctionReturn = ReturnType<CacheFunction>
-
   const memoized = (...args: FunctionParameters): FunctionReturn => {
     const isCached = cacheData.has(cacheFunction)
 
