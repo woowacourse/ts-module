@@ -80,7 +80,7 @@ module _ {
   }
 
   export function isNumber(value: unknown): boolean {
-    return typeof value === "number";
+    return typeof value === "number" || value instanceof Number;
   }
 
   export function isFunction(value: unknown): boolean {
