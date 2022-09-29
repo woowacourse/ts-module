@@ -5,7 +5,7 @@
     "lib": ["dom", "ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020"],
     "allowJs": true,
     "checkJs": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": true,
     "outDir": "dist",
     "strict": true,
