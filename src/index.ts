@@ -13,8 +13,8 @@ function _(selector: string): NewElement {
     element.style.visibility = 'hidden';
   };
 
-  element['addEvent'] = function (cmd, callback) {
-    element.addEventListener(cmd, callback);
+  element['addEvent'] = function (eventType, callback) {
+    element.addEventListener(eventType, callback);
   };
 
   return element;
@@ -97,7 +97,7 @@ namespace _ {
   }
 
   export function throttle<T extends Function>(callback: T, delay: number) {
-    let timer: NodeJS.Timeout | null;
+    let timer: NodeJS.Timeout | null = null;
     return function (...args: Parameters<T>) {
       if (!timer) {
         timer = setTimeout(() => {
