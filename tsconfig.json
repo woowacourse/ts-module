@@ -1,0 +1,12 @@
+{
+  "include": ["./src/index.ts"],
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./",
+    "typeRoots": ["./types"],
+    "types": ["node", "@types/jest"],
+    "strict": true
+  },
+  "exclude": ["./node_modules", "**/__tests__/*.test.ts"]
+}
