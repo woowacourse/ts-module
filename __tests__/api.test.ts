@@ -58,49 +58,43 @@ describe("모듈 내보내기 및 함수 테스트", () => {
 });
 
 describe("function _ 동작 확인 테스트", () => {
+  let selectedElement: HTMLElement;
+
   beforeEach(() => {
     const divElement = document.createElement("div");
     divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
     document.body.appendChild(divElement);
+
+    selectedElement = _("button.test-btn").element;
+  });
+
+  afterEach(() => {
+    selectedElement.remove();
   });
 
   test("Selector 동작 확인", () => {
-    const selectedElement = _("button.test-btn").element;
-
     expect(selectedElement).toBeTruthy();
-
-    selectedElement.remove();
   });
 
   test('_("").innerHTML() 동작 확인', () => {
-    const selectedElement = _("button.test-btn").element;
     _("button.test-btn").innerHTML(`<div id='domMorello'>TEST</div>`);
 
     expect(_("div#domMorello").element).toBeTruthy();
-
-    selectedElement.remove();
   });
 
   test('_("").show() 동작 확인', () => {
-    const selectedElement = _("button.test-btn").element;
     _("button.test-btn").show();
 
     expect(selectedElement.style.display).toBe("block");
-
-    selectedElement.remove();
   });
 
   test('_("").hidden() 동작 확인', () => {
-    const selectedElement = _("button.test-btn").element;
     _("button.test-btn").hidden();
 
     expect(selectedElement.style.display).toBe("none");
-
-    selectedElement.remove();
   });
 
   test('("").addEvent() 동작 확인', () => {
-    const selectedElement = _("button.test-btn").element;
     _("button.test-btn").addEvent("click", () => {
       _("button.test-btn").hidden();
     });
@@ -108,7 +102,5 @@ describe("function _ 동작 확인 테스트", () => {
     selectedElement.click();
 
     expect(selectedElement.style.display).toBe("none");
-
-    selectedElement.remove();
   });
 });

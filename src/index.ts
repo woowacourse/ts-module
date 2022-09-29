@@ -36,19 +36,6 @@ function _(selector: string) {
   const selectedElement = new SelectedElement(selector);
 
   return selectedElement;
-  /**
-   * innerHTML() {
-   * }
-   *
-   * show() {
-   * }
-   *
-   * hidden() {
-   * }
-   *
-   * addEvent() {
-   * }
-   */
 }
 
 module _ {
