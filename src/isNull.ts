@@ -1,5 +1,3 @@
-const isNull = (val: unknown): val is null => {
-  return val === null;
-};
+const isNull = (val: unknown): val is null => val === null;
 
 export default isNull;

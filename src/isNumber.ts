@@ -1,8 +1,3 @@
-const isNumber = (val: unknown): val is number => {
-  if (typeof val === "number") {
-    return true;
-  }
-  return false;
-};
+const isNumber = (val: unknown): val is number => typeof val === "number";
 
 export default isNumber;

@@ -1,8 +1,3 @@
-const isFunction = (val: unknown): val is Function => {
-  if (typeof val === "function") {
-    return true;
-  }
-  return false;
-};
+const isFunction = (val: unknown): val is Function => typeof val === "function";
 
 export default isFunction;
