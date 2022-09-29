@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test":  "jest --watch"
+		"build": "tsc",
+		"test": "jest --watch"
 	},
 	"keywords": [],
 	"author": "",
