@@ -4,36 +4,53 @@
 import _ from '../src';
 
 test('모듈은 기본 내보내기', () => {
-	expect(_).toBeTruthy();
+  expect(_).toBeTruthy();
 });
 
 test('모듈에 포함된 함수 확인', () => {
-	expect(typeof _.fetch).toBe('function');
+  expect(typeof _.fetch).toBe('function');
 });
 
 test('모듈에 포함된 함수 확인', () => {
-	expect(typeof _.pick).toBe('function');
+  expect(typeof _.pick).toBe('function');
 });
 
 test('모듈에 포함된 함수 확인', () => {
-	expect(typeof _.omit).toBe('function');
+  expect(typeof _.omit).toBe('function');
 });
 
-test('Selector 동작 확인', () => {
-	const divElement = document.createElement('div');
-	divElement.innerHTML = `<button class='test-btn'>Continue</button>`;
-	document.body.appendChild(divElement);
+test('Selector 동작을 확인한다.', () => {
+  const buttonElement = _('button.test-btn');
 
-	const buttonElement = _('button.test-btn');
-	expect(buttonElement).toBeTruthy();
-
-	document.body.removeChild(buttonElement);
+  expect(buttonElement).toBeTruthy();
 });
 
-test('`_("").innerHTML()`~~~~', () => {});
+test('innerHtml 동작을 확인한다.', () => {
+  const buttonElement = _('button.test-btn');
 
-test('`_("").show()`~~~~', () => {});
+  expect(buttonElement.innerHtml()).toBe('');
+});
 
-test('`_("").hidden()`~~~~', () => {});
+test('show 동작을 확인한다.', () => {
+  const buttonElement = _('button.test-btn');
+  buttonElement.show();
 
-test('`_("").addEvent()`~~~~', () => {});
+  expect(buttonElement.getElement().style.display).toBe('block');
+});
+
+test('hide 동작을 확인한다.', () => {
+  const buttonElement = _('button.test-btn');
+  buttonElement.hide();
+
+  expect(buttonElement.getElement().style.display).toBe('none');
+});
+
+test('addEvent 동작을 확인한다.', () => {
+  const buttonElement = _('button.test-btn');
+  const listener = jest.fn();
+
+  buttonElement.addEvent('click', listener);
+  buttonElement.getElement().click();
+
+  expect(listener).toBeCalled();
+});
