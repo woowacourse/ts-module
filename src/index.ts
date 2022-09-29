@@ -131,14 +131,14 @@ module _ {
     return newObject;
   }
 
-  export function memoize<T>(func: (value: unknown) => T) {
+  export function memoize<T, K extends unknown[]>(func: (...args: K) => T) {
     const results: Record<string, unknown> = {};
 
-    return (...args: unknown[]) => {
+    return (...args: K) => {
       const key = args.join("");
 
       if (!results[key]) {
-        results[key] = func(args);
+        results[key] = func(...args);
       }
 
       return results[key];
