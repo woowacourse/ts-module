@@ -29,7 +29,7 @@ const insert = (val: any, path: Array<Key>) => {
   }
 };
 
-const memoize = (valFn: () => any, deps?: Array<string | number>) => {
+const memoize = (valFn: () => any, deps?: Array<Key>) => {
   if (!deps) {
     if (cache === null) {
       cache = valFn();
