@@ -32,10 +32,36 @@ test("Selector 동작 확인", () => {
   }
 });
 
-test('`_("").setInnerHTML()`~~~~', () => {});
+describe("DOM 동작 확인", () => {
+  const newDivElement = document.createElement("div");
+  document.body.appendChild(newDivElement);
+  const divElement = _("div");
 
-test('`_("").setShow()`~~~~', () => {});
+  if (!divElement) {
+    return;
+  }
 
-test('`_("").hidden()`~~~~', () => {});
+  test("setInnerHTML()", () => {
+    divElement.setInnerHTML(`testInnerHTML`);
+    expect(divElement.innerHTML).toEqual("testInnerHTML");
+  });
 
-test('`_("").addEvent()`~~~~', () => {});
+  test("setShow()", () => {
+    divElement.setShow();
+    expect(divElement.style.display).toEqual("block");
+  });
+
+  test("setHidden()", () => {
+    divElement.setHidden();
+    expect(divElement.style.display).toEqual("none");
+  });
+
+  test("addEvent()", () => {
+    const mockCallback = jest.fn();
+
+    divElement.addEvent("click", mockCallback);
+    divElement.click();
+
+    expect(mockCallback).toBeCalled();
+  });
+});

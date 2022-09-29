@@ -1,6 +1,6 @@
-declare function _(selector: string): Node | null;
+declare function _(selector: string): HTMLElement | null;
 declare global {
-    interface Node {
+    interface HTMLElement {
         setInnerHTML(value: string): void;
         setShow(): void;
         setHidden(): void;

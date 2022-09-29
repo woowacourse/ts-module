@@ -1,9 +1,9 @@
-function _(selector: string): Node | null {
+function _(selector: string): HTMLElement | null {
   return document.querySelector(selector);
 }
 
 declare global {
-  interface Node {
+  interface HTMLElement {
     setInnerHTML(value: string): void;
     setShow(): void;
     setHidden(): void;
@@ -15,17 +15,6 @@ declare global {
   }
 }
 
-HTMLElement.prototype.addEvent = function <
-  K extends keyof HTMLElementEventMap,
-  U extends unknown
->(
-  type: K,
-  listener: (event: HTMLElementEventMap[K]) => U,
-  options?: boolean | AddEventListenerOptions
-) {
-  this.addEventListener(type, listener);
-};
-
 HTMLElement.prototype.setInnerHTML = function (value: string) {
   this.innerHTML = value;
 };
@@ -36,6 +25,17 @@ HTMLElement.prototype.setShow = function () {
 
 HTMLElement.prototype.setHidden = function () {
   this.style.display = "none";
+};
+
+HTMLElement.prototype.addEvent = function <
+  K extends keyof HTMLElementEventMap,
+  U extends unknown
+>(
+  type: K,
+  listener: (event: HTMLElementEventMap[K]) => U,
+  options?: boolean | AddEventListenerOptions
+) {
+  this.addEventListener(type, listener);
 };
 
 module _ {
