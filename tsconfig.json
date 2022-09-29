@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
     "module": "es2015",
-    "target": "es2018",
+    "target": "esnext",
     "moduleResolution": "node",
     "outDir": "./dist",
     "skipLibCheck": true,
     "declaration": true,
-    "declarationMap": true,
     "noEmit": true,
     "esModuleInterop": true,
     "lib": ["dom", "dom.iterable", "esnext"],
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "src/*.test.ts", "src/*.test-d.ts"]
