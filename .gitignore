@@ -7,7 +7,7 @@ yarn-error.log*
 node_modules/
 
 # build
-bin/
+lib/
 
 # General
 .DS_Store

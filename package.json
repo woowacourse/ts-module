@@ -1,14 +1,17 @@
 {
-	"name": "ts-module",
+	"name": "checkmate-ts-module",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
 	"scripts": {
 		"build": "tsc",
 		"test": "jest --watch"
 	},
-	"keywords": [],
-	"author": "",
+	"types": "./lib/utilityTypes.d.ts",
+	"keywords": [
+		"typescript",
+		"utility"
+	],
+	"author": "Jeongmin Woo <greenblues1190@gmail.com>",
 	"license": "ISC",
 	"devDependencies": {
 		"@types/jest": "^29.0.3",

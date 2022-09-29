@@ -14,7 +14,7 @@
 		/* Emit */
 		"declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
 		"emitDeclarationOnly": true /* Only output d.ts files and not JavaScript files. */,
-		"outDir": "./bin" /* Specify an output folder for all emitted files. */,
+		"outDir": "./lib" /* Specify an output folder for all emitted files. */,
 		"removeComments": true /* Disable emitting comments. */,
 
 		/* Interop Constraints */
@@ -27,5 +27,5 @@
 		/* Completeness */
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
-	"include": ["src/*"]
+	"include": ["src/utilityTypes.ts"]
 }
