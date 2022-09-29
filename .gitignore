@@ -1,0 +1,13 @@
+# Logs
+*.log
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies
+node_modules/
+
+# build
+lib/
+
+# General
+.DS_Store
