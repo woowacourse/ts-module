@@ -82,11 +82,10 @@ function _(selector) {
      * @return {Object} keys로만 포함된 새로운 객체를 반환한다.
      */
     function pick(object, ...keys) {
-        const newObject = {};
-        keys.forEach((key) => {
+        return keys.reduce((newObject, key) => {
             newObject[key] = object[key];
-        });
-        return newObject;
+            return newObject;
+        }, {});
     }
     _.pick = pick;
     /**
@@ -96,13 +95,14 @@ function _(selector) {
      * * @return {Object} keys 제거된 새로운 객체를 반환한다.
      */
     function omit(object, ...keys) {
-        const newObject = {};
-        const OriginalKeys = Object.keys(object);
-        const newKeys = OriginalKeys.filter((key) => !keys.includes(key));
-        newKeys.forEach((key) => {
-            newObject[key] = object[key];
-        });
-        return newObject;
+        const newKeys = Object.keys(object).filter((key) => !keys.includes(key));
+        return newKeys.reduce((newObject, key) => {
+            const objectKey = key;
+            if (!keys.includes(objectKey)) {
+                newObject[objectKey] = object[objectKey];
+            }
+            return newObject;
+        }, {});
     }
     _.omit = omit;
     /**
@@ -110,12 +110,12 @@ function _(selector) {
      * @param func 실행시킬 함수
      * @returns 캐시에 저장된 함수의 결과값
      */
-    function memoize(func) {
+    function memoize(callback) {
         const cache = {};
         return function (n) {
             if (cache[n])
                 return cache[n];
-            cache[n] = func(n);
+            cache[n] = callback(n);
             return cache[n];
         };
     }

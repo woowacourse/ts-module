@@ -35,7 +35,7 @@ module _ {
    * @param {*} value
    * @return {boolean} false or true
    */
-  export function isNull(value: unknown): boolean {
+  export function isNull(value: unknown): value is boolean {
     return value === null;
   }
 
@@ -44,7 +44,7 @@ module _ {
    * @param {*} value
    * @return {boolean} false or true
    */
-  export function isNil(value: any): value is boolean {
+  export function isNil(value: unknown): value is boolean {
     return value === null || value === undefined;
   }
 
@@ -53,7 +53,7 @@ module _ {
    * @param {*} value
    * @return {boolean} false or true
    */
-  export function isNumber(value: any): value is boolean {
+  export function isNumber(value: unknown): value is boolean {
     return (
       typeof value === "number" ||
       Object.prototype.toString.call(value) === "[object Number]"
@@ -65,7 +65,7 @@ module _ {
    * @param {*} value
    * @return {boolean} false or true
    */
-  export function isFunction(value: any): value is boolean {
+  export function isFunction(value: unknown): value is boolean {
     return (
       typeof value === "function" ||
       Object.prototype.toString.call(value) === "[object Function]"
@@ -94,17 +94,14 @@ module _ {
    * @param {...(string| string[])} keys rest parameter는 object의 key값이다.
    * @return {Object} keys로만 포함된 새로운 객체를 반환한다.
    */
-  export function pick<T, K extends keyof T>(
-    object: T,
-    ...keys: K[]
-  ): Pick<T, K> {
-    const newObject: any = {};
-
-    keys.forEach((key) => {
+  export function pick<
+    T extends Record<string | number, unknown>,
+    K extends keyof T
+  >(object: T, ...keys: K[]): Pick<T, K> {
+    return keys.reduce((newObject, key) => {
       newObject[key] = object[key];
-    });
-
-    return newObject;
+      return newObject;
+    }, {} as Pick<T, K>);
   }
 
   /**
@@ -113,23 +110,21 @@ module _ {
    * @param {...(string| string[])} keys rest parameter는 object의 key값이다.
    * * @return {Object} keys 제거된 새로운 객체를 반환한다.
    */
-  export function omit<T extends { [key: string]: any }, K extends keyof T>(
-    object: T,
-    ...keys: K[]
-  ): Omit<T, K> {
-    const newObject: any = {};
-
-    const OriginalKeys = Object.keys(object);
-
-    const newKeys = OriginalKeys.filter(
+  export function omit<
+    T extends Record<string | number, unknown>,
+    K extends keyof T
+  >(object: T, ...keys: K[]): Omit<T, K> {
+    const newKeys = Object.keys(object).filter(
       (key) => !(keys as string[]).includes(key)
     );
 
-    newKeys.forEach((key) => {
-      newObject[key] = object[key];
-    });
-
-    return newObject;
+    return newKeys.reduce((newObject, key) => {
+      const objectKey = key as K;
+      if (!keys.includes(objectKey)) {
+        newObject[objectKey] = object[objectKey];
+      }
+      return newObject;
+    }, {} as T);
   }
 
   /**
@@ -137,13 +132,15 @@ module _ {
    * @param func 실행시킬 함수
    * @returns 캐시에 저장된 함수의 결과값
    */
-  export function memoize(func: Function): Function {
+  export function memoize(
+    callback: (arg: number) => number
+  ): (n: number) => number | string {
     const cache: any = {};
 
-    return function (n: string) {
+    return function (n: number) {
       if (cache[n]) return cache[n];
 
-      cache[n] = func(n);
+      cache[n] = callback(n);
       return cache[n];
     };
   }
@@ -153,7 +150,7 @@ module _ {
    * @param func 함수 실행 체크
    * @param wait 타이머 시간
    */
-  export function debounce(func: Function, wait: number) {
+  export function debounce(func: () => void, wait: number): () => void {
     let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
     return () => {
@@ -173,7 +170,7 @@ module _ {
    * @param func 함수 실행 체크
    * @param wait 타이머 시간
    */
-  export function throttle(func: Function, wait: number) {
+  export function throttle(func: Function, wait: number): () => void {
     let timer: ReturnType<typeof setTimeout> | null = null;
 
     return () => {
