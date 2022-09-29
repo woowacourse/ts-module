@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "tsc && npx tsd && tsc --build --clean && npx jest"
   },
   "keywords": [],
   "author": "",
