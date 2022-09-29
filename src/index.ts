@@ -12,14 +12,6 @@ interface CustomElementProperty {
   ) => void;
 }
 
-type PickResult<T extends Record<string, unknown>, K extends (keyof T)[]> = {
-  [P in K[number]]: T[P];
-};
-
-type OmitResult<T extends Record<string, unknown>, K extends (keyof T)[]> = {
-  [P in Exclude<keyof T, K>]: T[P];
-};
-
 function _(selector: string) {
   const element = document.querySelector<HTMLElement>(selector);
   if (element === null) throw new Error("No Element");
@@ -102,10 +94,10 @@ module _ {
     return result;
   }
 
-  export function pick<
-    T extends Record<string, unknown>,
-    K extends (keyof T)[]
-  >(object: T, paths: K): PickResult<T, K> {
+  export function pick<T extends Record<string, unknown>, K extends keyof T>(
+    object: T,
+    paths: K[]
+  ): Pick<T, K> {
     const result = paths.reduce(
       (prev, cur) => ({ ...prev, [cur]: object[cur] }),
       {} as T
@@ -113,10 +105,10 @@ module _ {
     return result;
   }
 
-  export function omit<
-    T extends Record<string, unknown>,
-    K extends (keyof T)[]
-  >(object: T, paths: K): OmitResult<T, K> {
+  export function omit<T extends Record<string, unknown>, K extends keyof T>(
+    object: T,
+    paths: K[]
+  ): Omit<T, K> {
     const result = { ...object };
     paths.forEach((key) => {
       delete result[key];
