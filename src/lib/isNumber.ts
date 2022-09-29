@@ -1,4 +1,4 @@
-function isNumber(value: unknown): boolean {
+function isNumber(value: unknown): value is Number {
   return typeof value === 'number'
 }
 

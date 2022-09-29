@@ -1,4 +1,4 @@
-function isNil(value: unknown): boolean {
+function isNil(value: unknown): value is undefined {
   return value == undefined
 }
 

@@ -1,4 +1,4 @@
-function isNull(value: unknown): boolean {
+function isNull(value: unknown): value is null {
   return value === null
 }
 
