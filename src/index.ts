@@ -86,11 +86,11 @@ module _ {
     return result;
   }
 
-  export function pick(
-    object: Record<string, unknown>,
-    type: string | string[]
+  export function pick<T extends Record<string, unknown>, K extends keyof T>(
+    object: T,
+    type: K | Array<K>
   ): Record<string, unknown> {
-    if (typeof type === "string") {
+    if (typeof type !== "object") {
       return object.hasOwnProperty(type)
         ? {
             type: object[type],
@@ -98,7 +98,7 @@ module _ {
         : {};
     }
 
-    const newObject: Record<string, unknown> = {};
+    const newObject = <T>{};
 
     type.forEach((el) => {
       if (object.hasOwnProperty(el)) {
@@ -109,13 +109,13 @@ module _ {
     return newObject;
   }
 
-  export function omit(
-    object: Record<string, unknown>,
-    type: string | string[]
+  export function omit<T extends Record<string, unknown>, K extends keyof T>(
+    object: T,
+    type: K | K[]
   ): Record<string, unknown> {
     const newObject = Object.assign({}, object);
 
-    if (typeof type === "string") {
+    if (typeof type !== "object") {
       if (newObject.hasOwnProperty(type)) {
         delete newObject[type];
       }
