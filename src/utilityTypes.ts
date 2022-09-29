@@ -1,4 +1,5 @@
 // Array
+export type ElementOf<A extends any[]> = A extends (infer R)[] ? R : never;
 export type GetFirst<A extends any[]> = A[0] extends any ? A[0] : never;
 export type GetLast<A> = A extends []
 	? never
