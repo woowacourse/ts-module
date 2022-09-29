@@ -5,7 +5,7 @@ export interface NewElement extends HTMLElement {
   addEvent<C extends keyof HTMLElementEventMap>(
     cmd: C,
     callback: (event: HTMLElementEventMap[C]) => void
-  ): unknown;
+  ): void;
 }
 
 export type Function = (...args: unknown[]) => unknown;
