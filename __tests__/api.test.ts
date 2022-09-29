@@ -27,8 +27,8 @@ test("Selector 동작 확인", () => {
   const buttonElement = _("button.test-btn");
   expect(buttonElement).toBeTruthy();
 
-  if (buttonElement) {
-    document.body.removeChild(buttonElement);
+  if (divElement) {
+    document.body.removeChild(divElement);
   }
 });
 
