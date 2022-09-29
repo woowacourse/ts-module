@@ -264,6 +264,10 @@ namespace _ {
     const parentElement = element.parentElement;
 
     parentElement.addEventListener('click', (event) => {
+      if (event.target !== event.currentTarget) {
+        return;
+      }
+
       callback(event);
     });
   };

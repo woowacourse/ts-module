@@ -371,3 +371,46 @@ describe('throttling 구현 테스트', () => {
     expect(testArray).toEqual(expectedResult);
   });
 });
+
+describe('clickOutside 구현 테스트', () => {
+  let divElement: HTMLDivElement;
+  let buttonElement: HTMLButtonElement;
+
+  beforeAll(() => {
+    divElement = document.createElement('div');
+    buttonElement = document.createElement('button');
+
+    divElement.appendChild(buttonElement);
+    document.body.appendChild(divElement);
+  });
+
+  test('부모 요소를 클릭하면 전달한 callback 함수가 호출된다.', () => {
+    let isClicked = false;
+    const expectedResult = true;
+
+    _.clickOutside(buttonElement, () => {
+      isClicked = true;
+    });
+
+    divElement.click();
+
+    expect(isClicked).toEqual(expectedResult);
+  });
+
+  test('자식 요소를 클릭해도 전달한 callback 함수가 호출되지 않는다.', () => {
+    let isClicked = false;
+    const expectedResult = false;
+
+    _.clickOutside(buttonElement, () => {
+      isClicked = true;
+    });
+
+    buttonElement.click();
+
+    expect(isClicked).toEqual(expectedResult);
+  });
+
+  afterAll(() => {
+    document.body.removeChild(divElement);
+  });
+});
