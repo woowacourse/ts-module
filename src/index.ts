@@ -1,45 +1,144 @@
-function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
-}
+import __ from '../index';
+// NOTE: 타입을 테스트하고 있고, 해당 타입을 활용해서 index.ts의 함수들에 대한 타입을 정의하려고 했습니다.
+// 그 이유는, 테스트를 하는 것은 타입이 원하는 대로 잘 작성되있는 지를 체크하는 것이고,
+// 테스트하는 대상이 되는 타입은 실제로 사용이되는 타입이여야 테스트를 하는 의미가 있기 때문이죠🎈
+type FecthType = typeof __.fetch;
+type isNumberType = typeof __.isNumber;
+type isNullType = typeof __.isNull;
+type isFunctionType = typeof __.isFunction;
+type isNilType = typeof __.isNil;
+type shuffleType = typeof __.shuffle;
+type PickType = typeof __.pick;
+type OmitType = typeof __.omit;
+type MemoizeType = typeof __.memoize;
+type DebounceType = typeof __.debounce;
+type ThrottleType = typeof __.throttle;
+type ClickOutsideType = typeof __.clickOutside;
+export type CustomElementType = typeof __.customElement;
+
+//
+export const customElement: CustomElementType = (selector) => {
+  const element = document.querySelector<HTMLElement>(selector);
+
+  if (!element) throw new Error('dom을 찾을 수 없습니다');
+
+  return {
+    get() {
+      return element;
+    },
+    innerHTML(value) {
+      element.innerHTML = value;
+    },
+    show() {
+      element.style.display = 'none';
+    },
+    hidden() {
+      element.style.display = 'block';
+    },
+    addEvent(event, eventHandler) {
+      element.addEventListener(event, eventHandler);
+    },
+  };
+};
 
 module _ {
-	export function fetch() {
-		return {};
-	}
+  export const fetch: FecthType = (url, options) =>
+    new Promise((resolve, reject) => {
+      resolve('success');
+    });
 
-	export function isNull() {}
+  export const isNull: isNullType = (value) => {
+    return value === null;
+  };
 
-	export function isNil() {}
+  export const isNil: isNilType = (value) => {
+    return value === null || value === undefined;
+  };
 
-	export function isNumber() {}
+  export const isNumber: isNumberType = (value) => {
+    return typeof value === 'number';
+  };
 
-	export function isFunction() {}
+  export const isFunction: isFunctionType = (value) => {
+    return typeof value === 'function';
+  };
 
-	export function shuffle() {}
+  export const shuffle: shuffleType = (arr) => {
+    return [...arr].sort(() => 0.5 - Math.random());
+  };
 
-	export function pick() {}
+  export const pick: PickType = (obj, targets) => {
+    // TODO: any말고 targets에 대한 타입들이 들어가야한다...
+    // NOTE: as로 단언해준 이유는, 무조건 pick 함수의 반환 타입이 들어가는 게 확실하기 때문에 해주었습니다.
+    const pickedObj = {} as Pick<typeof obj, any>;
+    // NOTE: targets인자에 'target'나 ['target1', 'target2']가 올 수 있기 때문에 분기처리 해주었습니다.
+    if (typeof targets === 'string') pickedObj[targets] = obj[targets];
+    if (targets instanceof Object) {
+      targets.forEach((target) => {
+        pickedObj[target] = obj[target];
+      });
+    }
 
-	export function omit() {}
+    return pickedObj;
+  };
 
-	export function memoize() {}
+  export const omit: OmitType = (obj, targets) => {
+    const omittedObj = { ...obj };
+    if (typeof targets === 'string') {
+      delete omittedObj[targets];
+    }
+    if (targets instanceof Array) {
+      targets.forEach((target) => {
+        delete omittedObj[target];
+      });
+    }
 
-	export function debounce() {}
+    return omittedObj;
+  };
 
-	export function throttle() {}
+  export const memoize: MemoizeType = (func) => {
+    const results = {} as { [key in string]: unknown };
+    return (...args: unknown[]) => {
+      const argsKey = JSON.stringify(args);
+      if (!results[argsKey]) {
+        results[argsKey] = func(...args);
+      }
+      return results[argsKey];
+    };
+  };
 
-	export function clickOutside() {}
+  export const debounce: DebounceType = (func, delay) => {
+    let timer: number;
+    return () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        func();
+      }, delay);
+    };
+  };
+
+  export const throttle: ThrottleType = (func, delay) => {
+    let timer: number | null = null;
+    return () => {
+      if (!timer) {
+        timer = window.setTimeout(() => {
+          func();
+          timer = null;
+        }, delay);
+      }
+    };
+  };
+
+  export const clickOutside: ClickOutsideType = (element, func) => {
+    return (event: MouseEvent) => {
+      if (
+        event.target instanceof HTMLElement &&
+        !element.contains(event.target)
+      ) {
+        func();
+      }
+    };
+  };
 }
 
 export default _;
