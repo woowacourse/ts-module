@@ -61,6 +61,8 @@ module _ {
   }
 
   export function shuffle<T>(input: Iterable<T>): T[];
+  export function shuffle<T>(input: Record<string, T>): T[];
+  export function shuffle(input: Function): [];
   export function shuffle(input: object): unknown[];
   export function shuffle(input: object | Iterable<unknown>): unknown[] {
     let result;

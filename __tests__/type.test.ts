@@ -39,8 +39,8 @@ test('shuffle 타입확인', () => {
   expectType<Array<number>>(_.shuffle<number>([1, 2]));
   expectType<Array<number>>(_.shuffle([1, 2]));
 
-  expectType<Array<unknown>>(_.shuffle(testObj));
-  expectType<Array<unknown>>(_.shuffle(() => {}));
+  expectType<Array<number>>(_.shuffle<number>(testObj));
+  expectType<[]>(_.shuffle(() => {}));
 });
 
 test('pick 타입 확인', () => {
