@@ -10,10 +10,14 @@ describe('DOM API 확인', () => {
 	const buttonElementButAssertedAsImg = _<HTMLImageElement>(
 		'div > button.test-btn',
 	);
+	const classQueriedElement = _('.test-btn');
+	const invalidTagNameElement = _('zxcmvb');
 
 	test('Selector', () => {
 		expectType<HTMLButtonElement | null>(buttonElement);
 		expectType<HTMLImageElement | null>(buttonElementButAssertedAsImg);
+		expectType<Element | null>(classQueriedElement);
+		expectType<Element | null>(invalidTagNameElement);
 	});
 
 	test('addEvent', () => {
