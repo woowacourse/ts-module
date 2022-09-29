@@ -1,18 +1,35 @@
 {
-	"name": "ts-module",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"@types/jest": "^29.0.3",
-		"jest": "^29.0.3",
-		"tsd": "^0.24.1",
-		"typescript": "^4.8.3"
-	}
+  "name": "@compy-ryu/ts-module",
+  "version": "1.0.20",
+  "description": "우아한테크코스 TS Module 미션 제출용입니다.",
+  "main": "./dist/index.js",
+  "files": [
+    "./dist/"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rm -rf ./dist && tsc --build",
+    "deploy": "rm -rf ./dist && tsc --build; npm version patch; npm publish --access=public",
+    "test": "jest --verbose"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Compy",
+    "email": "compy.ryu@gmail.com",
+    "url": "https://github.com/woowacourse/ts-module"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/compy-ryu/ts-module"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.0.3",
+    "jest": "^29.0.3",
+    "jest-environment-jsdom": "^29.0.3",
+    "ts-jest": "^29.0.2",
+    "ts-node": "^10.9.1",
+    "tsd": "^0.24.1",
+    "typescript": "^4.8.3"
+  }
 }

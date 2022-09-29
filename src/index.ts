@@ -1,45 +1,15 @@
-function _(selector: string): any {
-	/**
-	 * innerHTML() {
-	 * }
-	 *
-	 * show() {
-	 * }
-	 *
-	 * hidden() {
-	 * }
-	 *
-	 * addEvent() {
-	 * }
-	 */
-}
+export { default as $ } from './lib/selector'
+export { default as isNull } from './lib/isNull'
+export { default as isNil } from './lib/isNil'
+export { default as isNumber } from './lib/isNumber'
+export { default as isFunction } from './lib/isFunction'
+export { default as shuffle } from './lib/shuffle'
+export { default as pick } from './lib/pick'
+export { default as omit } from './lib/omit'
+export { default as memoize } from './lib/memoize'
+export { default as debounce } from './lib/debounce'
+export { default as throttle } from './lib/throttle'
+export { default as fetch } from './lib/fetch'
+export { default as clickOutside } from './lib/clickOutside'
 
-module _ {
-	export function fetch() {
-		return {};
-	}
-
-	export function isNull() {}
-
-	export function isNil() {}
-
-	export function isNumber() {}
-
-	export function isFunction() {}
-
-	export function shuffle() {}
-
-	export function pick() {}
-
-	export function omit() {}
-
-	export function memoize() {}
-
-	export function debounce() {}
-
-	export function throttle() {}
-
-	export function clickOutside() {}
-}
-
-export default _;
+export { default } from './index.default'

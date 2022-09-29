@@ -1,0 +1,28 @@
+import selector from './lib/selector';
+import isNull from './lib/isNull';
+import isNil from './lib/isNil';
+import isNumber from './lib/isNumber';
+import isFunction from './lib/isFunction';
+import shuffle from './lib/shuffle';
+import pick from './lib/pick';
+import omit from './lib/omit';
+import memoize from './lib/memoize';
+import debounce from './lib/debounce';
+import throttle from './lib/throttle';
+import fetch from './lib/fetch';
+import clickOutside from './lib/clickOutside';
+declare const _: typeof selector & {
+    isNull: typeof isNull;
+    isNil: typeof isNil;
+    isNumber: typeof isNumber;
+    isFunction: typeof isFunction;
+    shuffle: typeof shuffle;
+    pick: typeof pick;
+    omit: typeof omit;
+    memoize: typeof memoize;
+    debounce: typeof debounce;
+    throttle: typeof throttle;
+    fetch: typeof fetch;
+    clickOutside: typeof clickOutside;
+};
+export default _;
