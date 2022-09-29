@@ -35,7 +35,7 @@ export default class Dom {
   }
 
   addEvent(
-    event: string,
+    event: keyof HTMLElementEventMap,
     listener: (this: Element, ev: Event) => any,
     options?: boolean | AddEventListenerOptions | undefined
   ) {
