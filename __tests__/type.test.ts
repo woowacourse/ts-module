@@ -71,13 +71,7 @@ describe("module _ type test", () => {
       married: false,
     };
 
-    const result = {
-      name: "dom",
-    };
-
-    type ResultType = typeof result;
-
-    expectType<ResultType>(_.pick(a, "name"));
+    expectType<Pick<typeof a, "name">>(_.pick(a, "name"));
   });
 
   test("omit test", () => {
@@ -87,14 +81,7 @@ describe("module _ type test", () => {
       married: false,
     };
 
-    const result = {
-      age: 30,
-      married: false,
-    };
-
-    type ResultType = typeof result;
-
-    expectType<ResultType>(_.omit(a, "name"));
+    expectType<Omit<typeof a, "name">>(_.omit(a, "name"));
   });
 
   test("memoize test", () => {
