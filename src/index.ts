@@ -73,9 +73,9 @@ module _ {
     }
   }
 
-  export function pick<T extends object, G extends string[]>(input: T, target: G): {} {
+  export function pick<T extends Record<string, string | number>, G extends string[]>(input: T, target: G): {} {
     const pickTarget = () => {
-      const newObj = {};
+      const newObj: Record<string, any> = {};
       target.forEach((key) => {
         newObj[key] = input[key];
       });
@@ -86,9 +86,9 @@ module _ {
     return input === null ? {} : pickTarget();
   }
 
-  export function omit<T extends object, G extends string[]>(input: T, target: G) {
+  export function omit<T extends Record<string, string | number>, G extends string[]>(input: T, target: G) {
     const omitTarget = () => {
-      const newObj = {};
+      const newObj: Record<string, string | number> = {};
       const inputKeys = Object.keys(input);
       const filteredKeys = inputKeys.filter((key) => !target.includes(key));
       filteredKeys.forEach((key) => {
