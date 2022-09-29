@@ -35,19 +35,21 @@ namespace _ {
     return window.fetch(input, init);
   }
 
-  export function isNull(value: unknown) {
+  export function isNull(value: unknown): value is null {
     return value === null;
   }
 
-  export function isNil(value: unknown) {
+  export function isNil(value: unknown): value is null | undefined {
     return value == null;
   }
 
-  export function isNumber(value: unknown) {
+  export function isNumber(value: unknown): value is number {
     return typeof value === 'number';
   }
 
-  export function isFunction(value: unknown) {
+  export function isFunction(
+    value: unknown
+  ): value is (...args: unknown[]) => unknown {
     return typeof value === 'function';
   }
 
@@ -94,8 +96,8 @@ namespace _ {
   }
 
   export function memoize(
-    func: (...args: unknown[]) => {},
-    resolver: (...args: unknown[]) => {}
+    func: (...args: unknown[]) => unknown,
+    resolver: (...args: unknown[]) => unknown
   ) {
     if (
       typeof func !== 'function' ||
