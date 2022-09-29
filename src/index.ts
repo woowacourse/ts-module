@@ -52,7 +52,7 @@ module _ {
   }
 
   export function isNil(input: unknown): input is null | undefined {
-    return input === null || input === undefined;
+    return input === null || typeof input === `undefined`;
   }
 
   export function isNumber(input: unknown): input is number {
@@ -64,7 +64,7 @@ module _ {
   }
 
   export function shuffle<T>(input: T[]): T[] | undefined {
-    const shuffle = (array) => {
+    const shuffle = (array: T[]) => {
       return array.sort(() => Math.random() - 0.5);
     };
 
