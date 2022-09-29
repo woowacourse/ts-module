@@ -33,3 +33,11 @@ expectType<string[]>(_.shuffle<string>(['ㄱ', 'ㄴ', 'ㄷ']));
 expectType<object[]>(
   _.shuffle<object>([{ 1: 'ㄱ' }, { 2: 'ㄴ' }, { 3: 'ㄷ' }])
 );
+
+expectType<Record<string, unknown>>(
+  _.pick({ name: '티거', age: 3, field: 'fe' }, 'name | age')
+);
+
+expectType<Record<string, unknown>>(
+  _.omit({ name: '티거', age: 3, field: 'fe' }, 'name | age')
+);
