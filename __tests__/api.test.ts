@@ -37,11 +37,17 @@ test("모듈에 포함된 pick 함수 확인", () => {
   expect(
     _.pick({ a: "1", b: "2" }, ["a"])
   ).toStrictEqual({ a: "1" });
+  expect(
+    _.pick({ a: "1", b: "2" }, "a")
+  ).toStrictEqual({ a: "1" });
 });
 
 test("모듈에 포함된 omit 함수 확인", () => {
   expect(
     _.omit({ a: "1", b: "2" }, ["a"])
+  ).toStrictEqual({ b: "2" });
+  expect(
+    _.omit({ a: "1", b: "2" }, "a")
   ).toStrictEqual({ b: "2" });
 });
 
