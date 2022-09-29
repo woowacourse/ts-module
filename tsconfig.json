@@ -1,0 +1,13 @@
+{
+  "include": ["src/*"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "noImplicitAny": true, // 암시적 any 타입 피하기
+    "noImplicitThis": true, // this에 암시적 any 피하기
+    "strictNullChecks": true, // null과 undefined도 하나의 타입으로 체크
+    "strictFunctionTypes": true, // 함수의 매개변수를 더 정확하게 체크
+    "declaration": true, // d.ts 파일 생성
+    "outDir": "./dist"
+  }
+}

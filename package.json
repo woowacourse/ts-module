@@ -1,18 +1,36 @@
 {
-	"name": "ts-module",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"@types/jest": "^29.0.3",
-		"jest": "^29.0.3",
-		"tsd": "^0.24.1",
-		"typescript": "^4.8.3"
-	}
+  "name": "@prefer2/ts-module",
+  "version": "0.0.2",
+  "description": "ts module by dory",
+  "main": "./src/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:tsd": "npx tsd",
+    "build": "tsc",
+    "publish": "npm publish --access=public",
+    "patch": "npm version patch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prefer2/ts-module.git"
+  },
+  "homepage": "https://github.com/prefer2/ts-module",
+  "keywords": [],
+  "author": "prefer2",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.0.3",
+    "jest": "^29.0.3",
+    "jest-environment-jsdom": "^29.0.3",
+    "ts-jest": "^29.0.2",
+    "tsd": "^0.24.1",
+    "typescript": "^4.8.3"
+  },
+  "types": "dist/index.d.ts",
+  "tsd": {
+    "directory": "/__tests__"
+  }
 }
