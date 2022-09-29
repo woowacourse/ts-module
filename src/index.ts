@@ -170,9 +170,11 @@ module _ {
   }
 
   export function clickOutside(element: HTMLElement, callback: Function): void {
-    if (element === null) return;
+    if (element === null) {
+      throw new Error("invalid element");
+    }
 
-    element.addEventListener("click", (e: MouseEvent) => {
+    window.addEventListener("click", (e: MouseEvent) => {
       if (e.target instanceof HTMLElement && !element.contains(e.target)) {
         callback();
       }
