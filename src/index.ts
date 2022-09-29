@@ -118,7 +118,7 @@ module _ {
   }
 
   // 들어온 함수를 저장 후 리턴한다.
-  export function memoize(func: Function): () => unknown {
+  export function memoize(func: Function): () => void {
     return function memoize() {
       return func();
     };
