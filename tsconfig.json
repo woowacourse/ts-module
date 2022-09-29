@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonJS",
+    "types": ["jest", "node"],
+    "strict": true,
+    "skipLibCheck": false,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/*", "__tests__/*"],
+  "exclude": ["node_modules"]
+}
