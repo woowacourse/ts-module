@@ -1,11 +1,15 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
     "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "./lib",
-    "skipLibCheck": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "skipLibCheck": false,
+    "moduleResolution": "node"
   },
+  "include": ["src", "__tests__"],
   "exclude": ["node_modules"]
 }
