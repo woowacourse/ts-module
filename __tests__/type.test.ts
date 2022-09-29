@@ -17,7 +17,8 @@ test("_.isNumber의 타입을 테스트한다.", () => {
 });
 
 test("_.shuffle의 타입을 테스트한다.", () => {
-  expectType<Array<any>>(_.shuffle(["1", 2, false]));
+  expectType<Array<string | number | boolean>>(_.shuffle(["1", 2, false]));
+  expectType<Array<boolean | string[] | {}>>(_.shuffle([["t"], {}, false]));
 });
 
 test("_.pick의 타입을 테스트한다.", () => {

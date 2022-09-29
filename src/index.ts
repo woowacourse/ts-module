@@ -60,7 +60,7 @@ module _ {
    * @param {*} value The value to check.
    * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
    */
-  export function isNull(value: any) {
+  export function isNull(value: unknown): boolean {
     return value === null;
   }
 
@@ -69,7 +69,7 @@ module _ {
    * @param {*} value The value to check.
    * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
    */
-  export function isNil(value: any) {
+  export function isNil(value: unknown): boolean {
     return value === null || value === undefined;
   }
 
@@ -79,7 +79,7 @@ module _ {
    * @param {*} value The value to check.
    * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
    */
-  export function isNumber(value: any) {
+  export function isNumber(value: unknown): boolean {
     return typeof value == "number" && isFinite(value) && !isNaN(value);
   }
 
@@ -88,16 +88,16 @@ module _ {
    * @param {*} value The value to check.
    * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
    */
-  export function isFunction(value: any) {
+  export function isFunction(value: unknown): boolean {
     return value instanceof Function;
   }
 
   /**
    * Creates an array of shuffled values
-   * @param {Array} collection The collection to shuffle.
-   * @returns {Array} Returns the new shuffled array.
+   * @param {Array<T>} collection The collection to shuffle.
+   * @returns {Array<T>} Returns the new shuffled array.
    */
-  export function shuffle(collection: Array<any>) {
+  export function shuffle<T>(collection: Array<T>): Array<T> {
     return collection.sort(() => Math.random() - 0.5);
   }
 
@@ -107,7 +107,6 @@ module _ {
    * @param {...(string|string[])} [paths] The property paths to pick.
    * @returns {object} Returns the new object.
    */
-
   export function pick<T extends object, K extends keyof T>(
     object: T,
     paths: K
