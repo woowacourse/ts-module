@@ -1,0 +1,14 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "./lib",
+    "skipLibCheck": true
+  },
+  "include": ["src/index.ts"],
+  "exclude": ["node_modules"]
+}
